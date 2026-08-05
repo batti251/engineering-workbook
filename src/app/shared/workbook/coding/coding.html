@@ -1,0 +1,29 @@
+<p>coding works!</p>
+
+<form action="" formGroupName="form" class="form">
+<label for="language">language: </label>
+<input id="language" type="text" formControlName="language" />
+
+<label for="area">area: </label>
+<input id="area" type="text" formControlName="area" />
+
+<label for="methodFor">methodFor: </label>
+<input id="methodFor" type="text" formControlName="methodFor" />
+
+<label for="title">title: </label>
+<input id="title" type="text" formControlName="title" />
+
+<label for="description">description: </label>
+<input id="description" type="text" formControlName="description" />
+
+<label for="returnValue">returnValue: </label>
+<input id="returnValue" type="text" formControlName="returnValue" />
+
+@for (item of useCases.controls; track $index) {
+<label for="useCases">useCase: </label>
+<input id="useCases" type="text" formControlName="$index" />
+
+    <button [class.d-none]="!$last" type="button" (click)="addUseCase()">more useCases</button>
+}
+
+</form>
