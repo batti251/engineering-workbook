@@ -2,6 +2,7 @@
 
 /private
 /.vscode
+/src/app/shared/services/key.ts
 
 # Compiled output
 /dist
