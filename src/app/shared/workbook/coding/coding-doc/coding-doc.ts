@@ -29,17 +29,6 @@ export class CodingDoc {
     let database = await this.db.readDB()
     if (database) {
       this.x.set(database)
-      console.log(this.x());
-      console.log(this.x().forEach(item => 
-        item.use_cases?.forEach((element,i) => {
-          console.log(i + " , " + element);
-          
-        })
-      ));
-      
-      
     }
   }
-
-  
 }

@@ -1,14 +1,16 @@
+<div class="card">
 @for (item of x(); track $index) {
   <h2>{{ item.language }}</h2>
   <h3>{{ item.title }}</h3>
   <div>{{ item.syntax }}</div>
   <p>{{ item.description }}</p>
   <div>{{ item.return_value }}</div>
-  
+
   <h3>Use Cases:</h3>
-  <ul style="display: flex; flex-direction: column">
+  <ul>
     @for (case of item.use_cases; track case) {
       <li>{{ case }}</li>
     }
   </ul>
 }
+</div>
