@@ -28,6 +28,7 @@ export class Coding {
     description: ['here is some description', Validators.required],
     syntax: ['str()', Validators.required],
     return_value: ['returns a new String', Validators.required],
+    properties: this.formBuilder.array([this.formBuilder.control('')]),
     use_cases: this.formBuilder.array([this.formBuilder.control('')]),
   });
 
@@ -36,15 +37,26 @@ export class Coding {
   }
 
   get useCases() {
-    return this.surveyForm.controls.use_cases as FormArray;
+    return this.surveyForm.get('use_cases') as FormArray;
   }
 
   addUseCase() {
     this.useCases.push(this.formBuilder.control(''));
   }
 
+    get properties() {
+    return this.surveyForm.get('properties') as FormArray;
+  }
+
+  addProperty() {
+    this.properties.push(this.formBuilder.control(''));
+  }
+
   sendDataToDB(){
     let data = new FormModel(this.surveyForm.value as Partial<TableRow>)
-    this.db.addRow(data)
+    /* this.db.addRow(data) */
+
+    console.log(data);
+    
   }
 }

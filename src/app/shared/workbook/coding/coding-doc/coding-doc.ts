@@ -15,6 +15,7 @@ export class CodingDoc {
     description: "",
     syntax: "",
     return_value: "",
+    properties: [],
     use_cases: []
   }])
   db = inject(Supabase)

@@ -3,6 +3,7 @@ export interface TableRow {
     description: string,
     syntax: string,
     return_value: string,
+    properties?: string[]
     use_cases?: string[]
 }
 

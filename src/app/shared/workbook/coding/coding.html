@@ -11,15 +11,23 @@
   <label for="description">description: </label>
   <input id="description" type="text" formControlName="description" />
 
-  <label for="returnValue">returnValue: </label>
-  <input id="returnValue" type="text" formControlName="returnValue" />
+  <label for="return_value">returnValue: </label>
+  <input id="return_value" type="text" formControlName="return_value" />
 
-  <div formArrayName="useCases">
-    @for (item of useCases.controls; track $index; let index = $index) {
-      <label for="useCases-{{ index }}">useCase: </label>
-      <input id="useCases-{{ index }}" type="text" [formControlName]="index" />
-      <button [class.d-none]="!$last" type="button" (click)="addUseCase()">more useCases</button>
+  <div formArrayName="properties">
+    @for (item of properties.controls; track item; let index = $index) {
+      <label for="properties-{{ index }}">Property: </label>
+      <input id="properties-{{ index }}" type="text" [formControlName]="index" />
     }
+    <button type="button" (click)="addProperty()">more properties</button>
+  </div>
+
+  <div formArrayName="use_cases">
+    @for (item of useCases.controls; track item; let index = $index) {
+      <label for="use_cases-{{ index }}">useCase: </label>
+      <input id="use_cases-{{ index }}" type="text" [formControlName]="index" />
+    }
+    <button  type="button" (click)="addUseCase()">more useCases</button>
   </div>
   <button type="submit">Submit</button>
 </form>

@@ -27,6 +27,7 @@ export class Supabase {
                   description: userData.description, 
                   syntax: userData.syntax, 
                   return_value: userData.return_value, 
+                  properties: userData.properties,
                   use_cases: userData.use_cases
                  },
             ])

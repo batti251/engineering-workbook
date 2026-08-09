@@ -4,6 +4,13 @@
     <p>{{ item.description }}</p>
     <div>{{ item.return_value }}</div>
 
+     <h3>Eigenschaften:</h3>
+    <ul>
+      @for (property of item.properties; track property) {
+        <li>{{ property }}</li>
+      }
+    </ul>
+
     <h3>Use Cases:</h3>
     <ul>
       @for (case of item.use_cases; track case) {
