@@ -1,6 +1,7 @@
 import { TableRow } from "../interfaces/table-row"
 
 export class FormModel {
+    id?: number;
     language: string;
     description: string;
     syntax: string;
@@ -11,6 +12,7 @@ export class FormModel {
 
 
     constructor(data: Partial<TableRow>){
+        this.id = data.id ?? 0;
         this.language = data.language ?? "";
         this.description = data.description ?? "";
         this.syntax = data.syntax ?? "";

@@ -1,21 +1,32 @@
 @for (item of x(); track $index) {
   <div class="card">
-    <h3>{{ item.syntax }}</h3>
-    <p>{{ item.description }}</p>
-    <div>{{ item.return_value }}</div>
+    @if (selectItem !== item) {
+      <h3>{{ item.syntax }}</h3>
+      <p>{{ item.description }}</p>
+      <div>{{ item.return_value }}</div>
 
-     <h3>Eigenschaften:</h3>
-    <ul>
-      @for (property of item.properties; track property) {
-        <li>{{ property }}</li>
-      }
-    </ul>
+      <h3>Eigenschaften:</h3>
+      <ul>
+        @for (property of item.properties; track $index) {
+          @if (property.length == 0) {
+          } @else {
+            <li>{{ property }}</li>
+          }
+        } @empty {}
+      </ul>
 
-    <h3>Use Cases:</h3>
-    <ul>
-      @for (case of item.use_cases; track case) {
-        <li>{{ case }}</li>
-      }
-    </ul>
+      <h3>Use Cases:</h3>
+      <ul>
+        @for (case of item.use_cases; track $index) {
+          @if (case.length == 0) {
+          } @else {
+            <li>{{ case }}</li>
+          }
+        } @empty {}
+      </ul>
+    } @else if (selectItem === item) {
+      <app-coding-edit [data]="selectItem"></app-coding-edit>
+    }
+    <button type="button" (click)="updateRow(item)">Edit</button>
   </div>
 }

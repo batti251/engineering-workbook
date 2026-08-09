@@ -1,11 +1,13 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, output, signal } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
 import { TableRow } from '../../../interfaces/table-row';
 import { JsonPipe } from '@angular/common';
+import { CodingEdit } from '../coding-edit/coding-edit';
+import { FormModel } from '../../../models/form-model';
 
 @Component({
   selector: 'app-coding-doc',
-  imports: [JsonPipe],
+  imports: [JsonPipe, CodingEdit],
   templateUrl: './coding-doc.html',
   styleUrl: './coding-doc.scss',
 })
@@ -26,9 +28,15 @@ export class CodingDoc {
   }
 
   async readDB() {
-    let database = await this.db.readDB()
-    if (database) {
+    let database = await this.db.readDB() as TableRow[]
+    if (database.length > 0) {
       this.x.set(database)
     }
+  }
+
+  selectItem: TableRow | null = null
+
+  updateRow(data: TableRow) {
+    this.selectItem = data
   }
 }

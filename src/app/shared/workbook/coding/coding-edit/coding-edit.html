@@ -1,0 +1,33 @@
+@if(surveyEditForm){
+
+<form (ngSubmit)="updateRow()" [formGroup]="surveyEditForm" class="form">
+    <div class="card">
+  <label for="syntax">syntax: </label>
+  <input id="syntax" type="text" formControlName="syntax" />
+
+  <label for="description">description: </label>
+  <input id="description" type="text" formControlName="description" />
+
+  <label for="return_value">returnValue: </label>
+  <input id="return_value" type="text" formControlName="return_value" />
+ 
+  <div formArrayName="properties">
+    @for (item of properties.controls; track item; let index = $index) {
+      <label for="properties-{{ index }}">Property: </label>
+      <input id="properties-{{ index }}" type="text" [formControlName]="index" />
+    }
+    <button type="button" (click)="addProperty()">more properties</button>
+  </div>
+
+  <div formArrayName="use_cases">
+    @for (item of useCases.controls; track item; let index = $index) {
+      <label for="use_cases-{{ index }}">useCase: </label>
+      <input id="use_cases-{{ index }}" type="text" [formControlName]="index" />
+    }
+    <button  type="button" (click)="addUseCase()">more useCases</button>
+  </div> 
+  <button type="submit">Submit</button>
+  </div>
+</form>
+
+}
