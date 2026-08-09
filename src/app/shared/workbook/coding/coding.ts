@@ -28,8 +28,8 @@ export class Coding {
     title: ['string code', Validators.required],
     description: ['here is some description', Validators.required],
     syntax: ['str()', Validators.required],
-    returnValue: ['returns a new String', Validators.required],
-    useCases: this.formBuilder.array([this.formBuilder.control('')]),
+    return_value: ['returns a new String', Validators.required],
+    use_cases: this.formBuilder.array([this.formBuilder.control('')]),
   });
 
   ngOnInit(){
@@ -37,7 +37,7 @@ export class Coding {
   }
 
   get useCases() {
-    return this.surveyForm.controls.useCases as FormArray;
+    return this.surveyForm.controls.use_cases as FormArray;
   }
 
   addUseCase() {

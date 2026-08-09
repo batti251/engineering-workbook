@@ -5,8 +5,8 @@ export class FormModel {
     title: string;
     description: string;
     syntax: string;
-    returnValue: string;
-    useCases: []
+    return_value: string;
+    use_cases: string[]
 
 
 
@@ -15,7 +15,7 @@ export class FormModel {
         this.title = data.title ?? "";
         this.description = data.description ?? "";
         this.syntax = data.syntax ?? "";
-        this.returnValue = data.returnValue ?? "";
-        this.useCases = data.useCases ?? []
+        this.return_value = data.return_value ?? "";
+        this.use_cases = data.use_cases ?? []
     }
 }
