@@ -1,5 +1,8 @@
 @use '../abstracts/' as *;
 
 .card{
-    @include dFlex()
+    @include dFlex();
+    @include size($w: min(400px, 80%));
+    border-radius: 10%;
+    background-color: beige;
 }

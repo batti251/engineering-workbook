@@ -1,8 +1,7 @@
-<div class="card">
 @for (item of x(); track $index) {
-  <h2>{{ item.language }}</h2>
-  <h3>{{ item.title }}</h3>
-  <div>{{ item.syntax }}</div>
+    <div class="card">
+        <h3>{{ item.syntax }}</h3>
+        <div>{{ item.title }}</div>
   <p>{{ item.description }}</p>
   <div>{{ item.return_value }}</div>
 
@@ -12,5 +11,5 @@
       <li>{{ case }}</li>
     }
   </ul>
-}
 </div>
+}
