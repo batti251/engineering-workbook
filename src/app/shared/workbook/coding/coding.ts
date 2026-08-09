@@ -25,7 +25,6 @@ export class Coding {
   private formBuilder = inject(FormBuilder);
   surveyForm = this.formBuilder.group({
     language: ['Python', Validators.required],
-    title: ['string code', Validators.required],
     description: ['here is some description', Validators.required],
     syntax: ['str()', Validators.required],
     return_value: ['returns a new String', Validators.required],

@@ -24,7 +24,6 @@ export class Supabase {
             .from('programming_language')
             .insert([
                 { language: userData.language, 
-                  title: userData.title, 
                   description: userData.description, 
                   syntax: userData.syntax, 
                   return_value: userData.return_value, 

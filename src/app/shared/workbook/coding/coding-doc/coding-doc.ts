@@ -12,7 +12,6 @@ import { JsonPipe } from '@angular/common';
 export class CodingDoc {
   x = signal<TableRow[]>([{
     language: "",
-    title: "",
     description: "",
     syntax: "",
     return_value: "",

@@ -1,15 +1,14 @@
 @for (item of x(); track $index) {
-    <div class="card">
-        <h3>{{ item.syntax }}</h3>
-        <div>{{ item.title }}</div>
-  <p>{{ item.description }}</p>
-  <div>{{ item.return_value }}</div>
+  <div class="card">
+    <h3>{{ item.syntax }}</h3>
+    <p>{{ item.description }}</p>
+    <div>{{ item.return_value }}</div>
 
-  <h3>Use Cases:</h3>
-  <ul>
-    @for (case of item.use_cases; track case) {
-      <li>{{ case }}</li>
-    }
-  </ul>
-</div>
+    <h3>Use Cases:</h3>
+    <ul>
+      @for (case of item.use_cases; track case) {
+        <li>{{ case }}</li>
+      }
+    </ul>
+  </div>
 }
