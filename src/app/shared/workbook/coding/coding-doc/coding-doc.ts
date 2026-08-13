@@ -18,9 +18,11 @@ export class CodingDoc {
     syntax: "",
     return_value: "",
     properties: [],
-    use_cases: []
+    use_cases: [],
+    screenshots: []
   }])
   db = inject(Supabase)
+  selectItem: TableRow | null = null
 
 
   async ngOnInit() {
@@ -34,7 +36,6 @@ export class CodingDoc {
     }
   }
 
-  selectItem: TableRow | null = null
 
   updateRow(data: TableRow) {
     this.selectItem = data

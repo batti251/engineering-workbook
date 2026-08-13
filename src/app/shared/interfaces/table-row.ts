@@ -5,6 +5,7 @@ export interface TableRow {
     syntax: string,
     return_value: string,
     properties?: string[],
-    use_cases?: string[]
+    use_cases?: string[],
+    screenshots?: string[]
 }
 

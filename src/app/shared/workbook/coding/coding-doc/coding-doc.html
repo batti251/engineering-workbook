@@ -15,6 +15,15 @@
         } @empty {}
       </ul>
 
+      <ul>
+        @for (img of item.screenshots; track $index) {
+          @if (img.length == 0) {
+          } @else {
+            <img [src]="db.readScreenshot(img)" alt="">
+          }
+        } @empty {}
+      </ul>
+
       <h3>Use Cases:</h3>
       <ul>
         @for (case of item.use_cases; track $index) {

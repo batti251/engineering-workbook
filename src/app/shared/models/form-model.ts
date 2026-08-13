@@ -7,7 +7,8 @@ export class FormModel {
     syntax: string;
     return_value: string;
     properties: string[];
-    use_cases: string[]
+    use_cases: string[];
+    screenshots?: string[]
 
 
 
@@ -17,7 +18,8 @@ export class FormModel {
         this.description = data.description ?? "";
         this.syntax = data.syntax ?? "";
         this.return_value = data.return_value ?? "";
-        this.properties = data.properties ?? []
-        this.use_cases = data.use_cases ?? []
+        this.properties = data.properties ?? [];
+        this.use_cases = data.use_cases ?? [];
+        this.screenshots = data.screenshots ?? [];
     }
 }

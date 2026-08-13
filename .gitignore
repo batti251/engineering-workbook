@@ -3,6 +3,7 @@
 /private
 /.vscode
 /src/app/shared/services/key.ts
+/up.bat
 
 # Compiled output
 /dist

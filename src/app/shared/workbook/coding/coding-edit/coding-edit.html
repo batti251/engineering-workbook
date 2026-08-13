@@ -26,6 +26,20 @@
     }
     <button  type="button" (click)="addUseCase()">more useCases</button>
   </div> 
+
+  <div formArrayName="screenshots">
+    @for (screenshot of screenshots.controls; track $index; let index = $index) {
+      <img [src]="db.readScreenshot(screenshot.value)" alt="asd">
+    }
+  </div> 
+
+  <div (paste)="addTempScreenshot($event)">
+    paste area
+    @for (screenshot of screenshots.controls; track $index) {
+        <img [src]="screenshot" alt="">
+    }
+  </div>
+
   <button type="submit">Submit</button>
   </div>
 </form>
