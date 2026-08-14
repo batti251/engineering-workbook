@@ -1,62 +1,14 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  FormArray,
-  FormBuilder,
-  Validators,
-  Form,
-} from '@angular/forms';
-import { Supabase } from '../../services/supabase';
-import { FormModel } from '../../models/form-model'; 
-import { TableRow } from '../../interfaces/table-row';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-coding',
-  imports: [ReactiveFormsModule],
+  imports: [RouterLink],
   templateUrl: './coding.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './coding.scss',
 })
 export class Coding {
-  private db = inject(Supabase)
-  private formBuilder = inject(FormBuilder);
-  surveyForm = this.formBuilder.group({
-    language: ['Python', Validators.required],
-    description: ['here is some description', Validators.required],
-    syntax: ['str()', Validators.required],
-    return_value: ['returns a new String', Validators.required],
-    properties: this.formBuilder.array([this.formBuilder.control('')]),
-    use_cases: this.formBuilder.array([this.formBuilder.control('')]),
-  });
 
-  ngOnInit(){
-    this.db.readDB()
-  }
-
-  get useCases() {
-    return this.surveyForm.get('use_cases') as FormArray;
-  }
-
-  addUseCase() {
-    this.useCases.push(this.formBuilder.control(''));
-  }
-
-    get properties() {
-    return this.surveyForm.get('properties') as FormArray;
-  }
-
-  addProperty() {
-    this.properties.push(this.formBuilder.control(''));
-  }
-
-  sendDataToDB(){
-    let data = new FormModel(this.surveyForm.value as Partial<TableRow>)
-    /* this.db.addRow(data) */
-
-    console.log(data);
-    
-  }
 }
+
