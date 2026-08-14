@@ -24,6 +24,9 @@ export class CodingDoc {
   db = inject(Supabase)
   selectItem: TableRow | null = null
 
+  clearSelectItem(emptyData: null) {
+    this.selectItem = emptyData
+  }
 
   async ngOnInit() {
     await this.readDB()

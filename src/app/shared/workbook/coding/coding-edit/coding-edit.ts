@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, inject, input, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TableRow } from '../../../interfaces/table-row';
 import { FormModel } from '../../../models/form-model';
@@ -12,7 +12,8 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './coding-edit.scss',
 })
 export class CodingEdit {
-  data = input.required<TableRow>()
+  data = input.required<TableRow|null>()
+  @Output() emptyData = new EventEmitter<null>();
 
   db = inject(Supabase)
   private formBuilder = inject(FormBuilder);
@@ -35,30 +36,40 @@ export class CodingEdit {
     this.setOptionalFormControls();
   }
 
+  /**
+   * Clears the temporary files-Array
+   * Emits emptyData value to parent component
+   * @param value - null value
+   */
+  cancelInput(value: null){
+    this.emptyData.emit(value)
+    this.files = []
+  }
+
   patchEditForm() {
     this.surveyEditForm.patchValue({
-      id: this.data().id,
-      language: this.data().language,
-      description: this.data().description,
-      syntax: this.data().syntax,
-      return_value: this.data().return_value,
-      screenshots: this.data().screenshots
+      id: this.data()?.id,
+      language: this.data()?.language,
+      description: this.data()?.description,
+      syntax: this.data()?.syntax,
+      properties: this.data()?.properties,
+      return_value: this.data()?.return_value,
+      screenshots: this.data()?.screenshots
     })
   }
 
   setOptionalFormControls() {
-    this.data().properties?.forEach(property => {
+    this.data()?.properties?.forEach(property => {
       this.properties.push(this.formBuilder.control(property))
     })
 
-    this.data().use_cases?.forEach(useCase => {
+    this.data()?.use_cases?.forEach(useCase => {
       this.useCases.push(this.formBuilder.control(useCase))
     })
 
-    this.data().screenshots?.forEach(screenshot => {
+    this.data()?.screenshots?.forEach(screenshot => {
       this.screenshots.push(this.formBuilder.control(screenshot))
     })
-
   }
 
   get useCases() {
@@ -78,7 +89,7 @@ export class CodingEdit {
    * @returns 
    */
   addProperty() {
-    return this.data()?.properties?.forEach(property => {
+    this.data()?.properties?.forEach(property => {
       this.properties.push(property);
     })
   }
@@ -107,8 +118,6 @@ export class CodingEdit {
       console.log(error);
     }
   }
-
-
   /**
    * 
    */

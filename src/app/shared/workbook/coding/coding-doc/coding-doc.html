@@ -33,9 +33,9 @@
           }
         } @empty {}
       </ul>
+      <button type="button" (click)="updateRow(item)">Edit</button>
     } @else if (selectItem === item) {
-      <app-coding-edit [data]="selectItem"></app-coding-edit>
+      <app-coding-edit [data]="selectItem" (emptyData)="clearSelectItem($event)"></app-coding-edit>
     }
-    <button type="button" (click)="updateRow(item)">Edit</button>
   </div>
 }
