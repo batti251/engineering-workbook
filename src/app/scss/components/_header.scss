@@ -1,0 +1,9 @@
+@use '../abstracts/' as *;
+
+.header{
+
+
+    &__nav{
+        @include dFlex($fd: unset, $jc: space-between)
+    }
+}

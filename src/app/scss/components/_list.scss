@@ -1,0 +1,9 @@
+@use '../abstracts' as *;
+
+.list{
+    
+
+    &__element{
+        @include dFlex($fd: unset, $g: 8px);
+    }
+}

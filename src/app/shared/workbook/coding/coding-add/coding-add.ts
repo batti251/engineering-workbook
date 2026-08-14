@@ -18,8 +18,8 @@ export class CodingAdd {
     description: ['here is some description', Validators.required],
     syntax: ['str()', Validators.required],
     return_value: ['returns a new String', Validators.required],
-    properties: this.formBuilder.array([this.formBuilder.control('')]),
-    use_cases: this.formBuilder.array([this.formBuilder.control('')]),
+    properties: this.formBuilder.array([]),
+    use_cases: this.formBuilder.array([]),
   });
 
   ngOnInit(){
@@ -40,6 +40,14 @@ export class CodingAdd {
 
   addProperty() {
     this.properties.push(this.formBuilder.control(''));
+  }
+
+  removeUseCase(index:number){
+    this.useCases.removeAt(index)
+  }
+
+  removeProperty(index:number){
+    this.properties.removeAt(index)
   }
 
   sendDataToDB(){
