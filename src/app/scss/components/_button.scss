@@ -1,0 +1,19 @@
+@use '../abstracts/' as *;
+
+.btn {
+  &__hovered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: inherit;
+    height: inherit;
+    transform: translate(-50%, -50%);
+    opacity: 0.6;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    &--delete {
+      mix-blend-mode: exclusion;
+    }
+  }
+}

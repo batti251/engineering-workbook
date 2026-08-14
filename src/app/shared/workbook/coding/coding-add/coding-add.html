@@ -13,8 +13,8 @@
 
   <div formArrayName="properties">
     <div class="header__nav">
-        <h4>Properties:</h4>
-    <button type="button" (click)="addProperty()">+</button>
+      <h4>Properties:</h4>
+      <button type="button" (click)="addProperty()">+</button>
     </div>
     <ul class="list">
       @for (item of properties.controls; track item; let indexProperties = $index) {
@@ -33,8 +33,8 @@
 
   <div formArrayName="use_cases">
     <div class="header__nav">
-        <h4>Use Cases:</h4>
-        <button type="button" (click)="addUseCase()">+</button>
+      <h4>Use Cases:</h4>
+      <button type="button" (click)="addUseCase()">+</button>
     </div>
     <ul class="list">
       @for (item of useCases.controls; track item; let indexUseCase = $index) {
@@ -45,6 +45,25 @@
         </li>
       }
     </ul>
+  </div>
+
+  <div formArrayName="screenshots">
+    <div class="header__nav">
+      <h4>Screenshots:</h4>
+      
+    </div>
+    <div (paste)="addTempScreenshot($event)" class="upload-area upload-area__file">
+       @for (screenshot of tempFiles; track screenshot; let indexUseCase = $index) {
+        <div class="list list__element" >
+          <div class="list__element--wrap" (mouseover)="toggleDeleteBtn(screenshot)" (mouseout)="toggleDeleteBtn(screenshot)">
+              <img [src]="screenshot" alt="" />
+              @if (screenshot === hoveredBlob) {
+                  <button type="button" (click)="removeTempScreenshot(indexUseCase)" class="btn__hovered"><img src="/img/close.svg" alt="" class="btn__hovered--delete"></button>
+          }
+          </div>
+        </div>
+      }
+    </div>
   </div>
   <button type="submit">Submit</button>
 </form>

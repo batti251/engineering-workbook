@@ -3,7 +3,6 @@ import { Supabase } from '../../../services/supabase';
 import { TableRow } from '../../../interfaces/table-row';
 import { JsonPipe } from '@angular/common';
 import { CodingEdit } from '../coding-edit/coding-edit';
-import { FormModel } from '../../../models/form-model';
 
 @Component({
   selector: 'app-coding-doc',

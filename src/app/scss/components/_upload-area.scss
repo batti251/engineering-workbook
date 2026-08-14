@@ -1,0 +1,10 @@
+@use '../abstracts/' as *;
+
+.upload-area{
+    @include dFlex($fd: unset, $jc: unset);
+
+    &__file{
+        height: 200px;
+        background-color: gray;
+    }
+}
