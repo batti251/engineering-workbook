@@ -1,49 +1,71 @@
-@if(surveyEditForm){
-
-<form (ngSubmit)="updateRow()" [formGroup]="surveyEditForm" class="form">
+@if (surveyEditForm) {
+  <form (ngSubmit)="updateRow()" [formGroup]="surveyEditForm" class="form">
     <div class="card">
-  <label for="syntax">syntax: </label>
-  <input id="syntax" type="text" formControlName="syntax" />
+      <label for="syntax">syntax: </label>
+      <input id="syntax" type="text" formControlName="syntax" />
 
-  <label for="description">description: </label>
-  <input id="description" type="text" formControlName="description" />
+      <label for="description">description: </label>
+      <input id="description" type="text" formControlName="description" />
 
-  <label for="return_value">returnValue: </label>
-  <input id="return_value" type="text" formControlName="return_value" />
- 
-  <div formArrayName="properties">
-    @for (item of properties.controls; track item; let index = $index) {
-      <label for="properties-{{ index }}">Property: </label>
-      <input id="properties-{{ index }}" type="text" [formControlName]="index" />
-    }
-    <button type="button" (click)="addProperty()">more properties</button>
-  </div>
+      <label for="return_value">returnValue: </label>
+      <input id="return_value" type="text" formControlName="return_value" />
 
-  <div formArrayName="use_cases">
-    @for (item of useCases.controls; track item; let index = $index) {
-      <label for="use_cases-{{ index }}">useCase: </label>
-      <input id="use_cases-{{ index }}" type="text" [formControlName]="index" />
-    }
-    <button  type="button" (click)="addUseCase()">more useCases</button>
-  </div> 
+      <div formArrayName="properties">
+        <div class="header__nav">
+          <h4>Properties:</h4>
+          <button type="button" (click)="addProperty()">+</button>
+        </div>
+        <ul class="list">
+          @for (item of properties.controls; track item; let indexProperties = $index) {
+            <li class="list list__element">
+              <label for="properties-{{ indexProperties }}">{{ indexProperties + 1 }}: </label>
+              <input
+                id="properties-{{ indexProperties }}"
+                type="text"
+                [formControlName]="indexProperties"
+              />
+              <button type="button" (click)="removeProperty(indexProperties)">-</button>
+            </li>
+          }
+        </ul>
+      </div>
 
-  <div formArrayName="screenshots">
-    @for (screenshot of screenshots.controls; track $index; let index = $index) {
-      <img [src]="db.readScreenshot(screenshot.value)" alt="asd">
-    }
-  </div> 
+      <div formArrayName="use_cases">
+        <div class="header__nav">
+          <h4>Use Cases:</h4>
+          <button type="button" (click)="addUseCase()">+</button>
+        </div>
+        <ul class="list">
+          @for (item of useCases.controls; track item; let indexUseCase = $index) {
+            <li class="list list__element">
+              <label for="use_cases-{{ indexUseCase }}">useCase: </label>
+              <input
+                id="use_cases-{{ indexUseCase }}"
+                type="text"
+                [formControlName]="indexUseCase"
+              />
+              <button type="button" (click)="removeUseCase(indexUseCase)">-</button>
+            </li>
+          }
+        </ul>
+      </div>
 
-  <div (paste)="addTempScreenshot($event)">
-    paste area
-    @for (screenshot of screenshots.controls; track $index) {
-        <img [src]="screenshot" alt="">
-    }
-  </div>
+      <div formArrayName="screenshots">
+        @for (screenshot of screenshots.controls; track $index; let index = $index) {
+          <img [src]="db.readScreenshot(screenshot.value)" alt="asd" />
+        }
+      </div>
 
-  <button type="button" (click)="cancelInput(null)">cancel</button>
-  <button type="button" (click)="deleteEntry(surveyEditForm.controls.id)">delete</button>
-  <button type="submit">Submit</button>
-  </div>
-</form>
+      <div (paste)="addTempScreenshot($event)">
+        paste area
+        @for (screenshot of screenshots.controls; track $index) {
+          <img [src]="screenshot" alt="" />
+        }
+      </div>
 
+      <button type="button" (click)="cancelInput(null)">cancel</button>
+      <button type="button" (click)="deleteEntry(surveyEditForm.controls.id)">delete</button>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
 }

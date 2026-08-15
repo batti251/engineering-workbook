@@ -113,9 +113,7 @@ async deleteEntry(id:any){
    * @returns 
    */
   addProperty() {
-    this.data()?.properties?.forEach(property => {
-      this.properties.push(property);
-    })
+      this.properties.push(this.formBuilder.control(''));
   }
 
   /**
@@ -181,4 +179,12 @@ async deleteEntry(id:any){
     }
   }
 
+
+  removeUseCase(index: number) {
+    this.useCases.removeAt(index)
+  }
+
+  removeProperty(index: number) {
+    this.properties.removeAt(index)
+  }
 }
