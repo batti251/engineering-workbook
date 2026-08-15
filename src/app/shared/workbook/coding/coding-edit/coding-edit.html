@@ -1,19 +1,26 @@
 @if (surveyEditForm) {
   <form (ngSubmit)="updateRow()" [formGroup]="surveyEditForm" class="form">
+    <div class="header__nav">
+      <h3>Edit: {{ surveyEditForm.controls.language.value }} - {{ surveyEditForm.controls.syntax.value }}</h3>
+      <button class="btn btn__icon--cancel" type="button" (click)="cancelInput(null)"></button>
+      
+    </div> 
+
+
     <div class="card">
-      <label for="syntax">syntax: </label>
+      <label for="syntax">Syntax: </label>
       <input id="syntax" type="text" formControlName="syntax" />
 
-      <label for="description">description: </label>
+      <label for="description">Description: </label>
       <input id="description" type="text" formControlName="description" />
 
-      <label for="return_value">returnValue: </label>
+      <label for="return_value">return Value: </label>
       <input id="return_value" type="text" formControlName="return_value" />
 
-      <div formArrayName="properties">
+      <div formArrayName="properties" class="form__group--edit">
         <div class="header__nav">
           <h4>Properties:</h4>
-          <button type="button" (click)="addProperty()">+</button>
+          <button class="btn btn__icon--add" type="button" (click)="addProperty()"></button>
         </div>
         <ul class="list">
           @for (item of properties.controls; track item; let indexProperties = $index) {
@@ -24,16 +31,16 @@
                 type="text"
                 [formControlName]="indexProperties"
               />
-              <button type="button" (click)="removeProperty(indexProperties)">-</button>
+              <button class="btn btn__icon--delete" type="button" (click)="removeProperty(indexProperties)"></button>
             </li>
           }
         </ul>
       </div>
 
-      <div formArrayName="use_cases">
+      <div formArrayName="use_cases" class="form__group--edit">
         <div class="header__nav">
           <h4>Use Cases:</h4>
-          <button type="button" (click)="addUseCase()">+</button>
+          <button class="btn btn__icon--add" type="button" (click)="addUseCase()">+</button>
         </div>
         <ul class="list">
           @for (item of useCases.controls; track item; let indexUseCase = $index) {
@@ -44,28 +51,27 @@
                 type="text"
                 [formControlName]="indexUseCase"
               />
-              <button type="button" (click)="removeUseCase(indexUseCase)">-</button>
+              <button class="btn btn__icon--delete" type="button" (click)="removeUseCase(indexUseCase)"></button>
             </li>
           }
         </ul>
       </div>
 
-      <div formArrayName="screenshots">
+      <div formArrayName="screenshots" class="form__group--edit">
         @for (screenshot of screenshots.controls; track $index; let index = $index) {
           <img [src]="db.readScreenshot(screenshot.value)" alt="asd" />
         }
       </div>
 
-      <div (paste)="addTempScreenshot($event)">
+      <div (paste)="addTempScreenshot($event)" class="form__group">
         paste area
         @for (screenshot of screenshots.controls; track $index) {
           <img [src]="screenshot" alt="" />
         }
       </div>
 
-      <button type="button" (click)="cancelInput(null)">cancel</button>
-      <button type="button" (click)="deleteEntry(surveyEditForm.controls.id)">delete</button>
-      <button type="submit">Submit</button>
+      <button class="btn btn__icon--delete" type="button" (click)="deleteEntry(surveyEditForm.controls.id)"></button>
+      <button class="btn btn__icon--submit" type="submit"></button>
     </div>
   </form>
 }

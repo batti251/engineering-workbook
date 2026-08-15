@@ -1,0 +1,15 @@
+@use '../abstracts/' as *;
+
+.form {
+  padding: min(20px, 3%);
+
+  &__group{
+    @include size($w: 100%);
+    &--edit{
+        @include dFlex($ai: baseline, $g: 8px);
+    }
+    &--doc{
+        @include dFlex($fd: column, $g: 8px);
+    }
+  }
+}

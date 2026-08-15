@@ -2,7 +2,7 @@
 
 .card{
     @include dFlex();
-    @include size($w: min(400px, 80%));
+    @include size($w: min(400px, 90%));
     border-radius: 10%;
     background-color: beige;
 }

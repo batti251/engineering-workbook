@@ -1,61 +1,68 @@
 @use 'variables';
 
-
 @mixin dFlex($d: flex, $jc: center, $ai: center, $fd: column, $g: 0) {
-    display: $d;
-    justify-content: $jc;
-    align-items: $ai;
-    flex-direction: $fd;
-    gap: $g;
+  display: $d;
+  justify-content: $jc;
+  align-items: $ai;
+  flex-direction: $fd;
+  gap: $g;
 }
 
-@mixin size($w: auto, $h: auto){
-    width: $w;
-    height: $h;
+@mixin size($w: auto, $h: auto) {
+  width: $w;
+  height: $h;
 }
 
-@mixin font($ff: Mulish, $fs: clamp(1rem, 1.5rem, 2vw), $fw: 500){
-    font-family: $ff;
-    font-size: $fs;
-    font-weight: $fw;
+@mixin backgroundImg($w: 100%, $h: auto, $bi: url(''), $bp: center, $bc: transparent, $bs: contain, $br: no-repeat) {
+  width: $w;
+  height: $h;
+  background-image: $bi;
+  background-position: $bp;
+  background-color: $bc;
+  background-size: $bs;
+  background-repeat: $br;
 }
 
-@mixin fade-out($time: 3s, $ease: ease-in-out){
-    animation: fadeOut $time $ease forwards;
+@mixin font($ff: Mulish, $fs: clamp(1rem, 1.5rem, 2vw), $fw: 500) {
+  font-family: $ff;
+  font-size: $fs;
+  font-weight: $fw;
+}
+
+@mixin fade-out($time: 3s, $ease: ease-in-out) {
+  animation: fadeOut $time $ease forwards;
 }
 
 @keyframes fadeOut {
-    from{
-        opacity: 1;
-    }
-    to{
-        opacity: 0;
-    }
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes pulse {
-    
-    50%{
-       transform: scale(1.05);
-    }
+  50% {
+    transform: scale(1.05);
+  }
 }
 
 @keyframes rotate {
-    100% {
-        transform: rotate(180deg);
-    }
+  100% {
+    transform: rotate(180deg);
+  }
 }
-
 
 $breakpoints: (
   zero: 0px,
   s: 480px,
   m: 768px,
-  l: 1280px
+  l: 1280px,
 );
 
-@mixin respond($maxsize){
+@mixin respond($maxsize) {
   @media screen and (max-width: map-get($breakpoints, $maxsize)) {
-    @content
+    @content;
   }
 }

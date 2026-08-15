@@ -11,10 +11,10 @@
   <label for="return_value">returnValue: </label>
   <input id="return_value" type="text" formControlName="return_value" />
 
-  <div formArrayName="properties">
+  <div formArrayName="properties" class="form__group">
     <div class="header__nav">
       <h4>Properties:</h4>
-      <button type="button" (click)="addProperty()">+</button>
+      <button class="btn btn__icon--add"  type="button" (click)="addProperty()"></button>
     </div>
     <ul class="list">
       @for (item of properties.controls; track item; let indexProperties = $index) {
@@ -25,23 +25,23 @@
             type="text"
             [formControlName]="indexProperties"
           />
-          <button type="button" (click)="removeProperty(indexProperties)">-</button>
+          <button class="btn btn__icon--cancel" type="button" (click)="removeProperty(indexProperties)"></button>
         </li>
       }
     </ul>
   </div>
 
-  <div formArrayName="use_cases">
+  <div formArrayName="use_cases" class="form__group">
     <div class="header__nav">
       <h4>Use Cases:</h4>
-      <button type="button" (click)="addUseCase()">+</button>
+      <button class="btn btn__icon--add" type="button" (click)="addUseCase()"></button>
     </div>
     <ul class="list">
       @for (item of useCases.controls; track item; let indexUseCase = $index) {
         <li class="list list__element">
           <label for="use_cases-{{ indexUseCase }}">{{ indexUseCase + 1 }}: </label>
           <input id="use_cases-{{ indexUseCase }}" type="text" [formControlName]="indexUseCase" />
-          <button type="button" (click)="removeUseCase(indexUseCase)">-</button>
+          <button class="btn btn__icon--cancel" type="button" (click)="removeUseCase(indexUseCase)"></button>
         </li>
       }
     </ul>
@@ -65,5 +65,5 @@
       }
     </div>
   </div>
-  <button type="submit">Submit</button>
+  <button class="btn btn__icon--submit" type="submit"></button>
 </form>
