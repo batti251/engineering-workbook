@@ -1,9 +1,10 @@
-import { Component, inject, input, Output, EventEmitter } from '@angular/core';
+import { Component, inject, input, Output, EventEmitter, signal } from '@angular/core';
 import { FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
 import { TableRow } from '../../../interfaces/table-row';
 import { FormModel } from '../../../models/form-model';
 import { Supabase } from '../../../services/supabase';
 import { JsonPipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-coding-edit',
@@ -14,7 +15,7 @@ import { JsonPipe } from '@angular/common';
 export class CodingEdit {
   data = input.required<TableRow|null>()
   @Output() emptyData = new EventEmitter<null>();
-
+  router = inject(Router)
   db = inject(Supabase)
   private formBuilder = inject(FormBuilder);
   private files: File[] = []
@@ -34,6 +35,29 @@ export class CodingEdit {
     if (!this.data()) return
     this.patchEditForm();
     this.setOptionalFormControls();
+  }
+
+
+
+async deleteEntry(id:any){
+    if (!Number(id.value)) {
+      return
+    }
+    try {
+      let deleteTrigger = await this.db.deleteRow(id.value)
+      console.log(deleteTrigger);
+      if (!deleteTrigger) {
+        console.log(deleteTrigger);
+        
+        this.refreshComponent()
+      }
+    } catch (error) {
+      
+    }
+  }
+
+  refreshComponent(){
+    window.location.reload()
   }
 
   /**
@@ -130,7 +154,15 @@ export class CodingEdit {
   async updateRow() {
     await this.addScreenshotsToDB()
     let editedData = new FormModel(this.surveyEditForm.value as TableRow)
-    await this.db.updateRow(editedData)
+    try {
+      let x = await this.db.updateRow(editedData)
+      if (x) {
+        this.refreshComponent()
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
   }
 
   /**
