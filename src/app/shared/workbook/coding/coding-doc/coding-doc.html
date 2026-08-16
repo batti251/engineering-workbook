@@ -1,4 +1,7 @@
 @for (item of x(); track $index) {
+  @if (item.language == "git") {
+    <app-git [data]="item"></app-git>
+  } @else {
   <div class="card">
     @if (selectItem !== item) {
       <h3>{{ item.syntax }}</h3>
@@ -46,4 +49,5 @@
       <app-coding-edit [data]="selectItem" (emptyData)="clearSelectItem($event)"></app-coding-edit>
     }
   </div>
+  }
 }

@@ -1,0 +1,24 @@
+<table>
+  <tbody>
+    <tr>
+      <th>Befehl</th>
+      <th>Beschreibung</th>
+      <th>Beschreibung</th>
+    </tr>
+    <tr>
+      <td>
+        {{ data()?.syntax }}
+      </td>
+      <td>
+        {{ data()?.description }}
+      </td>
+      <td>
+      @for (item of data()?.properties; track item) {
+        <tr>
+          {{ item }}
+        </tr>
+      }
+      </td>
+    </tr>
+  </tbody>
+</table>

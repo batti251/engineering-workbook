@@ -3,10 +3,10 @@ import { Supabase } from '../../../services/supabase';
 import { TableRow } from '../../../interfaces/table-row';
 import { JsonPipe } from '@angular/common';
 import { CodingEdit } from '../coding-edit/coding-edit';
-
+import { Git } from './git/git';
 @Component({
   selector: 'app-coding-doc',
-  imports: [JsonPipe, CodingEdit],
+  imports: [JsonPipe, CodingEdit, Git],
   templateUrl: './coding-doc.html',
   styleUrl: './coding-doc.scss',
 })
