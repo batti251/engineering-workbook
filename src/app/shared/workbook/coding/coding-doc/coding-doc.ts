@@ -1,4 +1,4 @@
-import { Component, computed, EventEmitter, inject, Output, OutputEmitterRef, signal } from '@angular/core';
+import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
 import { TableRow } from '../../../interfaces/table-row';
 import { JsonPipe } from '@angular/common';
@@ -6,10 +6,11 @@ import { CodingEdit } from '../coding-edit/coding-edit';
 import { Git } from './git/git';
 import { Python } from './python/python';
 import { Select } from '../../../components/select/select';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-coding-doc',
-  imports: [JsonPipe, CodingEdit, Git, Python, Select],
+  imports: [JsonPipe, RouterLink, Git, Python, Select],
   templateUrl: './coding-doc.html',
   styleUrl: './coding-doc.scss',
 })

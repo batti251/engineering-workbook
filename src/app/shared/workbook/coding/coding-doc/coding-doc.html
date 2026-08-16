@@ -1,6 +1,9 @@
 <main>
 <div class="sub-header">
   <app-select (selectedValue)="getSelectedValue($event)"></app-select>
+  <div class="flex-center-end">
+    <a class="text__primary" [routerLink]="['/code']">Add Code Entry</a>
+  </div>
 </div>
   @switch (selectedValue) {
     @case ("git") {
