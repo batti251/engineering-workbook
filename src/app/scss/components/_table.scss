@@ -1,0 +1,37 @@
+@use '../abstracts/' as *;
+
+.table {
+  @include border($bc:#e1dada, $br:unset);
+  @include size($w: 90%);
+  background-color: #2b2b2b73;
+  border-collapse: collapse;
+  &__row {
+    @include border($br: unset);
+    &--head {
+      @include size($w: 100%);
+      &-1 {
+        @include size($w: 180px);
+      }
+      &-2 {
+        @include size($w: 80px);
+      }
+      &-3 {
+        @include size($w: 80px);
+      }
+    }
+    &--data {
+      @include size($w: 100%);
+      &-1 {
+        @include size($w: 80px);
+        color: #ffbb1cfa;
+        font-weight: 500;
+      }
+      &-2 {
+        @include size($w: 500px);
+      }
+    }
+    &--data-list {
+      @include size($w: 400px);
+    }
+  }
+}

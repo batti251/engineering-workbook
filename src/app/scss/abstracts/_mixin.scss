@@ -30,7 +30,7 @@
   border-radius: $br;
 }
 
-@mixin font($ff: Mulish, $fs: clamp(1rem, 1.5rem, 2vw), $fw: 500) {
+@mixin font($ff: roboto, $fs: clamp(1rem, 1.5rem, 2vw), $fw: 500) {
   font-family: $ff;
   font-size: $fs;
   font-weight: $fw;

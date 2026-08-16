@@ -8,6 +8,6 @@ import { TableRow } from '../../../../interfaces/table-row';
 })
 export class Git {
 
-  data = input<TableRow>()  
+  data = input<TableRow[]>()  
 
 }

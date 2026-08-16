@@ -1,24 +1,30 @@
-<table>
+<table class="table">
+  <thead>
+    <tr class="table__row">
+      <th class="table__row--head-1">Befehl</th>
+      <th class="table__row--head-2">Beschreibung</th>
+      <th class="table__row--head-3">Beispiel</th>
+    </tr>
+  </thead>
   <tbody>
-    <tr>
-      <th>Befehl</th>
-      <th>Beschreibung</th>
-      <th>Beschreibung</th>
-    </tr>
-    <tr>
-      <td>
-        {{ data()?.syntax }}
-      </td>
-      <td>
-        {{ data()?.description }}
-      </td>
-      <td>
-      @for (item of data()?.properties; track item) {
-        <tr>
-          {{ item }}
-        </tr>
-      }
-      </td>
-    </tr>
+    @for (item of data(); track $index) {
+      <tr class="table__row">
+        <td class="table__row--data-1">
+          {{ item.syntax }}
+        </td>
+        <td class="table__row--data-2">
+          {{ item.description }}
+        </td>
+        @if (item.properties == undefined || item.properties?.length > 0) {
+        <td class="table__row--data-list">
+          @for (item of item.properties; track item) {
+            <li>
+              {{ item }}
+            </li>
+          }
+        </td>
+        }
+      </tr>
+    }
   </tbody>
 </table>

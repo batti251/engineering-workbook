@@ -28,5 +28,7 @@ export class Select {
   onCommit() {
     this.popupExpanded.set(false);
     this.selectedValue.emit(this.selectedValues())
+    console.log(this.selectedValue.emit(this.selectedValues()));
+    
   }
 }

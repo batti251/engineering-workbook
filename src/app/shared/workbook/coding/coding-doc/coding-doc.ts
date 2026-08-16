@@ -4,16 +4,17 @@ import { TableRow } from '../../../interfaces/table-row';
 import { JsonPipe } from '@angular/common';
 import { CodingEdit } from '../coding-edit/coding-edit';
 import { Git } from './git/git';
+import { Python } from './python/python';
 import { Select } from '../../../components/select/select/select';
 @Component({
   selector: 'app-coding-doc',
-  imports: [JsonPipe, CodingEdit, Git, Select],
+  imports: [JsonPipe, CodingEdit, Git, Python, Select],
   templateUrl: './coding-doc.html',
   styleUrl: './coding-doc.scss',
 })
 export class CodingDoc {
   db = inject(Supabase)
-  selectedValue: string[] = []
+  selectedValue: string = 'Python'
   datas = signal<TableRow[]>([{
     language: "",
     description: "",
@@ -23,7 +24,7 @@ export class CodingDoc {
     use_cases: [],
     screenshots: []
   }])
-  selectItem: TableRow | null = null
+  
   filteredItems = signal<TableRow[]>([{
     language: "",
     description: "",
@@ -34,22 +35,31 @@ export class CodingDoc {
     screenshots: []
   }])
 
-  clearSelectItem(emptyData: null) {
-    this.selectItem = emptyData
-  }
+
 
   getSelectedValue(value: string[]) {
+    console.log(value[0]);
+    
     this.filterDatas(value[0])
+    console.log(this.filterDatas(value[0]));
+    
   }
 
   filterDatas(value: string) {
     this.filteredItems.update(() => this.datas().filter((entry) => {
      return entry.language == value
     }))
+    console.log(this.selectedValue);
+    this.selectedValue = value
+    console.log(this.filteredItems());
+    
   }
 
   async ngOnInit() {
     await this.readDB()
+    console.log(this.datas());
+    console.log(this.filteredItems());
+    
   }
 
 
@@ -62,7 +72,5 @@ export class CodingDoc {
   }
 
 
-  updateRow(data: TableRow) {
-    this.selectItem = data
-  }
+
 }

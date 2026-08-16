@@ -1,0 +1,10 @@
+@use '../abstracts/' as *;
+
+.nav{
+    &-side{
+        @include size($h: 100%);
+        padding: 0;
+        margin: 0;
+        background-color: #013e37;
+    }
+}
