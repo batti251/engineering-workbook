@@ -15,11 +15,12 @@ export class CodingAdd {
   files: File[] = []
   tempFiles: string[] = []
   private formBuilder = inject(FormBuilder);
+  
   surveyForm = this.formBuilder.group({
-    language: ['Python', Validators.required],
-    description: ['here is some description', Validators.required],
-    syntax: ['str()', Validators.required],
-    return_value: ['returns a new String', Validators.required],
+    language: ['', Validators.required],
+    description: ['', Validators.required],
+    syntax: ['', Validators.required],
+    return_value: ['', Validators.required],
     properties: this.formBuilder.array([]),
     use_cases: this.formBuilder.array([]),
     screenshots: this.formBuilder.array([])
@@ -28,6 +29,8 @@ export class CodingAdd {
   ngOnInit() {
     this.db.readDB()
   }
+
+
 
   get useCases() {
     return this.surveyForm.get('use_cases') as FormArray;
@@ -59,8 +62,6 @@ export class CodingAdd {
    * @param file 
    */
   async addScrenshot(formArray: FormArray, file: File) {
-    console.log(formArray);
-
     try {
       const path = await this.db.uploadFile(file)
       if (path) {

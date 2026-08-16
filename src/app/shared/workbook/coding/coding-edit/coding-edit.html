@@ -1,11 +1,12 @@
 @if (surveyEditForm) {
   <form (ngSubmit)="updateRow()" [formGroup]="surveyEditForm" class="form">
     <div class="header__nav">
-      <h3>Edit: {{ surveyEditForm.controls.language.value }} - {{ surveyEditForm.controls.syntax.value }}</h3>
+      <h3>
+        Edit: {{ surveyEditForm.controls.language.value }} -
+        {{ surveyEditForm.controls.syntax.value }}
+      </h3>
       <button class="btn btn__icon--cancel" type="button" (click)="cancelInput(null)"></button>
-      
-    </div> 
-
+    </div>
 
     <div class="card">
       <label for="syntax">Syntax: </label>
@@ -31,7 +32,11 @@
                 type="text"
                 [formControlName]="indexProperties"
               />
-              <button class="btn btn__icon--delete" type="button" (click)="removeProperty(indexProperties)"></button>
+              <button
+                class="btn btn__icon--delete"
+                type="button"
+                (click)="removeProperty(indexProperties)"
+              ></button>
             </li>
           }
         </ul>
@@ -51,26 +56,52 @@
                 type="text"
                 [formControlName]="indexUseCase"
               />
-              <button class="btn btn__icon--delete" type="button" (click)="removeUseCase(indexUseCase)"></button>
+              <button
+                class="btn btn__icon--delete"
+                type="button"
+                (click)="removeUseCase(indexUseCase)"
+              ></button>
             </li>
           }
         </ul>
       </div>
 
       <div formArrayName="screenshots" class="form__group--edit">
-        @for (screenshot of screenshots.controls; track $index; let index = $index) {
-          <img [src]="db.readScreenshot(screenshot.value)" alt="asd" />
-        }
+        <div>
+          @for (screenshot of screenshots.controls; track $index; let index = $index) {
+            <div class="list list__element">
+              <div
+                class="list__element--wrap"
+                (mouseover)="toggleDeleteBtn(screenshot.value)"
+                (mouseout)="toggleDeleteBtn(screenshot.value)"
+              >
+                <img [src]="db.readScreenshot(screenshot.value)" alt="asd" />
+                @if (screenshot.value === hoveredBlob) {
+                  <button
+                    type="button"
+                    (click)="removeTempDBScreenshot(index)"
+                    class="btn__hovered"
+                  >
+                    <img src="/img/close.svg" alt="" class="btn__hovered--delete" />
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        <div (paste)="addTempScreenshot($event)" class="upload-area upload-area__file">
+          paste area
+          @for (screenshot of tempFiles; track $index) {
+            <img [src]="screenshot" alt="" />
+          }
+        </div>
       </div>
 
-      <div (paste)="addTempScreenshot($event)" class="form__group">
-        paste area
-        @for (screenshot of screenshots.controls; track $index) {
-          <img [src]="screenshot" alt="" />
-        }
-      </div>
-
-      <button class="btn btn__icon--delete" type="button" (click)="deleteEntry(surveyEditForm.controls.id)"></button>
+      <button
+        class="btn btn__icon--delete"
+        type="button"
+        (click)="deleteEntry(surveyEditForm.controls.id)"
+      ></button>
       <button class="btn btn__icon--submit" type="submit"></button>
     </div>
   </form>

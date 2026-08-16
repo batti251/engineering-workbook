@@ -13,12 +13,15 @@ import { Router } from '@angular/router';
   styleUrl: './coding-edit.scss',
 })
 export class CodingEdit {
-  data = input.required<TableRow|null>()
+  data = input.required<TableRow | null>()
   @Output() emptyData = new EventEmitter<null>();
   router = inject(Router)
   db = inject(Supabase)
   private formBuilder = inject(FormBuilder);
   private files: File[] = []
+  tempFiles: string[] = []
+  tempDBFiles: string[] = []
+  toDeleteDBFiles: string[] = []
 
   surveyEditForm = this.formBuilder.group({
     id: 0,
@@ -33,13 +36,17 @@ export class CodingEdit {
 
   ngOnInit() {
     if (!this.data()) return
+    this.data()?.screenshots?.forEach(file => {
+      this.tempDBFiles.push(file)
+    })
     this.patchEditForm();
     this.setOptionalFormControls();
+
+    console.log(this.tempDBFiles);
+    
   }
 
-
-
-async deleteEntry(id:any){
+  async deleteEntry(id: any) {
     if (!Number(id.value)) {
       return
     }
@@ -48,15 +55,15 @@ async deleteEntry(id:any){
       console.log(deleteTrigger);
       if (!deleteTrigger) {
         console.log(deleteTrigger);
-        
+
         this.refreshComponent()
       }
     } catch (error) {
-      
+
     }
   }
 
-  refreshComponent(){
+  refreshComponent() {
     window.location.reload()
   }
 
@@ -65,7 +72,7 @@ async deleteEntry(id:any){
    * Emits emptyData value to parent component
    * @param value - null value
    */
-  cancelInput(value: null){
+  cancelInput(value: null) {
     this.emptyData.emit(value)
     this.files = []
   }
@@ -96,26 +103,12 @@ async deleteEntry(id:any){
     })
   }
 
+
+  
   get useCases() {
     return this.surveyEditForm.get('use_cases') as FormArray;
   }
-
-  get properties() {
-    return this.surveyEditForm.get('properties') as FormArray;
-  }
-
-  get screenshots() {
-    return this.surveyEditForm.get('screenshots') as FormArray;
-  }
-
-  /**
-   * Adds new form-control to surveyEditForm.properties-FormArray
-   * @returns 
-   */
-  addProperty() {
-      this.properties.push(this.formBuilder.control(''));
-  }
-
+  
   /**
    * Adds new form-control to surveyEditForm.useCases-FormArray
    */
@@ -123,13 +116,31 @@ async deleteEntry(id:any){
     this.useCases.push(this.formBuilder.control(''));
   }
 
+  get properties() {
+    return this.surveyEditForm.get('properties') as FormArray;
+  }
 
-/**
- * Adds new form-control to surveyEditForm.screenshots-FormArray
- * Receives storaged-path by returned path from {@linkdb.uploadFile()}
- * @param formArray 
- * @param file 
- */
+    /**
+   * Adds new form-control to surveyEditForm.properties-FormArray
+   * @returns 
+   */
+  addProperty() {
+    this.properties.push(this.formBuilder.control(''));
+  }
+
+  get screenshots() {
+    return this.surveyEditForm.get('screenshots') as FormArray;
+  }
+
+
+
+
+  /**
+   * Adds new form-control to surveyEditForm.screenshots-FormArray
+   * Receives storaged-path by returned path from {@linkdb.uploadFile()}
+   * @param formArray 
+   * @param file 
+   */
   async addScrenshot(formArray: FormArray, file: File) {
     try {
       const path = await this.db.uploadFile(file)
@@ -140,6 +151,7 @@ async deleteEntry(id:any){
       console.log(error);
     }
   }
+
   /**
    * 
    */
@@ -149,21 +161,8 @@ async deleteEntry(id:any){
     }
   }
 
-  async updateRow() {
-    await this.addScreenshotsToDB()
-    let editedData = new FormModel(this.surveyEditForm.value as TableRow)
-    try {
-      let x = await this.db.updateRow(editedData)
-      if (x) {
-        this.refreshComponent()
-      }
-    } catch (error) {
-      console.log(error);
-      
-    }
-  }
-
-  /**
+  
+ /**
    * Stores temporary screenshot file in files-Array
    * @param event - the paste-event triggered by the user
    * @returns 
@@ -174,11 +173,49 @@ async deleteEntry(id:any){
     for (const item of data) {
       let file = item.getAsFile()
       if (!file) return
+      this.createTempBlobURL(file)
       this.files.push(file)
       break;
     }
   }
 
+  
+  /**
+   * creates temporary blob-url and stores it into temporary Arraay
+   * @param file - the screenshot-file
+   */
+  createTempBlobURL(file: File) {
+    let tempURL = URL.createObjectURL(file)
+    this.tempFiles.push(tempURL)
+  }
+
+  showDeleteBtn = false
+  hoveredBlob: string = ''
+
+    /**
+   * toggles hover-states to add delete-hover-effect over images
+   * @param indexUseCase 
+   */
+  toggleDeleteBtn(indexUseCase: string) {
+    if (!this.showDeleteBtn) {
+      this.hoveredBlob = indexUseCase
+      this.showDeleteBtn = true
+    } else if (this.showDeleteBtn) {
+      this.showDeleteBtn = false
+      this.hoveredBlob = ''
+    }
+  }
+
+  /**
+   * removes indexed screenshot-url from temporary Array
+   * @param index 
+   */
+  removeTempDBScreenshot(index: number) {
+    console.log(this.tempDBFiles);
+    this.screenshots.removeAt(index)
+    this.toDeleteDBFiles.push(this.tempDBFiles[index])
+    this.tempDBFiles.splice(index, 1)
+  }
 
   removeUseCase(index: number) {
     this.useCases.removeAt(index)
@@ -187,4 +224,32 @@ async deleteEntry(id:any){
   removeProperty(index: number) {
     this.properties.removeAt(index)
   }
+
+
+  async updateRow() {
+    await this.addScreenshotsToDB()
+    let editedData = new FormModel(this.surveyEditForm.value as TableRow)
+     try {
+      let isRowUpdated = await this.db.updateRow(editedData)
+      let isFileDeleted = await this.db.deleteFile(this.toDeleteDBFiles)
+       if (this.checkDBHandling(isRowUpdated,isFileDeleted)) {
+        console.log(this.checkDBHandling(isRowUpdated,isFileDeleted));
+        
+        this.refreshComponent()
+      } 
+    } catch (error) {
+      console.log(error);
+      return
+    }
+  }
+
+  checkDBHandling(isRowUpdated:boolean, isFileDeleted:boolean){
+    if (isRowUpdated && isFileDeleted) {
+       return true
+      } else return false
+  }
+
+
+
+
 }
