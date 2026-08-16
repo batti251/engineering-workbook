@@ -7,3 +7,8 @@
         @include dFlex($fd: unset, $jc: space-between)
     }
 }
+
+
+.sub-header{
+    @include size($h: 100px)
+}

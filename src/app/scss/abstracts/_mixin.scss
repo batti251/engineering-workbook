@@ -23,6 +23,13 @@
   background-repeat: $br;
 }
 
+@mixin border($bs: solid, $bw: 1px, $bc: black, $br: 10px){
+  border-style: $bs;
+  border-width: $bw;
+  border-color: $bc;
+  border-radius: $br;
+}
+
 @mixin font($ff: Mulish, $fs: clamp(1rem, 1.5rem, 2vw), $fw: 500) {
   font-family: $ff;
   font-size: $fs;

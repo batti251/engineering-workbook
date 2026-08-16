@@ -1,0 +1,13 @@
+@use '../abstracts/' as *;
+
+.select{
+    @include size($w: max-content);
+    @include border();
+    padding: 8px;
+}
+
+.dropdown-container{
+    @include size($w: 100%);
+    @include border($br:unset);
+    
+}
