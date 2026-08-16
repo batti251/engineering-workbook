@@ -20,9 +20,6 @@ export class CodingEdit {
   db = inject(Supabase)
   clipboard = inject(Clipboard)
   private formBuilder = inject(FormBuilder);
-  private files: File[] = []
-  tempDBFiles: string[] = []
-  toDeleteDBFiles: string[] = []
 
   surveyEditForm = this.formBuilder.group({
     id: 0,
@@ -38,12 +35,12 @@ export class CodingEdit {
   ngOnInit() {
     if (!this.data()) return
     this.data()?.screenshots?.forEach(file => {
-      this.tempDBFiles.push(file)
+      this.db.tempDBFiles.push(file)
     })
     this.patchEditForm();
     this.setOptionalFormControls();
 
-    console.log(this.tempDBFiles);
+    console.log(this.db.tempDBFiles);
     
   }
 
@@ -131,34 +128,15 @@ export class CodingEdit {
   }
 
 
-
-
-  /**
-   * Adds new form-control to surveyEditForm.screenshots-FormArray
-   * Receives storaged-path by returned path from {@linkdb.uploadFile()}
-   * @param formArray 
-   * @param file 
-   */
-  async addScrenshot(formArray: FormArray, file: File) {
-    try {
-      const path = await this.db.uploadFile(file)
-      if (path) {
-        formArray.push(this.formBuilder.control(path.path))
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   /**
    * 
    */
   async addScreenshotsToDB() {
     for (const file of this.clipboard.files) {
-      await this.addScrenshot(this.screenshots, file)
+     let screenshotURL =  await this.db.addScrenshot(this.screenshots, file)
+     this.screenshots.push(this.formBuilder.control(screenshotURL))
     }
   }
-
 
 
   showDeleteBtn = false
@@ -183,10 +161,10 @@ export class CodingEdit {
    * @param index 
    */
   removeTempDBScreenshot(index: number) {
-    console.log(this.tempDBFiles);
+    console.log(this.db.tempDBFiles);
     this.screenshots.removeAt(index)
-    this.toDeleteDBFiles.push(this.tempDBFiles[index])
-    this.tempDBFiles.splice(index, 1)
+    this.db.toDeleteDBFiles.push(this.db.tempDBFiles[index])
+    this.db.tempDBFiles.splice(index, 1)
   }
 
   removeUseCase(index: number) {
@@ -202,12 +180,9 @@ export class CodingEdit {
     await this.addScreenshotsToDB()
     let editedData = new FormModel(this.surveyEditForm.value as TableRow)
      try {
-      let isRowUpdated = await this.db.updateRow(editedData)
-      let isFileDeleted = await this.db.deleteFile(this.toDeleteDBFiles)
-      console.log(isRowUpdated);
-      
-       if (this.checkDBHandling(isRowUpdated,true)) {
-        
+      this.db.isRowUpdated = await this.db.updateRow(editedData)
+      this.db.isFileDeleted = await this.db.deleteFile(this.db.toDeleteDBFiles)
+       if (this.db.checkDBHandling()) {
         this.refreshComponent()
       } 
     } catch (error) {
@@ -220,14 +195,4 @@ export class CodingEdit {
     refreshComponent() {
     window.location.reload()
   }
-
-  checkDBHandling(isRowUpdated:boolean, isFileDeleted?:boolean){
-    if (isRowUpdated && isFileDeleted) {
-       return true
-      } else return false
-  }
-
-
-
-
 }

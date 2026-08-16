@@ -2,6 +2,8 @@ import { inject, Service, signal } from '@angular/core';
 import { createClient, RealtimeChannel } from '@supabase/supabase-js'
 import { Keys } from './key';
 import { TableRow } from '../interfaces/table-row';
+import { Clipboard } from './clipboard';
+import { FormArray, FormBuilder } from '@angular/forms';
 
 @Service()
 export class Supabase {
@@ -9,6 +11,17 @@ export class Supabase {
     channelAll!: RealtimeChannel
     supabase = createClient(this.key.supabaseURL, this.key.supabaseKey)
     realtimeEventType = signal('')
+    clipboard = inject(Clipboard)
+    
+    tempDBFiles: string[] = []
+    toDeleteDBFiles: string[] = []
+
+    isRowUpdated = false
+    isFileDeleted = false
+    isRowAdded = false
+    formBuilder = inject(FormBuilder);
+
+
     constructor() {
         this.startChannel(this.channelAll)
     }
@@ -66,9 +79,9 @@ export class Supabase {
                 },
             ])
             .select()
-            if (!error) {
-                return true
-            }else return false
+        if (!error) {
+            return true
+        } else return false
     }
 
     async updateRow(editedData: TableRow) {
@@ -136,5 +149,33 @@ export class Supabase {
         let fileType = file.name.split(".")[1]
         let name = crypto.randomUUID()
         return name + "." + fileType
+    }
+
+
+    /**
+ * Adds new form-control to surveyEditForm.screenshots-FormArray
+ * Receives storaged-path by returned path from {@linkdb.uploadFile()}
+ * @param formArray 
+ * @param file 
+ */
+    async addScrenshot(formArray: FormArray, file: File) {
+        try {
+            const path = await this.uploadFile(file)
+            if (path) {
+                return path.path
+            }
+        } catch (error) {
+            console.log(error);
+            return
+        }
+        return
+    }
+
+
+
+    checkDBHandling() {
+        if (this.isRowUpdated || this.isFileDeleted || this.isRowAdded) {
+            return true
+        } else return false
     }
 }

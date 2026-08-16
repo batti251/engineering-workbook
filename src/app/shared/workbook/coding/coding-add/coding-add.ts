@@ -14,7 +14,6 @@ import { Clipboard } from '../../../services/clipboard';
 export class CodingAdd {
   db = inject(Supabase)
   clipboard = inject(Clipboard)
-  files: File[] = []
   private formBuilder = inject(FormBuilder);
 
   surveyForm = this.formBuilder.group({
@@ -53,32 +52,13 @@ export class CodingAdd {
     return this.surveyForm.get('screenshots') as FormArray;
   }
 
-
-
-
-  /**
-   * Adds new form-control to surveyEditForm.screenshots-FormArray
-   * Receives storaged-path by returned path from {@linkdb.uploadFile()}
-   * @param formArray 
-   * @param file 
-   */
-  async addScrenshot(formArray: FormArray, file: File) {
-    try {
-      const path = await this.db.uploadFile(file)
-      if (path) {
-        formArray.push(this.formBuilder.control(path.path))
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
   /**
    * 
    */
   async addScreenshotsToDB() {
     for (const file of this.clipboard.files) {
-      await this.addScrenshot(this.screenshots, file)
+      let screenshotURL = await this.db.addScrenshot(this.screenshots, file)
+      this.screenshots.push(this.formBuilder.control(screenshotURL))
     }
   }
 
@@ -111,24 +91,17 @@ export class CodingAdd {
     await this.addScreenshotsToDB()
     let data = new FormModel(this.surveyForm.value as Partial<TableRow>)
     try {
-      let isRowAdded = await this.db.addRow(data)
-      if (this.checkDBHandling(isRowAdded,true)) {
+      this.db.isRowAdded = await this.db.addRow(data)
+      if (this.db.checkDBHandling()) {
         this.refreshComponent()
       }
     } catch (error) {
       console.log(error);
-      
+
     }
   }
 
   refreshComponent() {
     window.location.reload()
-  }
-
-
-    checkDBHandling(isRowUpdated:boolean, isFileDeleted:boolean){
-    if (isRowUpdated && isFileDeleted) {
-       return true
-      } else return false
   }
 }
