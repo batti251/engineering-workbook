@@ -89,9 +89,9 @@
             </div>
           }
         </div>
-        <div (paste)="addTempScreenshot($event)" class="upload-area upload-area__file">
+        <div (paste)="clipboard.addTempScreenshot($event)" class="upload-area upload-area__file">
           paste area
-          @for (screenshot of tempFiles; track $index) {
+          @for (screenshot of clipboard.tempFiles; track $index) {
             <img [src]="screenshot" alt="" />
           }
         </div>

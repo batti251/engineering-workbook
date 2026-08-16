@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angula
 import { TableRow } from '../../../interfaces/table-row';
 import { FormModel } from '../../../models/form-model';
 import { Supabase } from '../../../services/supabase';
+import { Clipboard } from '../../../services/clipboard';
 
 @Component({
   selector: 'app-coding-add',
@@ -12,10 +13,10 @@ import { Supabase } from '../../../services/supabase';
 })
 export class CodingAdd {
   db = inject(Supabase)
+  clipboard = inject(Clipboard)
   files: File[] = []
-  tempFiles: string[] = []
   private formBuilder = inject(FormBuilder);
-  
+
   surveyForm = this.formBuilder.group({
     language: ['', Validators.required],
     description: ['', Validators.required],
@@ -76,36 +77,9 @@ export class CodingAdd {
    * 
    */
   async addScreenshotsToDB() {
-    for (const file of this.files) {
+    for (const file of this.clipboard.files) {
       await this.addScrenshot(this.screenshots, file)
     }
-  }
-
-
-  /**
-   * Stores temporary screenshot file in files-Array
-   * @param event - the paste-event triggered by the user
-   * @returns 
-   */
-  async addTempScreenshot(event: ClipboardEvent) {
-    let data = event.clipboardData?.items
-    if (!data) return
-    for (const item of data) {
-      let file = item.getAsFile()
-      if (!file) return
-      this.createTempBlobURL(file)
-      this.files.push(file)
-      break;
-    }
-  }
-
-  /**
-   * creates temporary blob-url and stores it into temporary Arraay
-   * @param file - the screenshot-file
-   */
-  createTempBlobURL(file: File) {
-    let tempURL = URL.createObjectURL(file)
-    this.tempFiles.push(tempURL)
   }
 
   showDeleteBtn = false
@@ -125,14 +99,6 @@ export class CodingAdd {
     }
   }
 
-  /**
-   * removes indexed screenshot-url from temporary Array
-   * @param index 
-   */
-  removeTempScreenshot(index: number) {
-    this.tempFiles.splice(index, 1)
-  }
-
   removeUseCase(index: number) {
     this.useCases.removeAt(index)
   }
@@ -144,6 +110,25 @@ export class CodingAdd {
   async sendDataToDB() {
     await this.addScreenshotsToDB()
     let data = new FormModel(this.surveyForm.value as Partial<TableRow>)
-    this.db.addRow(data)
+    try {
+      let isRowAdded = await this.db.addRow(data)
+      if (this.checkDBHandling(isRowAdded,true)) {
+        this.refreshComponent()
+      }
+    } catch (error) {
+      console.log(error);
+      
+    }
+  }
+
+  refreshComponent() {
+    window.location.reload()
+  }
+
+
+    checkDBHandling(isRowUpdated:boolean, isFileDeleted:boolean){
+    if (isRowUpdated && isFileDeleted) {
+       return true
+      } else return false
   }
 }

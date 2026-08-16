@@ -66,6 +66,9 @@ export class Supabase {
                 },
             ])
             .select()
+            if (!error) {
+                return true
+            }else return false
     }
 
     async updateRow(editedData: TableRow) {
@@ -83,8 +86,8 @@ export class Supabase {
             .eq('id', editedData.id)
             .select()
         if (!error) {
-            return false
-        } else return true
+            return true
+        } else return false
     }
 
     async deleteRow(id: number) {

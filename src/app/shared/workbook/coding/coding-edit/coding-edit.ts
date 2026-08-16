@@ -5,6 +5,7 @@ import { FormModel } from '../../../models/form-model';
 import { Supabase } from '../../../services/supabase';
 import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { Clipboard } from '../../../services/clipboard';
 
 @Component({
   selector: 'app-coding-edit',
@@ -17,9 +18,9 @@ export class CodingEdit {
   @Output() emptyData = new EventEmitter<null>();
   router = inject(Router)
   db = inject(Supabase)
+  clipboard = inject(Clipboard)
   private formBuilder = inject(FormBuilder);
   private files: File[] = []
-  tempFiles: string[] = []
   tempDBFiles: string[] = []
   toDeleteDBFiles: string[] = []
 
@@ -63,9 +64,6 @@ export class CodingEdit {
     }
   }
 
-  refreshComponent() {
-    window.location.reload()
-  }
 
   /**
    * Clears the temporary files-Array
@@ -74,7 +72,7 @@ export class CodingEdit {
    */
   cancelInput(value: null) {
     this.emptyData.emit(value)
-    this.files = []
+    this.clipboard.files = []
   }
 
   patchEditForm() {
@@ -104,7 +102,7 @@ export class CodingEdit {
   }
 
 
-  
+
   get useCases() {
     return this.surveyEditForm.get('use_cases') as FormArray;
   }
@@ -156,38 +154,12 @@ export class CodingEdit {
    * 
    */
   async addScreenshotsToDB() {
-    for (const file of this.files) {
+    for (const file of this.clipboard.files) {
       await this.addScrenshot(this.screenshots, file)
     }
   }
 
-  
- /**
-   * Stores temporary screenshot file in files-Array
-   * @param event - the paste-event triggered by the user
-   * @returns 
-   */
-  async addTempScreenshot(event: ClipboardEvent) {
-    let data = event.clipboardData?.items
-    if (!data) return
-    for (const item of data) {
-      let file = item.getAsFile()
-      if (!file) return
-      this.createTempBlobURL(file)
-      this.files.push(file)
-      break;
-    }
-  }
 
-  
-  /**
-   * creates temporary blob-url and stores it into temporary Arraay
-   * @param file - the screenshot-file
-   */
-  createTempBlobURL(file: File) {
-    let tempURL = URL.createObjectURL(file)
-    this.tempFiles.push(tempURL)
-  }
 
   showDeleteBtn = false
   hoveredBlob: string = ''
@@ -232,8 +204,9 @@ export class CodingEdit {
      try {
       let isRowUpdated = await this.db.updateRow(editedData)
       let isFileDeleted = await this.db.deleteFile(this.toDeleteDBFiles)
-       if (this.checkDBHandling(isRowUpdated,isFileDeleted)) {
-        console.log(this.checkDBHandling(isRowUpdated,isFileDeleted));
+      console.log(isRowUpdated);
+      
+       if (this.checkDBHandling(isRowUpdated,true)) {
         
         this.refreshComponent()
       } 
@@ -243,7 +216,12 @@ export class CodingEdit {
     }
   }
 
-  checkDBHandling(isRowUpdated:boolean, isFileDeleted:boolean){
+
+    refreshComponent() {
+    window.location.reload()
+  }
+
+  checkDBHandling(isRowUpdated:boolean, isFileDeleted?:boolean){
     if (isRowUpdated && isFileDeleted) {
        return true
       } else return false
