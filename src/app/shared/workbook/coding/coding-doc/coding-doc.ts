@@ -5,7 +5,8 @@ import { JsonPipe } from '@angular/common';
 import { CodingEdit } from '../coding-edit/coding-edit';
 import { Git } from './git/git';
 import { Python } from './python/python';
-import { Select } from '../../../components/select/select/select';
+import { Select } from '../../../components/select/select';
+
 @Component({
   selector: 'app-coding-doc',
   imports: [JsonPipe, CodingEdit, Git, Python, Select],

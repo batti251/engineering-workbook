@@ -1,0 +1,28 @@
+@use '../abstracts/' as *;
+
+.grid {
+  display: grid;
+  grid-template-columns: 200px auto;
+  grid-template-rows: 100px auto;
+  grid-template-areas:
+    'header header'
+    'nav main';
+  background-color: #013e37;
+
+  &__header {
+    grid-area: header;
+    background: #013e37;
+    color: #ffefb3;
+    text-align: center;
+  }
+  &__nav {
+    grid-area: nav;
+    background: #013e37;
+    color: #ffefb3;
+  }
+  &__main {
+    grid-area: main;
+    background: #ffefb3;
+    border-radius: 20px 40px 20px 20px;
+  }
+}

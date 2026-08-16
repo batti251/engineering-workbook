@@ -1,9 +1,11 @@
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Coding } from './shared/workbook/coding/coding';
+import { Header } from './shared/components/header/header';
+import { Sidebar } from './shared/components/sidebar/sidebar';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,Coding],
+  imports: [RouterOutlet, Sidebar, Header],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',

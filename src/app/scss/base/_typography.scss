@@ -1,8 +1,13 @@
 @use '../../scss/abstracts/' as *;
 
-.text{
-  &__nav{
+.text {
+  &__sidebar {
     @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
     color: #ffefb3;
+    text-decoration: none;
+    &:visited {
+      color: #ffefb3;
+      text-decoration: none;
+    }
   }
 }

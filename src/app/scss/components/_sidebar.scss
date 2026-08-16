@@ -1,0 +1,7 @@
+@use '../abstracts/' as *;
+
+.sidebar {
+  @include dFlex($ai: flex-start, $g: 8px);
+  position: fixed;
+  padding: 18px;
+}

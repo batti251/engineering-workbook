@@ -1,5 +1,7 @@
-
-<main style="display: flex; flex-direction: row;">
-    <app-coding></app-coding>
+<main class="grid">
+  <app-sidebar class="grid__nav"></app-sidebar>
+  <app-header class="grid__header"></app-header>
+  <div class="grid__main">
     <router-outlet />
+  </div>
 </main>
