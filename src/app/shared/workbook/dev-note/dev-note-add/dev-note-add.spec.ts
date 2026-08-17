@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Angular } from './angular';
+import { DevNoteAdd } from './dev-note-add';
 
-describe('Angular', () => {
-  let component: Angular;
-  let fixture: ComponentFixture<Angular>;
+describe('DevNoteAdd', () => {
+  let component: DevNoteAdd;
+  let fixture: ComponentFixture<DevNoteAdd>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Angular],
+      imports: [DevNoteAdd],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Angular);
+    fixture = TestBed.createComponent(DevNoteAdd);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

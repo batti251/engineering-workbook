@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AngularEdit } from './angular-edit';
+import { DevNoteEdit } from './dev-note-edit';
 
-describe('AngularEdit', () => {
-  let component: AngularEdit;
-  let fixture: ComponentFixture<AngularEdit>;
+describe('DevNoteEdit', () => {
+  let component: DevNoteEdit;
+  let fixture: ComponentFixture<DevNoteEdit>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AngularEdit],
+      imports: [DevNoteEdit],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AngularEdit);
+    fixture = TestBed.createComponent(DevNoteEdit);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

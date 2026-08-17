@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './angular-add.html',
   styleUrl: './angular-add.scss',
 })
-export class AngularAdd {}
+export class DevNoteAdd {}

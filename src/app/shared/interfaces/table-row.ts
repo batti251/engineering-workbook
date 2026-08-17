@@ -9,14 +9,14 @@ export interface TableRow {
     screenshots?: string[]
 }
 
-export interface AngularInDepth {
+export interface DevInDepth {
     id?: number,
     topic: string,
     description?: string,
-    notes?: AngularNote[],
+    notes?: DevNote[],
 }
 
-export interface AngularNote {
+export interface DevNote {
     note?: string,
     notes?: string[],
     external_links: string[],

@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-angular-edit',
   imports: [],
-  templateUrl: './angular-edit.html',
-  styleUrl: './angular-edit.scss',
+  templateUrl: './dev-note-edit.html',
+  styleUrl: './dev-note-edit.scss',
 })
-export class AngularEdit {}
+export class DevNoteEdit {}
