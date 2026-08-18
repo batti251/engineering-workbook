@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 @Component({
   selector: 'app-angular-add',
   imports: [],
-  templateUrl: './angular-add.html',
-  styleUrl: './angular-add.scss',
+  templateUrl: './dev-note-add.html',
+  styleUrl: './dev-note-add.scss',
 })
 export class DevNoteAdd {}

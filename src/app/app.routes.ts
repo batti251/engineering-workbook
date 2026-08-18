@@ -18,7 +18,7 @@ export const routes: Routes = [
         component: CodingDoc
     },
     {
-        path: 'devnote',
+        path: 'dev-note',
         component: DevNote
     }
 ];
