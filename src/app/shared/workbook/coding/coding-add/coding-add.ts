@@ -1,88 +1,32 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { TableRow } from '../../../interfaces/table-row';
 import { FormModel } from '../../../models/form-model';
 import { Supabase } from '../../../services/supabase';
-import { Clipboard } from '../../../services/clipboard';
 import { ScreenshotUploadArea } from '../../../components/screenshot-upload-area/screenshot-upload-area';
+import { JsonPipe } from '@angular/common';
+import { Forms } from '../../../services/forms';
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, ScreenshotUploadArea],
+  imports: [ReactiveFormsModule, ScreenshotUploadArea, JsonPipe],
   templateUrl: './coding-add.html',
   styleUrl: './coding-add.scss',
 })
 export class CodingAdd {
   db = inject(Supabase)
-  clipboard = inject(Clipboard)
-  private formBuilder = inject(FormBuilder);
+  forms = inject(Forms)
 
-  surveyForm = this.formBuilder.group({
-    language: ['', Validators.required],
-    description: ['', Validators.required],
-    syntax: ['', Validators.required],
-    return_value: ['', Validators.required],
-    properties: this.formBuilder.array([]),
-    use_cases: this.formBuilder.array([]),
-    screenshots: this.formBuilder.array([])
-  });
-
-  ngOnInit() {
-    this.db.readDB()
-  }
-
-
-
-  get useCases() {
-    return this.surveyForm.get('use_cases') as FormArray;
-  }
-
-  addUseCase() {
-    this.useCases.push(this.formBuilder.control(''));
-  }
-
-  get properties() {
-    return this.surveyForm.get('properties') as FormArray;
-  }
-
-  addProperty() {
-    this.properties.push(this.formBuilder.control(''));
-  }
-
-  get screenshots() {
-    return this.surveyForm.get('screenshots') as FormArray;
-  }
-
-  /**
-   * 
-   */
-  async addScreenshotsToDB() {
-    for (const file of this.clipboard.files) {
-      let screenshotURL = await this.db.addScrenshot(this.screenshots, file)
-      this.screenshots.push(this.formBuilder.control(screenshotURL))
-    }
-  }
-
-
-  removeUseCase(index: number) {
-    this.useCases.removeAt(index)
-  }
-
-  removeProperty(index: number) {
-    this.properties.removeAt(index)
-  }
-
+  
   async sendDataToDB() {
-    await this.addScreenshotsToDB()
-    let data = new FormModel(this.surveyForm.value as Partial<TableRow>)
+    await this.forms.addScreenshotsToDB()
+    let data = new FormModel(this.forms.surveyForm.value as Partial<TableRow>)
     try {
       this.db.isRowAdded = await this.db.addRow(data)
       if (this.db.checkDBHandling()) {
         this.refreshComponent()
       }
     } catch (error) {
-      console.log(error);
-
     }
   }
 

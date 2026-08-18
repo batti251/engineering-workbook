@@ -1,5 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Clipboard } from '../../services/clipboard';
+import { Forms } from '../../services/forms';
+import { Supabase } from '../../services/supabase';
 
 @Component({
   selector: 'app-screenshot-upload-area',
@@ -9,4 +11,9 @@ import { Clipboard } from '../../services/clipboard';
 })
 export class ScreenshotUploadArea {
   clipboard = inject(Clipboard)
+  forms = inject(Forms)
+  db = inject(Supabase)
+  edit = input(false)
+
+
 }

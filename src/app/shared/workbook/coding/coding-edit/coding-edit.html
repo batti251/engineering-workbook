@@ -1,9 +1,9 @@
-@if (surveyEditForm) {
-  <form (ngSubmit)="updateRow()" [formGroup]="surveyEditForm" class="form">
+@if (forms.surveyForm) {
+  <form (ngSubmit)="updateRow()" [formGroup]="forms.surveyForm" class="form">
     <div class="header__nav">
       <h3>
-        Edit: {{ surveyEditForm.controls.language.value }} -
-        {{ surveyEditForm.controls.syntax.value }}
+        Edit: {{ forms.surveyForm.controls.language.value }} -
+        {{ forms.surveyForm.controls.syntax.value }}
       </h3>
       <button class="btn btn__icon--cancel" type="button" (click)="cancelInput(null)"></button>
     </div>
@@ -21,10 +21,10 @@
       <div formArrayName="properties" class="form__group--edit">
         <div class="header__nav">
           <h4>Properties:</h4>
-          <button class="btn btn__icon--add" type="button" (click)="addProperty()"></button>
+          <button class="btn btn__icon--add" type="button" (click)="forms.addProperty()"></button>
         </div>
         <ul class="list">
-          @for (item of properties.controls; track item; let indexProperties = $index) {
+          @for (item of forms.properties.controls; track item; let indexProperties = $index) {
             <li class="list list__element">
               <label for="properties-{{ indexProperties }}">{{ indexProperties + 1 }}: </label>
               <input
@@ -35,7 +35,7 @@
               <button
                 class="btn btn__icon--delete"
                 type="button"
-                (click)="removeProperty(indexProperties)"
+                (click)="forms.removeProperty(indexProperties)"
               ></button>
             </li>
           }
@@ -45,10 +45,10 @@
       <div formArrayName="use_cases" class="form__group--edit">
         <div class="header__nav">
           <h4>Use Cases:</h4>
-          <button class="btn btn__icon--add" type="button" (click)="addUseCase()">+</button>
+          <button class="btn btn__icon--add" type="button" (click)="forms.addUseCase()">+</button>
         </div>
         <ul class="list">
-          @for (item of useCases.controls; track item; let indexUseCase = $index) {
+          @for (item of forms.useCases.controls; track item; let indexUseCase = $index) {
             <li class="list list__element">
               <label for="use_cases-{{ indexUseCase }}">useCase: </label>
               <input
@@ -59,7 +59,7 @@
               <button
                 class="btn btn__icon--delete"
                 type="button"
-                (click)="removeUseCase(indexUseCase)"
+                (click)="forms.removeUseCase(indexUseCase)"
               ></button>
             </li>
           }
@@ -67,19 +67,18 @@
       </div>
 
       <div formArrayName="screenshots" class="form__group--edit">
-        <div>
-          @for (screenshot of screenshots.controls; track $index; let index = $index) {
+         <!-- @for (screenshot of forms.screenshots.controls; track $index; let index = $index) {
             <div class="list list__element">
               <div
                 class="list__element--wrap"
-                (mouseover)="toggleDeleteBtn(screenshot.value)"
-                (mouseout)="toggleDeleteBtn(screenshot.value)"
+                (mouseover)="clipboard.toggleDeleteBtn(screenshot.value)"
+                (mouseout)="clipboard.toggleDeleteBtn(screenshot.value)"
               >
                 <img [src]="db.readScreenshot(screenshot.value)" alt="asd" />
-                @if (screenshot.value === hoveredBlob) {
+                @if (screenshot.value === clipboard.hoveredBlob) {
                   <button
                     type="button"
-                    (click)="removeTempDBScreenshot(index)"
+                    (click)="forms.removeTempDBScreenshot(index)"
                     class="btn__hovered"
                   >
                     <img src="/img/close.svg" alt="" class="btn__hovered--delete" />
@@ -88,19 +87,20 @@
               </div>
             </div>
           }
-        </div>
+
         <div (paste)="clipboard.addTempScreenshot($event)" class="upload-area upload-area__file">
           paste area
           @for (screenshot of clipboard.tempFiles; track $index) {
             <img [src]="screenshot" alt="" />
           }
-        </div>
+        </div> -->
+        <app-screenshot-upload-area [edit]="true"></app-screenshot-upload-area>
       </div>
 
       <button
         class="btn btn__icon--delete"
         type="button"
-        (click)="deleteEntry(surveyEditForm.controls.id)"
+        (click)="db.deleteEntryFromDB(forms.surveyForm.controls.id)"
       ></button>
       <button class="btn btn__icon--submit" type="submit"></button>
     </div>

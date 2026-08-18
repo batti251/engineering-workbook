@@ -12,7 +12,7 @@ export class Supabase {
     supabase = createClient(this.key.supabaseURL, this.key.supabaseKey)
     realtimeEventType = signal('')
     clipboard = inject(Clipboard)
-    
+
     tempDBFiles: string[] = []
     toDeleteDBFiles: string[] = []
 
@@ -43,7 +43,6 @@ export class Supabase {
 
     setEventType(payload: any) {
         console.log(payload);
-
         this.realtimeEventType.set(payload.eventType)
         console.log(this.realtimeEventType());
 
@@ -112,25 +111,9 @@ export class Supabase {
     }
 
 
-    /**
-     * Adds File to supabase storage
-     * @param file - the img-file
-     * @returns - the data-obj with path information
-     */
-    async uploadFile(file: File) {
-        const newFileName = this.setNewFileName(file)
-        const { data, error } = await this.supabase.storage
-            .from('screenshots')
-            .upload(`${this.key.supabasePNGStore}/${newFileName}`, file)
-        if (error) {
-            return
-        } else {
-            return data
-        }
-    }
+
 
     async deleteFile(file: string[]) {
-        console.log(file);
         file.forEach(async file => {
             await this.supabase
                 .storage
@@ -158,7 +141,7 @@ export class Supabase {
  * @param formArray 
  * @param file 
  */
-    async addScrenshot(formArray: FormArray, file: File) {
+    async addScrenshot(file: File) {
         try {
             const path = await this.uploadFile(file)
             if (path) {
@@ -171,11 +154,48 @@ export class Supabase {
         return
     }
 
-
+    /**
+     * Adds File to supabase storage
+     * @param file - the img-file
+     * @returns - the data-obj with path information
+     */
+    async uploadFile(file: File) {
+        const newFileName = this.setNewFileName(file)
+        const { data, error } = await this.supabase.storage
+            .from('screenshots')
+            .upload(`${this.key.supabasePNGStore}/${newFileName}`, file)
+        if (error) {
+            return
+        } else {
+            return data
+        }
+    }
 
     checkDBHandling() {
         if (this.isRowUpdated || this.isFileDeleted || this.isRowAdded) {
             return true
         } else return false
+    }
+
+
+
+
+    async deleteEntryFromDB(id: any) {
+        if (!Number(id.value)) {
+            return
+        }
+        try {
+            let deleteTrigger = await this.deleteRow(id.value)
+            console.log(deleteTrigger);
+            if (!deleteTrigger) {
+                this.refreshComponent()
+            }
+        } catch (error) {
+
+        }
+    }
+
+    refreshComponent() {
+        window.location.reload()
     }
 }
