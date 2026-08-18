@@ -4,10 +4,11 @@ import { TableRow } from '../../../interfaces/table-row';
 import { FormModel } from '../../../models/form-model';
 import { Supabase } from '../../../services/supabase';
 import { Clipboard } from '../../../services/clipboard';
+import { ScreenshotUploadArea } from '../../../components/screenshot-upload-area/screenshot-upload-area';
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, ScreenshotUploadArea],
   templateUrl: './coding-add.html',
   styleUrl: './coding-add.scss',
 })
@@ -62,22 +63,6 @@ export class CodingAdd {
     }
   }
 
-  showDeleteBtn = false
-  hoveredBlob: string = ''
-  /**
-   * toggles hover-states to add delete-hover-effect over images
-   * @param indexUseCase 
-   */
-  toggleDeleteBtn(indexUseCase: string) {
-    console.log(indexUseCase);
-    if (!this.showDeleteBtn) {
-      this.hoveredBlob = indexUseCase
-      this.showDeleteBtn = true
-    } else if (this.showDeleteBtn) {
-      this.showDeleteBtn = false
-      this.hoveredBlob = ''
-    }
-  }
 
   removeUseCase(index: number) {
     this.useCases.removeAt(index)

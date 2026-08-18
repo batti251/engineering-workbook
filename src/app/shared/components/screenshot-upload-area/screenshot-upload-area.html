@@ -1,0 +1,12 @@
+<div (paste)="clipboard.addTempScreenshot($event)" class="upload-area upload-area__file">
+       @for (screenshot of clipboard.tempFiles; track screenshot; let indexUseCase = $index) {
+        <div class="list list__element" >
+          <div class="list__element--wrap" (mouseover)="clipboard.toggleDeleteBtn(screenshot)" (mouseout)="clipboard.toggleDeleteBtn(screenshot)">
+              <img [src]="screenshot" alt="" />
+              @if (screenshot === clipboard.hoveredBlob) {
+                  <button type="button" (click)="clipboard.removeTempScreenshot(indexUseCase)" class="btn__hovered"><img src="/img/close.svg" alt="" class="btn__hovered--delete"></button>
+          }
+          </div>
+        </div>
+      }
+    </div>

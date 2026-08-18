@@ -40,4 +40,22 @@ export class Clipboard {
         this.tempFiles.splice(index, 1)
     }
 
+
+    
+      showDeleteBtn = false
+      hoveredBlob: string = ''
+      /**
+       * toggles hover-states to add delete-hover-effect over images
+       * @param indexUseCase 
+       */
+      toggleDeleteBtn(indexUseCase: string) {
+        console.log(indexUseCase);
+        if (!this.showDeleteBtn) {
+          this.hoveredBlob = indexUseCase
+          this.showDeleteBtn = true
+        } else if (this.showDeleteBtn) {
+          this.showDeleteBtn = false
+          this.hoveredBlob = ''
+        }
+      }
 }
