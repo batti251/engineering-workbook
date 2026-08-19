@@ -22,6 +22,11 @@ export class Forms {
         screenshots: this.formBuilder.array([])
     });
 
+    signInForm = this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+    })
+
     get useCases() {
         return this.surveyForm.get('use_cases') as FormArray;
     }

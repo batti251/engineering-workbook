@@ -3,7 +3,7 @@ import { createClient, RealtimeChannel } from '@supabase/supabase-js'
 import { Keys } from './key';
 import { TableRow } from '../interfaces/table-row';
 import { Clipboard } from './clipboard';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 
 @Service()
 export class Supabase {
@@ -45,7 +45,6 @@ export class Supabase {
         console.log(payload);
         this.realtimeEventType.set(payload.eventType)
         console.log(this.realtimeEventType());
-
     }
 
     async readDB() {
@@ -165,7 +164,7 @@ export class Supabase {
             .from('screenshots')
             .upload(`${this.key.supabasePNGStore}/${newFileName}`, file)
         if (error) {
-            return
+            return 
         } else {
             return data
         }
