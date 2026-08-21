@@ -1,5 +1,5 @@
 @for (item of data(); track $index) {
-<div class="card">
+<div class="card text__regular">
       @if (selectItem !== item) {
         <h3>{{ item.syntax }}</h3>
         <p>{{ item.description }}</p>
@@ -23,7 +23,7 @@
           @for (img of item.screenshots; track $index) {
             @if (img.length == 0) {
             } @else {
-              <img [src]="db.readScreenshot(img)" alt="" />
+              <img class="img" [src]="db.readScreenshot(img)" alt="" />
             }
           } @empty {}
         </div>

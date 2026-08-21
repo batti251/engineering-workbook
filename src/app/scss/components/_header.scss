@@ -11,4 +11,8 @@
     @include size($h: 100px);
     @include dFlex($fd: unset, $jc: flex-start, $ai: flex-start, $g: 80px);
     margin: 0 0 32px 0;
+
+    @include respond(m){
+        gap:16px
+    }
 }

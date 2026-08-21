@@ -6,6 +6,11 @@
     color: #013e37;
     text-decoration: none;
   }
+  &__regular{
+    @include font($fw: 400, $fs: clamp(1rem, 1rem, 1vw));
+    color: #013e37;
+    text-decoration: none;
+  }
   &__sidebar {
     @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
     color: #ffefb3;

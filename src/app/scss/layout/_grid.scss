@@ -19,10 +19,22 @@
     grid-area: nav;
     background: #013e37;
     color: #ffefb3;
+    @include respond(m) {
+      background-color: #013e37;
+    }
   }
   &__main {
     grid-area: main;
     background: #ffefb3;
     border-radius: 20px 40px 20px 20px;
+  }
+
+  @include respond(m) {
+    grid-template-columns: auto;
+    grid-template-rows: 100px 80px auto;
+    grid-template-areas:
+      'header'
+      'nav'
+      'main';
   }
 }
