@@ -1,18 +1,29 @@
 @use '../abstracts/' as *;
 
-.header{
-    &__nav{
-        @include dFlex($fd: unset, $jc: space-between)
+.header {
+  &__nav {
+    @include dFlex($fd: unset, $jc: space-between);
+  }
+  &__login {
+    @include dFlex($fd: row, $jc: space-between);
+    padding: 0 24px;
+     @include respond(m) {
+      justify-content: center;
+    }
+    &--state{
+     @include respond(m) {
+      display: none;
     }
 }
+  }
+}
 
+.sub-header {
+  @include size($h: 100px);
+  @include dFlex($fd: unset, $jc: flex-start, $ai: flex-start, $g: 80px);
+  margin: 0 0 32px 0;
 
-.sub-header{
-    @include size($h: 100px);
-    @include dFlex($fd: unset, $jc: flex-start, $ai: flex-start, $g: 80px);
-    margin: 0 0 32px 0;
-
-    @include respond(m){
-        gap:16px
-    }
+  @include respond(m) {
+    gap: 16px;
+  }
 }

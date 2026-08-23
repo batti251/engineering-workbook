@@ -4,21 +4,22 @@
   background-color: transparent;
   border: 1px solid black;
   border-radius: 4px;
-
-  &__icon{
-    &--add{
-       @include backgroundImg($w: 24px, $h: 24px, $bi:url('/img/add.svg'));
+@include font($fs: clamp(1rem, 1rem, 1vw));
+  &__icon {
+    &--add {
+      @include backgroundImg($w: 24px, $h: 24px, $bi: url('/img/add.svg'));
     }
-    &--cancel{
-      @include backgroundImg($w: 24px, $h: 24px, $bi:url('/img/close_red.svg'));
+    &--cancel {
+      @include backgroundImg($w: 24px, $h: 24px, $bi: url('/img/close_red.svg'));
     }
-    &--delete{
-       @include backgroundImg($w: 24px, $h: 24px, $bi:url('/img/delete.svg'));
+    &--delete {
+      @include backgroundImg($w: 24px, $h: 24px, $bi: url('/img/delete.svg'));
     }
-    &--submit{
-       @include backgroundImg($w: 80px, $h: 32px, $bi:url('/img/submit_alt.svg'));
+    &--submit {
+      @include backgroundImg($w: 80px, $h: 32px, $bi: url('/img/submit_alt.svg'));
     }
   }
+
   &__hovered {
     position: absolute;
     top: 50%;
@@ -35,7 +36,14 @@
     }
   }
 
-  &:hover{
+  &--submit {
+    @include border($br: 4px);
+    @include size($h: 24px);
+    background-color: green;
+    color: #ffefb3;
+  }
+
+  &:hover {
     border: 1px solid yellow;
     filter: brightness(1.1);
     cursor: pointer;

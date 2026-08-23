@@ -1,0 +1,8 @@
+@use '../../../scss/abstracts/' as *;
+
+
+
+.form{
+  @include dFlex($fd: column, $ai: flex-end, $g: 8px);
+
+}

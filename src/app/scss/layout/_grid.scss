@@ -3,7 +3,7 @@
 .grid {
   display: grid;
   grid-template-columns: 200px auto;
-  grid-template-rows: 100px auto;
+  grid-template-rows: 120px calc(100vh - 120px);
   grid-template-areas:
     'header header'
     'nav main';
@@ -31,7 +31,7 @@
 
   @include respond(m) {
     grid-template-columns: auto;
-    grid-template-rows: 100px 80px auto;
+    grid-template-rows: 120px 120px calc(100vh - 240px);
     grid-template-areas:
       'header'
       'nav'

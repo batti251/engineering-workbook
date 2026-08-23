@@ -1,16 +1,21 @@
 <div>
-  <span>Status:</span>
-  <span>{{signInStatus}}</span>
+  @if (!this.auth.isActiveSession()) {
+    <form class="form" [formGroup]="form.signInForm" (submit)="sendCredentials(email, password)">
+      <div class="login__input">
+        <label for="email_input">Email</label>
+        <input class="form__input" id="email_input" type="email" formControlName="email" />
+      </div>
+      <div class="login__input">
+        <label for="password_input">Password</label>
+        <input
+          class="form__input"
+          id="password_input"
+          type="password"
+          autocomplete="off"
+          formControlName="password"
+        />
+      </div>
+      <button class="btn btn--submit" type="submit">Sign In</button>
+    </form>
+  }
 </div>
-
-@if (!this.isActiveSession()) {
-  <form [formGroup]="form.signInForm" (submit)="sendCredentials(email, password)">
-    <label for="email_input">Email</label>
-    <input id="email_input" type="email" formControlName="email" />
-
-    <label for="password_input">Password</label>
-    <input id="password_input" type="password" autocomplete="off" formControlName="password" />
-
-    <button type="submit">Sign In</button>
-  </form>
-}
