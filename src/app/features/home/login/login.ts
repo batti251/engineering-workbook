@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
-import { Auth } from '../../services/auth';
-import { Forms } from '../../services/forms';
+import { Auth } from '../../../core/auth';
+import { Forms } from '../../../shared/services/forms';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
-import { Keys } from '../../services/key';
-import { LocalStorage } from '../../services/local-storage';
+import { Keys } from '../../../shared/services/key';
+import { LocalStorage } from '../../../core/local-storage';
 
 @Component({
   selector: 'app-login',

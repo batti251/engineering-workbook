@@ -1,7 +1,7 @@
 import { inject, Service, signal } from '@angular/core';
 import { createClient, RealtimeChannel } from '@supabase/supabase-js'
-import { Keys } from './key';
-import { TableRow } from '../interfaces/table-row';
+import { Keys } from '../shared/services/key';
+import { KnowledgeEntryData } from '../shared/interfaces/knowledge-entry-data';
 import { Clipboard } from './clipboard';
 import { FormBuilder } from '@angular/forms';
 
@@ -62,7 +62,7 @@ export class Supabase {
     }
 
 
-    async addRow(userData: TableRow) {
+    async addRow(userData: KnowledgeEntryData) {
         const { data, error } = await this.supabase
             .from('programming_language')
             .insert([
@@ -82,7 +82,7 @@ export class Supabase {
         } else return false
     }
 
-    async updateRow(editedData: TableRow) {
+    async updateRow(editedData: KnowledgeEntryData) {
         const { data, error } = await this.supabase
             .from('programming_language')
             .update({

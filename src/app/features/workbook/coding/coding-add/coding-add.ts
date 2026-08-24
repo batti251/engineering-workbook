@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
-import { TableRow } from '../../../interfaces/table-row';
-import { FormModel } from '../../../models/form-model';
-import { Supabase } from '../../../services/supabase';
-import { ScreenshotUploadArea } from '../../../components/screenshot-upload-area/screenshot-upload-area';
+import { KnowledgeEntryData } from '../../../../shared/interfaces/knowledge-entry-data';
+import { KnowledgeEntry } from '../../../../shared/models/knowledge-entry';
+import { Supabase } from '../../../../core/supabase';
+import { ScreenshotUploadArea } from '../../../../shared/components/screenshot-upload-area/screenshot-upload-area';
 import { JsonPipe } from '@angular/common';
-import { Forms } from '../../../services/forms';
+import { Forms } from '../../../../shared/services/forms';
 
 @Component({
   selector: 'app-coding-add',
@@ -20,7 +20,7 @@ export class CodingAdd {
   
   async sendDataToDB() {
     await this.forms.addScreenshotsToDB()
-    let data = new FormModel(this.forms.surveyForm.value as Partial<TableRow>)
+    let data = new KnowledgeEntry(this.forms.surveyForm.value as Partial<KnowledgeEntryData>)
     try {
       this.db.isRowAdded = await this.db.addRow(data)
       if (this.db.checkDBHandling()) {

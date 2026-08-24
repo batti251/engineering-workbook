@@ -1,8 +1,8 @@
-import { inject, input, Service } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Supabase } from './supabase';
-import { Clipboard } from './clipboard';
-import { TableRow } from '../interfaces/table-row';
+import { Supabase } from '../../core/supabase';
+import { Clipboard } from '../../core/clipboard';
+import { KnowledgeEntryData } from '../interfaces/knowledge-entry-data';
 
 @Service()
 export class Forms {
@@ -58,7 +58,6 @@ export class Forms {
             let url = URL.createObjectURL(file)
             this.screenshots.push(this.formBuilder.control(url));
             this.tempFiles.push(file)
-
         }
     }
 
@@ -100,7 +99,7 @@ export class Forms {
     }
 
 
-    patchEditForm(data: TableRow) {
+    patchEditForm(data: KnowledgeEntryData) {
         this.surveyForm.patchValue({
             id: data?.id,
             language: data?.language,
@@ -116,7 +115,7 @@ export class Forms {
         property.controls = []
     }
 
-    setOptionalFormControls(data: TableRow) {
+    setOptionalFormControls(data: KnowledgeEntryData) {
         data?.properties?.forEach(property => {
             this.properties.push(this.formBuilder.control(property))
         })

@@ -1,11 +1,10 @@
 import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
-import { Supabase } from '../../../services/supabase';
-import { TableRow } from '../../../interfaces/table-row';
+import { Supabase } from '../../../../core/supabase';
+import { KnowledgeEntryData } from '../../../../shared/interfaces/knowledge-entry-data';
 import { JsonPipe } from '@angular/common';
-import { CodingEdit } from '../coding-edit/coding-edit';
 import { Git } from './git/git';
 import { Python } from './python/python';
-import { Select } from '../../../components/select/select';
+import { Select } from '../../../../shared/components/select/select';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -17,7 +16,7 @@ import { RouterLink } from '@angular/router';
 export class CodingDoc {
   db = inject(Supabase)
   selectedValue: string = 'Python'
-  datas = signal<TableRow[]>([{
+  datas = signal<KnowledgeEntryData[]>([{
     language: "",
     description: "",
     syntax: "",
@@ -27,7 +26,7 @@ export class CodingDoc {
     screenshots: []
   }])
   
-  filteredItems = signal<TableRow[]>([{
+  filteredItems = signal<KnowledgeEntryData[]>([{
     language: "",
     description: "",
     syntax: "",
@@ -66,7 +65,7 @@ export class CodingDoc {
 
 
   async readDB() {
-    let database = await this.db.readDB() as TableRow[]
+    let database = await this.db.readDB() as KnowledgeEntryData[]
     if (database.length > 0) {
       this.datas.set(database)
       this.filteredItems.set(database)

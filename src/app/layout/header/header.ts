@@ -1,5 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { Auth } from '../../services/auth';
+import { Auth } from '../../core/auth';
 
 @Component({
   selector: 'app-header',

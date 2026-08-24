@@ -1,6 +1,6 @@
 import { Component, input, inject } from '@angular/core';
-import { TableRow } from '../../../../interfaces/table-row';
-import { Supabase } from '../../../../services/supabase';
+import { KnowledgeEntryData } from '../../../../../shared/interfaces/knowledge-entry-data';
+import { Supabase } from '../../../../../core/supabase';
 import { CodingEdit } from '../../coding-edit/coding-edit';
 
 @Component({
@@ -10,7 +10,7 @@ import { CodingEdit } from '../../coding-edit/coding-edit';
   styleUrl: './python.scss',
 })
 export class Python {
-  data = input<TableRow[]>()
+  data = input<KnowledgeEntryData[]>()
   db = inject(Supabase)
 
   ngOnInit(){
@@ -18,12 +18,12 @@ export class Python {
     
   }
   
-  selectItem: TableRow | null = null
+  selectItem: KnowledgeEntryData | null = null
   clearSelectItem(emptyData: null) {
     this.selectItem = emptyData
   }
 
-    updateRow(data: TableRow) {
+    updateRow(data: KnowledgeEntryData) {
     this.selectItem = data
   }
 }

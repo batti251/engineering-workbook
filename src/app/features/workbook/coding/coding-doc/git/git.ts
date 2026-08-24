@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { TableRow } from '../../../../interfaces/table-row';
+import { KnowledgeEntryData } from '../../../../../shared/interfaces/knowledge-entry-data';
 @Component({
   selector: 'app-git',
   imports: [],
@@ -8,6 +8,6 @@ import { TableRow } from '../../../../interfaces/table-row';
 })
 export class Git {
 
-  data = input<TableRow[]>()  
+  data = input<KnowledgeEntryData[]>()  
 
 }

@@ -1,7 +1,7 @@
 import { Component, signal, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { Header } from './shared/components/header/header';
-import { Sidebar } from './shared/components/sidebar/sidebar';
+import { Header } from './layout/header/header';
+import { Sidebar } from './layout/sidebar/sidebar';
 
 @Component({
   selector: 'app-root',

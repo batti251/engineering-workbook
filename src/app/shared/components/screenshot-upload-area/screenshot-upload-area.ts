@@ -1,7 +1,7 @@
 import { Component, inject, input } from '@angular/core';
-import { Clipboard } from '../../services/clipboard';
+import { Clipboard } from '../../../core/clipboard';
 import { Forms } from '../../services/forms';
-import { Supabase } from '../../services/supabase';
+import { Supabase } from '../../../core/supabase';
 
 @Component({
   selector: 'app-screenshot-upload-area',

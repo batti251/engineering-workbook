@@ -1,6 +1,6 @@
-import { TableRow } from "../interfaces/table-row"
+import { KnowledgeEntryData } from "../interfaces/knowledge-entry-data"
 
-export class FormModel {
+export class KnowledgeEntry {
     id?: number;
     language: string;
     description: string;
@@ -10,9 +10,7 @@ export class FormModel {
     use_cases: string[];
     screenshots?: string[]
 
-
-
-    constructor(data: Partial<TableRow>){
+    constructor(data: Partial<KnowledgeEntryData>){
         this.id = data.id ?? 0;
         this.language = data.language ?? "";
         this.description = data.description ?? "";

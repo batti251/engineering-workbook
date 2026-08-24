@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { Coding } from './shared/workbook/coding/coding';
-import { CodingDoc } from './shared/workbook/coding/coding-doc/coding-doc';
-import { CodingAdd } from './shared/workbook/coding/coding-add/coding-add';
-import { DevNote } from './shared/workbook/dev-note/dev-note';
-import { Home } from './shared/components/home/home';
+import { Coding } from './features/workbook/coding/coding';
+import { CodingDoc } from './features/workbook/coding/coding-doc/coding-doc';
+import { CodingAdd } from './features/workbook/coding/coding-add/coding-add';
+import { DevNote } from './features/workbook/dev-note/dev-note';
+import { Home } from './features/home/home';
 
 export const routes: Routes = [
     {

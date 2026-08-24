@@ -1,14 +1,13 @@
 import { Component, inject, input, Output, EventEmitter, signal } from '@angular/core';
-import { FormBuilder, Validators, FormArray, ReactiveFormsModule } from '@angular/forms';
-import { TableRow } from '../../../interfaces/table-row';
-import { FormModel } from '../../../models/form-model';
-import { Supabase } from '../../../services/supabase';
+import { ReactiveFormsModule } from '@angular/forms';
+import { KnowledgeEntryData } from '../../../../shared/interfaces/knowledge-entry-data';
+import { KnowledgeEntry } from '../../../../shared/models/knowledge-entry';
+import { Supabase } from '../../../../core/supabase';
 import { JsonPipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Clipboard } from '../../../services/clipboard';
-import { Forms } from '../../../services/forms';
-import { ScreenshotUploadArea } from "../../../components/screenshot-upload-area/screenshot-upload-area";
-import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/signals';
+import { Clipboard } from '../../../../core/clipboard';
+import { Forms } from '../../../../shared/services/forms';
+import { ScreenshotUploadArea } from "../../../../shared/components/screenshot-upload-area/screenshot-upload-area";
 
 @Component({
   selector: 'app-coding-edit',
@@ -17,7 +16,7 @@ import { setThrowInvalidWriteToSignalError } from '@angular/core/primitives/sign
   styleUrl: './coding-edit.scss',
 })
 export class CodingEdit {
-  data = input.required<TableRow>()
+  data = input.required<KnowledgeEntryData>()
   @Output() emptyData = new EventEmitter<null>();
   router = inject(Router)
   db = inject(Supabase)
@@ -63,7 +62,7 @@ export class CodingEdit {
 
   async updateRow() {
     await this.forms.addScreenshotsToDB(true)
-    let editedData = new FormModel(this.forms.surveyForm.value as TableRow)
+    let editedData = new KnowledgeEntry(this.forms.surveyForm.value as KnowledgeEntryData)
        try {
       this.db.isRowUpdated = await this.db.updateRow(editedData)
       this.db.isFileDeleted = await this.db.deleteFile(this.db.toDeleteDBFiles)

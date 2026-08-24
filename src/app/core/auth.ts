@@ -1,6 +1,6 @@
 import { inject, Service, signal } from '@angular/core';
 import { createClient } from '@supabase/supabase-js'
-import { Keys } from './key';
+import { Keys } from '../shared/services/key';
 import { AbstractControl } from '@angular/forms';
 import { LocalStorage } from './local-storage';
 
