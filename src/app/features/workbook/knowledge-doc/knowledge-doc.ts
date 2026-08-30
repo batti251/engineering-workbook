@@ -1,66 +1,72 @@
 import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
-import { Supabase } from '../../../../core/supabase';
-import { KnowledgeEntryData } from '../../../../shared/interfaces/knowledge-entry-data';
+import { Supabase } from '../../../core/supabase';
+import { KnowledgeEntryData, KnowledgeSubEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { JsonPipe } from '@angular/common';
-import { Git } from './git/git';
-import { Python } from './python/python';
-import { Select } from '../../../../shared/components/select/select';
+import { Select } from '../../../shared/components/select/select';
 import { RouterLink } from '@angular/router';
+import { Keys } from '../../../shared/services/key';
 
 @Component({
   selector: 'app-coding-doc',
-  imports: [JsonPipe, RouterLink, Git, Python, Select],
-  templateUrl: './coding-doc.html',
-  styleUrl: './coding-doc.scss',
+  imports: [JsonPipe, RouterLink, Select],
+  templateUrl: './knowledge-doc.html',
+  styleUrl: './knowledge-doc.scss',
 })
-export class CodingDoc {
+export class KnowledgeDoc {
   db = inject(Supabase)
   selectedValue: string = 'Python'
-  datas = signal<KnowledgeEntryData[]>([{
-    language: "",
-    description: "",
-    syntax: "",
-    return_value: "",
-    properties: [],
-    use_cases: [],
-    screenshots: []
-  }])
-  
-  filteredItems = signal<KnowledgeEntryData[]>([{
-    language: "",
-    description: "",
-    syntax: "",
-    return_value: "",
-    properties: [],
-    use_cases: [],
-    screenshots: []
+  key = inject(Keys)
+  storageImgPath = this.key.supabaseURL+'/'+ this.key.supabaseStorage + '/' + this.key.supabasePNGStore
+
+    subEnt = signal<KnowledgeSubEntryData[]>([{
+    subTitle: '',
+    description: '',
+    details: [],
+    screenshots: [],
+    externalLinks: []
   }])
 
+
+  datas = signal<KnowledgeEntryData[]>([{
+    title: "",
+    description: "",
+    tags: [],
+    image: '',
+    subEntries: this.subEnt()
+  }])
+
+  filteredItems = signal<KnowledgeEntryData[]>([{
+    title: "",
+    description: "",
+    tags: [],
+    image: '',
+    subEntries: this.subEnt()
+  }])
 
 
   getSelectedValue(value: string[]) {
     console.log(value[0]);
-    
+
     this.filterDatas(value[0])
     console.log(this.filterDatas(value[0]));
-    
+
   }
 
   filterDatas(value: string) {
-    this.filteredItems.update(() => this.datas().filter((entry) => {
-     return entry.language == value
+  /*   this.filteredItems.update(() => this.datas().filter((entry) => {
+      return entry.language == value
     }))
     console.log(this.selectedValue);
     this.selectedValue = value
-    console.log(this.filteredItems());
-    
+    console.log(this.filteredItems()); */
+
   }
 
   async ngOnInit() {
     await this.readDB()
     console.log(this.datas());
     console.log(this.filteredItems());
-    
+
   }
 
 

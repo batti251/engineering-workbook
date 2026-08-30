@@ -1,9 +1,9 @@
-@use '../../../../scss/abstracts/index' as *;
+@use '../../../scss/abstracts/index' as *;
 
 
 .form{
     @include dFlex($fd: column, $ai: unset, $g: 8px);
-    width: min(320px, 80%);
+    
 }
 
 

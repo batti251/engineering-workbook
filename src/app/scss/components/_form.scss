@@ -10,9 +10,68 @@
     &--doc {
       @include dFlex($fd: column, $g: 8px);
     }
+    &--sub-entry {
+      @include dFlex($fd: row, $jc: flex-start, $ai: flex-start, $g: 16px);
+      flex-wrap: wrap;
+    }
   }
-  &__input{
-    @include border($br: 5px, $bs: unset);
-    @include size($h:20px);
+  &__input {
+    @include border($br: 5px, $bs: solid, $bw: 2px, $bc: #ffefb3);
+    @include size($h: 32px, $w: 90%);
+    &--tag {
+      width: 120px;
+    }
+    &--title {
+      width: 240px;
+    }
+    &--textarea {
+      @include size($h: 120px, $w: 100%);
+    }
+  }
+  &__wrap {
+    @include dFlex($ai: normal, $g: 8px);
+    width: 100%;
+    &--row {
+      @include dFlex($fd: row, $g: 8px);
+    }
+    &--input {
+      @include dFlex($fd: row, $ai: center, $jc: unset, $g: 8px);
+    }
+    &--tag {
+      @include dFlex($fd: row, $ai: center, $jc: unset, $g: 8px);
+      @include size($w: 200px);
+      padding: 8px;
+      background-color: #013e37;
+      @include border($br: 8px);
+    }
+  }
+  &__border {
+    @include border($br: 4px);
+    padding: 8px;
+  }
+  &--sub-entry {
+    width: min(420px, 80%);
+    @include dFlex($ai: unset, $jc: unset);
+    @include border($br: 16px);
+    background: #013e37;
+    padding: 32px 16px;
+    gap: 16px;
+  }
+}
+
+input,
+textarea {
+  &:focus {
+    background-color: #ffefb3;
+
+    outline: 3px outset #013e37;
+  }
+  &:-webkit-autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px #ffefb3 inset;
+  }
+  &:autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px #ffefb3 inset;
   }
 }

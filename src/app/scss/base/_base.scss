@@ -13,7 +13,24 @@ body {
   box-sizing: border-box;
 }
 
-.flex-center-end{
+.flex-center-end {
   @include dFlex($fd: unset, $ai: flex-end);
   @include size($h: 100%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+$base-unit: 8px;
+
+@for $i from 0 through 4{
+  .g-#{$i} {
+    gap: $i*$base-unit !important;
+  }
 }

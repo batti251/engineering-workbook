@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScreenshotUploadArea } from './screenshot-upload-area';
+import { KnowledgeForm } from './knowledge-form';
 
-describe('ScreenshotUploadArea', () => {
-  let component: ScreenshotUploadArea;
-  let fixture: ComponentFixture<ScreenshotUploadArea>;
+describe('CodingAdd', () => {
+  let component: KnowledgeForm;
+  let fixture: ComponentFixture<KnowledgeForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ScreenshotUploadArea],
+      imports: [KnowledgeForm],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ScreenshotUploadArea);
+    fixture = TestBed.createComponent(KnowledgeForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

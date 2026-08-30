@@ -48,10 +48,18 @@ export class Supabase {
     }
 
     async readDB() {
-        let { data: programming_language, error } = await this.supabase
-            .from('programming_language')
+        let { data: knowledge_entry, error } = await this.supabase
+            .from('knowledge_entry')
             .select('*')
-        return programming_language
+        return knowledge_entry
+    }
+
+    async readDBEntry(id:string) {
+        let { data: knowledge_entry, error } = await this.supabase
+            .from('knowledge_entry')
+            .select('*')
+            .eq('id',id)
+        return knowledge_entry
     }
 
     readScreenshot(img: string) {
@@ -64,35 +72,35 @@ export class Supabase {
 
     async addRow(userData: KnowledgeEntryData) {
         const { data, error } = await this.supabase
-            .from('programming_language')
+            .from('knowledge_entry')
             .insert([
                 {
-                    language: userData.language,
+                    title: userData.title,
                     description: userData.description,
-                    syntax: userData.syntax,
-                    return_value: userData.return_value,
-                    properties: userData.properties,
-                    use_cases: userData.use_cases,
-                    screenshots: userData.screenshots
+                    tags: userData.tags,
+                    image: userData.image,
+                    subEntries: userData.subEntries,
                 },
             ])
             .select()
         if (!error) {
             return true
-        } else return false
+        } else 
+            console.log(error);
+            console.log(userData);
+            
+            return false
     }
 
     async updateRow(editedData: KnowledgeEntryData) {
         const { data, error } = await this.supabase
-            .from('programming_language')
+            .from('knowledge_entry')
             .update({
-                language: editedData.language,
+                title: editedData.title,
                 description: editedData.description,
-                syntax: editedData.syntax,
-                return_value: editedData.return_value,
-                use_cases: editedData.use_cases,
-                properties: editedData.properties,
-                screenshots: editedData.screenshots
+                tags: editedData.tags,
+                image: editedData.image,
+                subEntries: editedData.subEntries,
             })
             .eq('id', editedData.id)
             .select()
@@ -103,7 +111,7 @@ export class Supabase {
 
     async deleteRow(id: number) {
         const { error } = await this.supabase
-            .from('programming_language')
+            .from('knowledge_entry')
             .delete()
             .eq('id', id)
         return error
@@ -144,13 +152,15 @@ export class Supabase {
         try {
             const path = await this.uploadFile(file)
             if (path) {
+                console.log(path);
+                
                 return path.path
             }
+            else  return ''
         } catch (error) {
             console.log(error);
             return
         }
-        return
     }
 
     /**
@@ -164,8 +174,12 @@ export class Supabase {
             .from('screenshots')
             .upload(`${this.key.supabasePNGStore}/${newFileName}`, file)
         if (error) {
-            return 
+            console.log(`${this.key.supabasePNGStore}/${newFileName}`);
+            
+            return
         } else {
+            console.log(`${this.key.supabasePNGStore}/${newFileName}`);
+            
             return data
         }
     }

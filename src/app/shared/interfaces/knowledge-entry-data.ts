@@ -1,10 +1,17 @@
 export interface KnowledgeEntryData {
     id?: number,
-    language: string,
+    title: string,
     description: string,
-    syntax: string,
-    return_value: string,
-    properties?: string[],
-    use_cases?: string[],
-    screenshots?: string[]
+    tags: string[],
+    image?: string,
+    subEntries: KnowledgeSubEntryData[]
+
+}
+
+export interface KnowledgeSubEntryData {
+    subTitle: string,
+    description?: string,
+    details?: string[],
+    screenshots?: string[],
+    externalLinks?: string[]
 }

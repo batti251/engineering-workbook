@@ -1,23 +1,19 @@
-import { KnowledgeEntryData } from "../interfaces/knowledge-entry-data"
+import { KnowledgeEntryData, KnowledgeSubEntryData } from "../interfaces/knowledge-entry-data"
 
 export class KnowledgeEntry {
     id?: number;
-    language: string;
+    title: string;
     description: string;
-    syntax: string;
-    return_value: string;
-    properties: string[];
-    use_cases: string[];
-    screenshots?: string[]
+    tags: string[];
+    image?: string;
+    subEntries: KnowledgeSubEntryData[]
 
-    constructor(data: Partial<KnowledgeEntryData>){
+    constructor(data: Partial<KnowledgeEntryData>) {
         this.id = data.id ?? 0;
-        this.language = data.language ?? "";
+        this.title = data.title ?? "";
         this.description = data.description ?? "";
-        this.syntax = data.syntax ?? "";
-        this.return_value = data.return_value ?? "";
-        this.properties = data.properties ?? [];
-        this.use_cases = data.use_cases ?? [];
-        this.screenshots = data.screenshots ?? [];
+        this.tags = data.tags ?? [];
+        this.image = data.image ?? '';
+        this.subEntries = data.subEntries ?? [];
     }
 }

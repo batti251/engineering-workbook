@@ -1,12 +1,43 @@
 @use '../../scss/abstracts/' as *;
 
 .text {
-  &__primary{
+  &__primary {
     @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
     color: #013e37;
     text-decoration: none;
+    &--h2 {
+      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 1vw));
+    }
+    &--h3 {
+      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));
+    }
+    &--input {
+      @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1vw));
+    }
   }
-  &__regular{
+  &__secondary {
+    @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
+    color: #ffefb3;
+    text-decoration: none;
+    &--h2 {
+      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 1vw));
+    }
+    &--h3 {
+      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));
+    }
+  }
+  &__tertiary {
+    @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
+    color: #d19914bf;
+    text-decoration: none;
+    &--h2 {
+      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 1vw));
+    }
+    &--h3 {
+      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));
+    }
+  }
+  &__regular {
     @include font($fw: 400, $fs: clamp(1rem, 1rem, 1vw));
     color: #013e37;
     text-decoration: none;
@@ -20,4 +51,12 @@
       text-decoration: none;
     }
   }
+}
+
+.paragraph {
+  text-overflow: ellipsis;
+  word-break: break-word;
+  padding: unset;
+  margin: unset;
+  width: min(800px, 80%);
 }

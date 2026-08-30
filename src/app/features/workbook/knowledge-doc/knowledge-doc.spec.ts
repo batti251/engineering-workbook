@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DevNoteAdd } from './dev-note-add';
+import { KnowledgeDoc } from './knowledge-doc';
 
-describe('DevNoteAdd', () => {
-  let component: DevNoteAdd;
-  let fixture: ComponentFixture<DevNoteAdd>;
+describe('CodingDoc', () => {
+  let component: KnowledgeDoc;
+  let fixture: ComponentFixture<KnowledgeDoc>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DevNoteAdd],
+      imports: [KnowledgeDoc],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DevNoteAdd);
+    fixture = TestBed.createComponent(KnowledgeDoc);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

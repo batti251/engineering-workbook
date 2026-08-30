@@ -1,8 +1,6 @@
 import { Routes } from '@angular/router';
-import { Coding } from './features/workbook/coding/coding';
-import { CodingDoc } from './features/workbook/coding/coding-doc/coding-doc';
-import { CodingAdd } from './features/workbook/coding/coding-add/coding-add';
-import { DevNote } from './features/workbook/dev-note/dev-note';
+import { KnowledgeDoc } from './features/workbook/knowledge-doc/knowledge-doc';
+import { KnowledgeForm, entryResolver } from './features/workbook/knowledge-form/knowledge-form';
 import { Home } from './features/home/home';
 
 export const routes: Routes = [
@@ -10,16 +8,24 @@ export const routes: Routes = [
         path: '',
         component: Home
     },
-     {
-        path: 'code',
-        component: CodingAdd
+    {
+        path: 'knowledge/doc',
+        component: KnowledgeDoc
     },
     {
-        path: 'doc',
-        component: CodingDoc
+        path: 'knowledge/:state',
+        component: KnowledgeForm,
+        resolve: {
+            entry: entryResolver,
+        }
     },
     {
-        path: 'dev-note',
-        component: DevNote
-    }
+        path: 'knowledge/:state/:id',
+        component: KnowledgeForm,
+        resolve: {
+            entry: entryResolver,
+        }
+    },
+    
+
 ];

@@ -3,7 +3,7 @@
 .grid {
   display: grid;
   grid-template-columns: 200px auto;
-  grid-template-rows: 120px calc(100vh - 120px);
+  grid-template-rows: 120px 100%;
   grid-template-areas:
     'header header'
     'nav main';

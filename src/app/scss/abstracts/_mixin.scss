@@ -13,7 +13,7 @@
   height: $h;
 }
 
-@mixin backgroundImg($w: 100%, $h: auto, $bi: url(''), $bp: center, $bc: transparent, $bs: contain, $br: no-repeat) {
+@mixin backgroundImg($w: 100%, $h: auto, $bi: unset, $bp: center, $bc: transparent, $bs: contain, $br: no-repeat) {
   width: $w;
   height: $h;
   background-image: $bi;

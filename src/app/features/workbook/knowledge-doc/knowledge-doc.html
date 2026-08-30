@@ -1,0 +1,90 @@
+<div class="content__wrap">
+  <div class="sub-header">
+    <app-select (selectedValue)="getSelectedValue($event)"></app-select>
+    <div class="flex-center-end">
+      <a class="text__primary" [routerLink]="['/knowledge/new-entry']">Add Code Entry</a>
+    </div>
+  </div>
+  <!--  @switch (selectedValue) {
+    @case ("git") {
+      <app-git [data]="filteredItems()"></app-git>
+    }
+    @case ("Python") {
+      <app-python [data]="filteredItems()"></app-python>
+    }
+  } -->
+
+  <main class="knowledge-entry__content">
+
+    @for (knowledgeEntry of filteredItems(); track $index; let itemIndex = $index) {
+
+      <article class="knowledge-entry">
+        <a class="btn" [routerLink]="[`/knowledge/edit-entry/${knowledgeEntry.id}`]">Edit</a>
+        
+        <section class="knowledge-entry knowledge-entry__main">
+          <h2 class="text__tertiary text__tertiary--h2">{{ knowledgeEntry.title }}</h2>
+
+          @if (knowledgeEntry.tags?.length) {
+            <div class="knowledge-entry__tags">
+              @for (item of knowledgeEntry.tags; track $index) {
+                <span class="tag">{{ item }}</span>
+              }
+            </div>
+          }
+
+          @if (knowledgeEntry.description) {
+            <p class="text__tertiary paragraph">{{ knowledgeEntry.description }}</p>
+          }
+
+          @if (knowledgeEntry.image) {
+            <div>{{ knowledgeEntry.image }}</div>
+          }
+        </section>
+
+        <section class="knowledge-entry knowledge-entry__sub-entry">
+          @for (subEntry of knowledgeEntry.subEntries; track $index) {
+            <article class="sub-entry">
+              <h3 class="text__tertiary text__tertiary--h3">{{ subEntry.subTitle }}</h3>
+
+              @if (subEntry?.description) {
+                <p class="text__tertiary paragraph">{{ subEntry.description }}</p>
+              }
+
+              @if (subEntry.externalLinks?.length) {
+                <section class="sub-entry__accordion" id="links">
+                  <h4 class="text__tertiary text__tertiary--h3">Links</h4>
+                  <ul class="list__element">
+                    @for (link of subEntry.externalLinks; track $index) {
+                      <li class="list__element">
+                        <a [href]="link">Helpful Link</a>
+                      </li>
+                    } @empty {}
+                  </ul>
+                </section>
+              }
+
+              @if (subEntry.details?.length) {
+                <section class="sub-entry__accordion" id="details">
+                  <ul class="list">
+                  @for (detail of subEntry.details; track $index) {
+                      <li class="list__element text__tertiary">{{ detail }}</li>
+                    } @empty {}
+                  </ul>
+                </section>
+              }
+
+              <div class="sub-entry__accordion" id="imgs">
+                @for (item of subEntry.screenshots; track item; let index = $index) {
+                  <div class="img__wrap">
+                    <img class="img" [src]="this.storageImgPath + '/' + item" alt="" />
+                  </div>
+                } @empty {}
+              </div>
+            </article>
+          }
+        </section>
+      </article>
+
+    }
+  </main>
+</div>
