@@ -54,11 +54,11 @@ export class Supabase {
         return knowledge_entry
     }
 
-    async readDBEntry(id:string) {
+    async readDBEntry(id: string) {
         let { data: knowledge_entry, error } = await this.supabase
             .from('knowledge_entry')
             .select('*')
-            .eq('id',id)
+            .eq('id', id)
         return knowledge_entry
     }
 
@@ -85,11 +85,11 @@ export class Supabase {
             .select()
         if (!error) {
             return true
-        } else 
+        } else
             console.log(error);
-            console.log(userData);
-            
-            return false
+        console.log(userData);
+
+        return false
     }
 
     async updateRow(editedData: KnowledgeEntryData) {
@@ -152,11 +152,9 @@ export class Supabase {
         try {
             const path = await this.uploadFile(file)
             if (path) {
-                console.log(path);
-                
                 return path.path
             }
-            else  return ''
+            else return ''
         } catch (error) {
             console.log(error);
             return
@@ -175,11 +173,11 @@ export class Supabase {
             .upload(`${this.key.supabasePNGStore}/${newFileName}`, file)
         if (error) {
             console.log(`${this.key.supabasePNGStore}/${newFileName}`);
-            
+
             return
         } else {
             console.log(`${this.key.supabasePNGStore}/${newFileName}`);
-            
+
             return data
         }
     }
@@ -189,9 +187,6 @@ export class Supabase {
             return true
         } else return false
     }
-
-
-
 
     async deleteEntryFromDB(id: any) {
         if (!Number(id.value)) {

@@ -18,8 +18,17 @@ export class Forms {
 
     storageImgPath = this.key.supabaseURL + '/' + this.key.supabaseStorage + '/' + this.key.supabasePNGStore
     entryForm = this.buildMainEntryForm();
+    signInForm = this.formBuilder.group({
+        email: ['', Validators.required],
+        password: ['', Validators.required]
+    })
 
-
+    /**
+     * New Form: when no @param data is passed, one empty KnowledgeEntryData-Form will be build
+     * Edit Form: when @param data is passed, one KnowledgeEntryData-Form, filled with @param data will be build
+     * @param data 
+     * @returns 
+     */
     buildMainEntryForm(data?: KnowledgeEntryData) {
         return this.formBuilder.group({
             id: data?.id,
@@ -33,7 +42,13 @@ export class Forms {
         })
     }
 
-
+    /**
+     * New Form: when no @param data is passed, one empty KnowledgeSubEntryData-Form will be build
+     * Edit Form: when @param data is passed, one KnowledgeSubEntryData-Form, filled with @param data will be build
+     * @param data 
+     * @param subEntryIndex 
+     * @returns 
+     */
     buildSubEntryForm(data?: KnowledgeSubEntryData, subEntryIndex?: number) {
         return this.formBuilder.group({
             subTitle: this.formBuilder.control(data?.subTitle ?? ''),
@@ -44,6 +59,10 @@ export class Forms {
         })
     }
 
+    /**
+     * Edit Form: Builds a editable Form, filled with @param data
+     * @param data 
+     */
     buildEditForm(data: KnowledgeEntryData) {
         this.entryForm = this.buildMainEntryForm(data)
         let entry = this.entryForm.get('subEntries') as FormArray
@@ -52,91 +71,132 @@ export class Forms {
         this.addSubEntry(data)
     }
 
+    /**
+     * New Form: builds a new, pristine Form 
+     */
     buildNewForm() {
         this.entryForm = this.buildMainEntryForm()
     }
 
-    signInForm = this.formBuilder.group({
-        email: ['', Validators.required],
-        password: ['', Validators.required]
-    })
-
-
-    addSubEntry(data?: KnowledgeEntryData) {
+    /**
+     * Edit Form: if @param data is passed, it calles {@link setEditSubEntries} for presetting the SubEntryform
+     * New Form: adds a new, pristine KnowledgeSubEntryData-Form
+     * @param data 
+     * @returns 
+     */
+    addSubEntry(data?: KnowledgeEntryData):void {
         this.db.tempDBFiles = []
-
         if (data) {
-            data.subEntries.forEach((subEntry, subEntryIndex) => {
-                this.subEntries.push(this.buildSubEntryForm(subEntry, subEntryIndex))
-                this.addSubEntryControls(subEntryIndex, 'details', subEntry)
-                this.addSubEntryControls(subEntryIndex, 'externalLinks', subEntry)
-                this.addSubEntryControls(subEntryIndex, 'screenshots', subEntry)
-            })
-            console.log(data);
+            this.setEditSubEntries(data)
             return
         }
-
         this.subEntries.push(this.buildSubEntryForm());
     }
 
-    removeSubEntries(index: number) {
-        this.subEntries.removeAt(index)
+    /**
+     * Edit Form: presets all SubEntry FormArrays
+     * @param data 
+     */
+    setEditSubEntries(data: KnowledgeEntryData) {
+        data.subEntries.forEach((subEntry, subEntryIndex) => {
+            this.subEntries.push(this.buildSubEntryForm(subEntry, subEntryIndex))
+            this.addDetailsControl(subEntryIndex, subEntry)
+            this.addLinksControl(subEntryIndex, subEntry)
+            this.addScreenshotControl(subEntryIndex, subEntry)
+        })
     }
 
-    getSubEntryControls(item: number, target: string) {
-        if (target == 'screenshots') {
-        }
-        return this.subEntries.at(item).get(target) as FormArray
+    /**
+     * Removes the whole SubEntry according to its index
+     * @param indexSubEntry - Index of the subEntry-group
+     */
+    removeSubEntries(indexSubEntry: number) {
+        this.subEntries.removeAt(indexSubEntry)
+    }
+
+    /**
+     * Gets the SubEntry Controsl Form Array according to SubEntries index
+     * @param indexSubEntry - Index of the subEntry-group
+     * @param target - the according controlname 
+     */
+    getSubEntryControls(indexSubEntry: number, target: string): FormArray {
+        return this.subEntries.at(indexSubEntry).get(target) as FormArray
     }
 
 
-    addSubEntryControls(index: number, target: string, data?: KnowledgeSubEntryData) {
-        let control = this.subEntries.at(index).get(target) as FormArray
-        if (data) {
-            switch (target) {
-                case 'details':
-                    data?.details?.forEach(detail => {
-                        control.push(this.formBuilder.control(detail))
-                    })
-                    break;
-                case 'externalLinks':
-                    data?.externalLinks?.forEach(link => {
-                        control.push(this.formBuilder.control(link))
-                    })
-                    break;
-                case 'screenshots':
-                    data?.screenshots?.forEach(img => {
-                        this.db.tempDBFiles.push(img)
-                        control.push(this.formBuilder.control(img))
-                    })
-                    break;
-                default:
-                    break;
-            }
-            return
-        }
-        if (control) {
-            control.push(this.formBuilder.control(''));
-        }
-    }
-
-    removeSubEntryCotrol(indexSubEntry: number, targetIndex: number, target: string) {
+    /**
+     * Adds a new input @param target-field to the according @param indexSubEntry
+     * @param indexSubEntry - Index of the subEntry-group
+     * @param target 
+     */
+    addSubEntryControls(indexSubEntry: number, target: string) {
         let control = this.subEntries.at(indexSubEntry).get(target) as FormArray
-        control.removeAt(targetIndex)
+        control?.push(this.formBuilder.control(''));
+    }
 
-        if (target == 'screenshots') {
-            console.log(target);
-            console.log(control.value[0]);
+    /**
+     * Removes the FormControl at the given indices
+     * @param indexSubEntry - Index of the subEntry-group
+     * @param targetIndex - Index of the clicked target
+     * @param subEntryData - name of the subEntry-Property
+     */
+    removeSubEntryControl(indexSubEntry: number, targetIndex: number, subEntryData: string): void {
+        let control = this.subEntries.at(indexSubEntry).get(subEntryData) as FormArray
+        if (subEntryData == 'screenshots') {
             this.db.toDeleteDBFiles.push(control.value[0])
         }
+        control.removeAt(targetIndex)
     }
+
+    /**
+     * Edit Form: presets all detail-entries according to @param subEntryIndex @param subEntry  to the form 
+     * @param subEntryIndex - Index of the subEntry-group
+     * @param subEntry - Index of the link-array
+     */
+    addDetailsControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData) {
+        let control = this.subEntries.at(subEntryIndex).get('details') as FormArray
+        subEntry?.details?.forEach(img => {
+            this.db.tempDBFiles.push(img)
+            control.push(this.formBuilder.control(img))
+        })
+    }
+
+    /**
+     * Edit Form: presets all links according to @param subEntryIndex @param subEntry  to the form 
+     * @param subEntryIndex - Index of the subEntry-group
+     * @param subEntry - Index of the link-array
+     */
+    addLinksControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData) {
+        let control = this.subEntries.at(subEntryIndex).get('links') as FormArray
+        subEntry?.externalLinks?.forEach(detail => {
+            control.push(this.formBuilder.control(detail))
+        })
+    }
+
+    /**
+     * Edit Form: presets all screenshots according to @param subEntryIndex @param subEntry  to the form 
+     * @param subEntryIndex - Index of the subEntry-group
+     * @param subEntry - Index of the link-array
+     */
+    addScreenshotControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData) {
+        let control = this.subEntries.at(subEntryIndex).get('screenshots') as FormArray
+        subEntry?.screenshots?.forEach(img => {
+            control.push(this.formBuilder.control(img))
+        })
+    }
+
 
 
     get tags() {
         return this.entryForm.get('tags') as FormArray;
     }
 
-    addTags(data?: KnowledgeEntryData) {
+    /**
+     * adds a new tag to the FormArray
+     * Edit Form: when @param data is passed, it presets all tags from it
+     * @param data 
+     */
+    addTags(data?: KnowledgeEntryData): void {
         if (data) {
             data.tags.forEach(tag => {
                 this.tags.push(this.formBuilder.control(tag));
@@ -146,85 +206,89 @@ export class Forms {
         this.tags.push(this.formBuilder.control(''));
     }
 
-    removeTag(index: number) {
-        this.tags.removeAt(index)
+    /**
+     * removes the created tag
+     * @param tagIndex 
+     */
+    removeTag(tagIndex: number) {
+        this.tags.removeAt(tagIndex)
     }
 
     get subEntries() {
         return this.entryForm.get('subEntries') as FormArray;
     }
 
-    get useCases() {
-        return this.subEntries.get('useCases') as FormArray;
-    }
-
-
-
-    removeUseCases(index: number) {
-        this.useCases.removeAt(index)
-    }
-
-    get externalLinks() {
-        return this.subEntries.get('externalLinks') as FormArray;
-    }
-
-    addExternalLinks() {
-        this.externalLinks.push(this.formBuilder.control(''));
-    }
-
-    removeExternalLinks(index: number) {
-        this.externalLinks.removeAt(index)
-    }
-
-    get screenshots() {
-        return this.subEntries.get('screenshots') as FormArray;
-    }
-
-
-    getSubEntryScreenshot(indexSubEntry: number, url: string) {
-        let control = this.subEntries.at(indexSubEntry).get('screenshots') as FormArray
-        if (control) {
-            control.push(this.formBuilder.control(url));
-        }
-    }
-
-
-    addScreenshots(event: ClipboardEvent, indexSubEntry: number) {
+    /**
+     * Adds pasted screenshot from the clipboard to tempFiles Array
+     * @param event - the paste event
+     * @param indexSubEntry - Index of the subEntry-group
+     */
+    addScreenshots(event: ClipboardEvent, indexSubEntry: number): void {
         let data = event.clipboardData?.items
         if (!data) return
         for (const item of data) {
-            let file = item.getAsFile()
-            if (!file) return
-            let url = URL.createObjectURL(file)
-            this.getSubEntryScreenshot(indexSubEntry, url)
-            let fileObj = {
-                file: file,
-                indexSubEntry: indexSubEntry,
-            }
-            this.tempFiles.push(fileObj)
+            let fileObj = this.createBlobScreenshot(item, indexSubEntry)
+            fileObj ? this.tempFiles.push(fileObj) : undefined;
         }
     }
 
-
     /**
-     * removes indexed screenshot-url from temporary Array
-     * @param index 
+     * Creates a blob URL
+     * Adds it to the screenshot FormArray
+     * @param item - the screenshot file
+     * @param indexSubEntry - Index of the subEntry-group
+     * @returns 
      */
-    removeTempDBScreenshot(index: number) {
-        this.screenshots.removeAt(index)
-        this.db.toDeleteDBFiles.push(this.db.tempDBFiles[index])
-        this.db.tempDBFiles.splice(index, 1)
+    createBlobScreenshot(item: DataTransferItem, indexSubEntry: number) {
+        let file = item.getAsFile()
+        if (!file) return
+        let url = URL.createObjectURL(file)
+        this.setSubEntryScreenshot(indexSubEntry, url)
+        let fileObj = {
+            file: file,
+            indexSubEntry: indexSubEntry,
+        }
+        return fileObj
     }
 
+    /**
+     * Clears all Screenshots from the screenshots FormArray
+     */
     clearSubEntryScreenshot() {
         this.subEntries.controls.forEach(control => {
             let x = control.get('screenshots') as FormArray
             x.clear()
         });
-        console.log(this.subEntries.controls);
-
     }
 
+    /**
+     * Sends all screenshots to the db
+     * Shortens the screenshot FormArray to non-blob URLs
+     */
+    async sendScreenshotsToDB() {
+        for (const file of this.tempFiles) {
+            let screenshotURL = await this.db.addScrenshot(file.file) as string
+            this.setSubEntryScreenshot(file.indexSubEntry, screenshotURL)
+            this.clearBlobScreenshot()
+        }
+        this.tempFiles = []
+    }
+
+    /**
+     * Adds the @param url to the screenshots FormArray
+     * This is needed to send the correct URL-path to the db
+     * @param indexSubEntry - Index of the subEntry-group
+     * @param url - the db URL path
+     */
+    setSubEntryScreenshot(indexSubEntry: number, url: string) {
+        let control = this.subEntries.at(indexSubEntry).get('screenshots') as FormArray
+        control?.push(this.formBuilder.control(url));
+    }
+
+    /**
+     * Removes all possible blob URLs from the screenshot FormArray
+     * This should prevent adding temporary URL to the database
+     */
     clearBlobScreenshot() {
         this.subEntries.controls.forEach(control => {
             let img = control.get('screenshots') as FormArray
@@ -236,34 +300,4 @@ export class Forms {
             }
         });
     }
-
-
-    async addScreenshotsToDB(isedit?: boolean) {
-        if (!isedit) {
-            this.clearSubEntryScreenshot()
-        }
-        for (const file of this.tempFiles) {
-            let screenshotURL = await this.db.addScrenshot(file.file) as string
-            this.getSubEntryScreenshot(file.indexSubEntry, screenshotURL)
-            this.clearBlobScreenshot()
-        }
-        this.tempFiles = []
-    }
-
-
-    patchEditForm(data: KnowledgeEntryData) {
-        this.entryForm.patchValue({
-            id: data?.id,
-            title: data?.title,
-            description: data?.description,
-            tags: data?.tags,
-            image: data?.image,
-            /* subEntries: data?.subEntries */
-        })
-    }
-
-    resetFormEditArrays(property: FormArray) {
-        property.controls = []
-    }
-
 }

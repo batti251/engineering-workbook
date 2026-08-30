@@ -65,7 +65,6 @@ export class KnowledgeForm {
     }
   }
 
-
   /**
    * initiates to build a edit-form
    * it will allow the user to edit the current @param data entry
@@ -82,10 +81,8 @@ export class KnowledgeForm {
     this.forms.buildNewForm()
   }
 
-
-
   async sendDataToDB():Promise<void> {
-    await this.forms.addScreenshotsToDB(this.isEditForm)
+    await this.forms.sendScreenshotsToDB()
     let data = new KnowledgeEntry(this.forms.entryForm.value as Partial<KnowledgeEntryData>)
      try {
       if (this.isEditForm) {
