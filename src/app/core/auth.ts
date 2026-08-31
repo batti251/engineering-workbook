@@ -3,21 +3,22 @@ import { createClient } from '@supabase/supabase-js'
 import { Keys } from '../shared/services/key';
 import { AbstractControl } from '@angular/forms';
 import { LocalStorage } from './local-storage';
+import { Supabase } from './db';
 
 @Service()
 export class Auth {
-  key = inject(Keys)
-  local = inject(LocalStorage)
-  supabase = createClient(this.key.supabaseURL, this.key.supabaseKey)
+  private key = inject(Keys)
+  private local = inject(LocalStorage)
+  private db = inject(Supabase).db
+  
   isActiveSession = signal(false)
   token = this.local.getItem(this.key.token)
   tokenTimestamp: number = 0
   currentTimestamp: number = Math.floor(Date.now() / 1000)
   isTokenExpired = false
-  isActiveSessionState = false;
 
   async signInWithEmail(email: AbstractControl<string | null, string | null, any> | null, password: AbstractControl<string | null, string | null, any> | null) {
-    const { data, error } = await this.supabase.auth.signInWithPassword({
+    const { data, error } = await this.db.auth.signInWithPassword({
       email: email?.value ?? '',
       password: password?.value ?? '',
     })
@@ -37,13 +38,11 @@ export class Auth {
       this.isTokenExpired = this.currentTimestamp - this.tokenTimestamp < 0
       if (this.isTokenExpired) {
         this.isActiveSession.update(() => true)
-        this.isActiveSessionState = true
       } else {
         this.local.deleteLocalStorage(this.key.token);
         this.isActiveSession.update(() => false);
-        this.isActiveSessionState = true
       }
-    } return this.isActiveSessionState
+    } 
   }
 }
 

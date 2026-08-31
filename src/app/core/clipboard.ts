@@ -7,11 +7,6 @@ export class Clipboard {
   tempFiles: string[] = []
 
 
-
-
-
-
-
   showDeleteBtn = false
   hoveredBlob: string = ''
   /**

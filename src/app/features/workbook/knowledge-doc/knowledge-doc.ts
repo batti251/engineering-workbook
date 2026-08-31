@@ -1,5 +1,5 @@
 import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
-import { Supabase } from '../../../core/supabase';
+import { Supabase } from '../../../core/db';
 import { KnowledgeEntryData, KnowledgeSubEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { JsonPipe } from '@angular/common';
 import { Select } from '../../../shared/components/select/select';
@@ -16,7 +16,7 @@ export class KnowledgeDoc {
   db = inject(Supabase)
   selectedValue: string = 'Python'
   key = inject(Keys)
-  storageImgPath = this.key.supabaseURL+'/'+ this.key.supabaseStorage + '/' + this.key.supabasePNGStore
+  storageImgPath = this.key.dbURL+'/'+ this.key.dbStorage + '/' + this.key.ImgStore
 
     subEnt = signal<KnowledgeSubEntryData[]>([{
     subTitle: '',
@@ -63,15 +63,14 @@ export class KnowledgeDoc {
   }
 
   async ngOnInit() {
-    await this.readDB()
+    await this.readKnowledgeEntries()
     console.log(this.datas());
     console.log(this.filteredItems());
 
   }
 
-
-  async readDB() {
-    let database = await this.db.readDB() as KnowledgeEntryData[]
+  async readKnowledgeEntries() {
+    let database = await this.db.readKnowledgeEntries() as KnowledgeEntryData[]
     if (database.length > 0) {
       this.datas.set(database)
       this.filteredItems.set(database)

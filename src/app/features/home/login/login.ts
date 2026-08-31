@@ -20,10 +20,8 @@ export class Login {
 
   async sendCredentials(email: AbstractControl<string | null, string | null, any> | null, password: AbstractControl<string | null, string | null, any> | null) {
     try {
-      let session = await this.auth.signInWithEmail(email, password)
-      console.log(session);
+      await this.auth.signInWithEmail(email, password)
     } catch (error) {
-      console.log(error);
     }
 
   }

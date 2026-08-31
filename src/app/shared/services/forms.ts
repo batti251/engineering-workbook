@@ -1,9 +1,10 @@
 import { inject, Service } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Supabase } from '../../core/supabase';
+import { Supabase } from '../../core/db';
 import { Clipboard } from '../../core/clipboard';
 import { KnowledgeEntryData, KnowledgeSubEntryData } from '../interfaces/knowledge-entry-data';
 import { Keys } from './key';
+import { Storage } from '../../core/storage';
 
 @Service()
 export class Forms {
@@ -11,12 +12,13 @@ export class Forms {
     db = inject(Supabase)
     formBuilder = inject(FormBuilder);
     key = inject(Keys)
+    storage = inject(Storage)
     tempFiles: {
         file: File,
         indexSubEntry: number
     }[] = []
 
-    storageImgPath = this.key.supabaseURL + '/' + this.key.supabaseStorage + '/' + this.key.supabasePNGStore
+    storageImgPath = this.key.dbURL + '/' + this.key.dbStorage + '/' + this.key.ImgStore
     entryForm = this.buildMainEntryForm();
     signInForm = this.formBuilder.group({
         email: ['', Validators.required],
@@ -267,11 +269,23 @@ export class Forms {
      */
     async sendScreenshotsToDB() {
         for (const file of this.tempFiles) {
-            let screenshotURL = await this.db.addScrenshot(file.file) as string
+            let fileName = this.setNewFileName(file.file)
+            let screenshotURL = await this.storage.getFileURLFromStorage(file.file, fileName) as string
             this.setSubEntryScreenshot(file.indexSubEntry, screenshotURL)
             this.clearBlobScreenshot()
         }
         this.tempFiles = []
+    }
+
+    /**
+     * sets a random name by crypto.randomUUID-Function
+     * @param file - the img-file
+     * @returns - new random name-string
+     */
+    setNewFileName(file: File) {
+        let fileType = file.name.split(".")[1]
+        let name = crypto.randomUUID()
+        return name + "." + fileType
     }
 
     /**
