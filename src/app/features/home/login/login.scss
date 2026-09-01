@@ -1,8 +1,19 @@
 @use '../../../scss/abstracts/' as *;
 
+.form {
+  @include dFlex($fd: column, $ai: center, $g: 16px);
+    &__input{
+      border-color: #013e37;
+    }
+}
 
+.login__input {
+  @include dFlex($ai: flex-start, $g: 4px);
+  @include size($w: min(300px, 80%));
+}
 
-.form{
-  @include dFlex($fd: column, $ai: flex-end, $g: 8px);
-
+.message {
+  &--error{
+    @include size($h: 40px);
+  }
 }

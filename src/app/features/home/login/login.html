@@ -1,20 +1,39 @@
-<div>
-  @if (!this.auth.isActiveSession()) {
+<div class="">
+  @if (!auth.isActiveSession()) {
+
     <form class="form" [formGroup]="form.signInForm" (submit)="sendCredentials(email, password)">
       <div class="login__input">
-        <label for="email_input">Email</label>
-        <input class="form__input" id="email_input" type="email" formControlName="email" />
+        <label for="email_input" class="text__primary">Email</label>
+        <input
+          (focus)="isError.set(false)"
+          class="form__input text__regular"
+          [class.error__border]="isError()"
+          id="email_input"
+          type="email"
+          formControlName="email"
+        />
       </div>
       <div class="login__input">
-        <label for="password_input">Password</label>
+        <label for="password_input" class="text__primary">Password</label>
         <input
-          class="form__input"
+          (focus)="isError.set(false)"
+          class="form__input text__regular"
+          [class.error__border]="isError()"
           id="password_input"
           type="password"
           autocomplete="off"
           formControlName="password"
         />
       </div>
+
+      <div class="message--error">
+        @if (isError()) {
+          <span class="text__regular" [class.error__text]="isError()">{{
+            this.auth.errorMessage()
+          }}</span>
+        }
+      </div>
+
       <button class="btn btn--submit" type="submit">Sign In</button>
     </form>
   }

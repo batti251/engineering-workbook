@@ -16,7 +16,8 @@
     }
   }
   &__input {
-    @include border($br: 5px, $bs: solid, $bw: 2px, $bc: #ffefb3);
+    @include border($br: 10px, $bs: solid, $bw: 2px, $bc: #ffefb3);
+    padding: 8px;
     @include size($h: 32px, $w: 90%);
     &--tag {
       width: 120px;
@@ -73,5 +74,14 @@ textarea {
   &:autofill {
     appearance: textfield;
     box-shadow: 0 0 0 1000px #ffefb3 inset;
+  }
+}
+
+.error {
+  &__border {
+    outline: 3px outset #830606;
+  }
+  &__text {
+    color: #830606;
   }
 }

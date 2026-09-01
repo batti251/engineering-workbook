@@ -1,0 +1,11 @@
+@use '../../scss/abstracts/' as *;
+
+.welcome {
+  @include dFlex();
+  padding: 32px;
+
+  &--paragraph {
+    line-height: 150%;
+    text-align: center;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, effect, EventEmitter, inject, makeEnvironmentProviders, Output, signal } from '@angular/core';
 import { Auth } from '../../../core/auth';
 import { Forms } from '../../../shared/services/forms';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
@@ -16,16 +16,23 @@ export class Login {
   auth = inject(Auth)
   key = inject(Keys)
   local = inject(LocalStorage)
-
+  hideMessage = signal(false)
+  isError = signal(false)
 
   async sendCredentials(email: AbstractControl<string | null, string | null, any> | null, password: AbstractControl<string | null, string | null, any> | null) {
     try {
       await this.auth.signInWithEmail(email, password)
     } catch (error) {
     }
-
   }
 
+constructor(){
+  effect(async () => {
+    if (this.auth.errorMessage()) {
+      this.isError.update(() => true);
+    } 
+  });
+}
 
   ngOnInit() {
     this.auth.readAccesToken()

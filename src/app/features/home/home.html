@@ -1,3 +1,18 @@
+<section class="welcome">
+  <h2 class="text__primary text__primary--h2">
+    Welcome to my personal engineering and knowledge workbook!
+  </h2>
 
+  <p class="text__primary text__primary--basic welcome--paragraph">
+    @if (auth.isActiveSession()) {
+      Let's get started!
+    } @else {
+      Thank you for visiting my personal learning-space <br />
+      You are able to <strong> read entries</strong> as guest <br />
+      But to add, or edit any entries you will need a <strong>valid account!</strong><br />
+      I'm happy hearing from you!
+    }
+  </p>
+</section>
 
 <app-login></app-login>
