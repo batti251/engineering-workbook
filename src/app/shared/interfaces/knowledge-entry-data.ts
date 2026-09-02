@@ -15,3 +15,7 @@ export interface KnowledgeSubEntryData {
     screenshots?: string[],
     externalLinks?: string[]
 }
+
+export interface tags {
+    tag : string
+}

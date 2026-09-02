@@ -25,7 +25,7 @@
           <h2 class="text__tertiary text__tertiary--h2">{{ knowledgeEntry.title }}</h2>
 
           @if (knowledgeEntry.tags?.length) {
-            <div class="knowledge-entry__tags">
+            <div class="tag--wrap">
               @for (item of knowledgeEntry.tags; track $index) {
                 <span class="tag">{{ item }}</span>
               }

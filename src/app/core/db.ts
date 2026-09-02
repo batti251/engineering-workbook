@@ -1,7 +1,7 @@
 import { inject, Service, signal } from '@angular/core';
 import { createClient, RealtimeChannel } from '@supabase/supabase-js'
 import { Keys } from '../shared/services/key';
-import { KnowledgeEntryData } from '../shared/interfaces/knowledge-entry-data';
+import { KnowledgeEntryData, tags } from '../shared/interfaces/knowledge-entry-data';
 
 @Service()
 export class Supabase {
@@ -86,6 +86,17 @@ export class Supabase {
             .select('*')
             .eq('id', id)
         return knowledge_entry as KnowledgeEntryData[]
+    }
+
+     /**
+     * Reads and returns the database KnowledgeEntryDatas
+     * @returns 
+     */
+    async readDbTable(table:string):Promise<(KnowledgeEntryData|tags)[]> {
+        let { data: data, error } = await this.db
+            .from(table)
+            .select('*') 
+        return data as (KnowledgeEntryData|tags)[] 
     }
 
     /**

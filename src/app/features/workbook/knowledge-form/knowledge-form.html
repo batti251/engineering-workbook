@@ -29,29 +29,11 @@
           <h4 class="text__primary">Tags:</h4>
         </div>
       </div>
+      <app-tags [renderedTags]="forms.tags.value" (newTag)="forms.addTags($event)"></app-tags>
       @for (item of forms.tags.controls; track item; let tagIndex = $index) {
-        <div class="form__wrap--tag">
-          <button class="btn btn__icon--add" type="button" (click)="forms.addTags()"></button>
-
-          <div class="form__group">
-            <label for="tags-{{ tagIndex }}"></label>
-            <input
-              id="tags-{{ tagIndex }}"
-              type="text"
-              [formControlName]="tagIndex"
-              class="form__input form__input--tag text__primary--input"
-              placeholder="category"
-            />
-            <button
-              class="btn btn__icon--delete"
-              type="button"
-              (click)="forms.removeTag(tagIndex)"
-              [disabled]="$first"
-            ></button>
-          </div>
+        <div class="tag--wrap">
+          <span id="tags-{{ tagIndex }}" class="tag">{{ item.value }}</span>
         </div>
-      } @empty {
-        <button class="btn btn__icon--add" type="button" (click)="forms.addTags()"></button>
       }
     </div>
   </section>

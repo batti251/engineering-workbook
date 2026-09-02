@@ -12,20 +12,9 @@
     &__content {
         @include dFlex($ai: unset, $g: 16px);
     }
-    &__tags {
-        @include dFlex($fd: row, $jc: flex-start, $g: 8px);
-    }
     &__main {
         @include dFlex($ai: unset, $jc: unset, $g: 16px);
     }
-}
-
-.tag{
-    background-color: #3e0101;
-    @include font($fs: clamp(0.75rem, 1rem,1vw));
-    color: #b69503;
-    padding: 8px;
-    border-radius: 20px;
 }
 
 .sub-entry{

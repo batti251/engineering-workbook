@@ -2,7 +2,7 @@ import { inject, Service } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Supabase } from '../../core/db';
 import { Clipboard } from '../../core/clipboard';
-import { KnowledgeEntryData, KnowledgeSubEntryData } from '../interfaces/knowledge-entry-data';
+import { KnowledgeEntryData, KnowledgeSubEntryData, tags } from '../interfaces/knowledge-entry-data';
 import { Keys } from './key';
 import { Storage } from '../../core/storage';
 
@@ -66,6 +66,8 @@ export class Forms {
      * @param data 
      */
     buildEditForm(data: KnowledgeEntryData) {
+        console.log(data);
+        
         this.entryForm = this.buildMainEntryForm(data)
         let entry = this.entryForm.get('subEntries') as FormArray
         entry.removeAt(0)
@@ -187,8 +189,6 @@ export class Forms {
         })
     }
 
-
-
     get tags() {
         return this.entryForm.get('tags') as FormArray;
     }
@@ -198,14 +198,18 @@ export class Forms {
      * Edit Form: when @param data is passed, it presets all tags from it
      * @param data 
      */
-    addTags(data?: KnowledgeEntryData): void {
-        if (data) {
+    addTags(data?: KnowledgeEntryData | string[]): void {
+        this.tags.clear();
+        if (!Array.isArray(data) && data) {
             data.tags.forEach(tag => {
                 this.tags.push(this.formBuilder.control(tag));
             })
             return
+        }  if (Array.isArray(data)) {
+            data.forEach(tag => {
+                this.tags.push(this.formBuilder.control(tag));
+            })
         }
-        this.tags.push(this.formBuilder.control(''));
     }
 
     /**

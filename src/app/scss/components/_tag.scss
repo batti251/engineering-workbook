@@ -1,0 +1,14 @@
+@use '../../scss/abstracts/' as *;
+
+.tag{
+    background-color: #3e0101;
+    @include font($fs: clamp(0.75rem, 1rem,1vw));
+    color: #b69503;
+    padding: 8px;
+    border-radius: 20px;
+
+    &--wrap{
+        @include dFlex($fd: row, $jc: flex-start, $g: 8px);
+
+    }
+}

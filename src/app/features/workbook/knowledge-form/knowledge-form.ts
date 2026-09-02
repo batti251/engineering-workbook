@@ -10,6 +10,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router, RouterStateS
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Keys } from '../../../shared/services/key';
 import { Storage } from '../../../core/storage';
+import { Tags } from './tags/tags';
 
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
@@ -24,10 +25,10 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, JsonPipe],
+  imports: [ReactiveFormsModule, JsonPipe, Tags],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
-  providers: [Forms]
+  providers: [Forms, Tags]
 })
 export class KnowledgeForm {
   db = inject(Supabase)
@@ -36,6 +37,7 @@ export class KnowledgeForm {
   key = inject(Keys)
   storage = inject(Storage)
   router = inject(Router)
+
 
   private route = inject(ActivatedRoute);
   private data = toSignal(this.route.data, {
@@ -48,6 +50,7 @@ export class KnowledgeForm {
   ngOnInit() {
     this.initFormBuild()
   }
+
 
   /**
    * Handler to create a form according to the signal entry()
@@ -65,6 +68,7 @@ export class KnowledgeForm {
         this.buildNewForm()
       }
     }
+    
   }
 
   /**
@@ -86,13 +90,13 @@ export class KnowledgeForm {
   async sendDataToDB():Promise<void> {
     await this.forms.sendScreenshotsToDB()
     let data = new KnowledgeEntry(this.forms.entryForm.value as Partial<KnowledgeEntryData>)
-     try {
+    try {
       if (this.isEditForm()) {
         let databaseSuccess = await this.db.updateKnowledgeEntry(data)
         let storageSuccess = this.db.toDeleteDBFiles.forEach(async file => {
           await this.storage.deleteFile(file)
         }) 
-        if (databaseSuccess && storageSuccess) {
+        if (databaseSuccess || storageSuccess) {
           this.redirectToDoc()
         }
       } else {

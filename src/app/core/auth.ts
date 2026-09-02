@@ -35,7 +35,7 @@ export class Auth {
    * updates the errorMessage signal, to display the proper Error
    * @param error - the thrown Error from the backend
    */
-  updateErrorMessage(error: AuthError):void {
+  updateErrorMessage(error: AuthError): void {
     this.errorMessage.set("")
     this.errorMessage.update(() => this.returnErrorMessage(error))
   }
@@ -46,7 +46,12 @@ export class Auth {
    * @returns 
    */
   returnErrorMessage(error: AuthError): string {
-    type ErrorMessages = "E-Mail, oder Passwort falsch" | "Bitte eine E-Mail eingeben" | "Der Benutzer ist gesperrt" | "Ein unbekannter Fehler ist aufgetreten";
+    type ErrorMessages = 
+    "E-Mail, oder Passwort falsch" | 
+    "Bitte eine E-Mail eingeben" | 
+    "Der Benutzer ist gesperrt" | 
+    "Ein unbekannter Fehler ist aufgetreten";
+    
     const errorMessage: Record<string, ErrorMessages> = {
       invalid_credentials: "E-Mail, oder Passwort falsch",
       validation_failed: "Bitte eine E-Mail eingeben",
@@ -60,7 +65,7 @@ export class Auth {
    * @param token - the access token as string
    * @returns - true or false, depending if {@link signInWithEmail} was successful, or not
    */
-  updateActiveSession(token: string | undefined):boolean {
+  updateActiveSession(token: string | undefined): boolean {
     if (token) {
       this.isActiveSession.update(() => true)
       return true
@@ -75,7 +80,7 @@ export class Auth {
    * Sets activeSession Signal according to token expiry state
    * @returns 
    */
-  readAccesToken():boolean {
+  readAccesToken(): boolean {
     if (!this.local.token) {
       return false
     }
