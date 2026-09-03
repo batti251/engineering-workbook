@@ -19,7 +19,7 @@
         type="text"
         formControlName="description"
         placeholder="enter the main description. sub-categories can be written in Sub Entry - section below"
-        class="form__input form__input--description text__primary--input"
+        class="form__input form__input--textarea  text__primary--input"
       ></textarea>
     </div>
 
@@ -27,14 +27,14 @@
       <div class="form__wrap">
         <div class="header__nav">
           <h4 class="text__primary">Tags:</h4>
+          <div class="tag--wrap">
+      @for (item of forms.tags.controls; track item; let tagIndex = $index) {
+          <span id="tags-{{ tagIndex }}" class="tag">{{ item.value }}</span>
+        }
+      </div>
         </div>
       </div>
-      <app-tags [renderedTags]="forms.tags.value" (newTag)="forms.addTags($event)"></app-tags>
-      @for (item of forms.tags.controls; track item; let tagIndex = $index) {
-        <div class="tag--wrap">
-          <span id="tags-{{ tagIndex }}" class="tag">{{ item.value }}</span>
-        </div>
-      }
+      <app-select [renderedTags]="forms.tags.value" (newTag)="forms.addTags($event)"></app-select>
     </div>
   </section>
   <section>

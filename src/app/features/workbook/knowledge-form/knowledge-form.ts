@@ -10,7 +10,7 @@ import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router, RouterStateS
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Keys } from '../../../shared/services/key';
 import { Storage } from '../../../core/storage';
-import { Tags } from './tags/tags';
+import { Select } from './select/select';
 
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
@@ -25,10 +25,10 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, JsonPipe, Tags],
+  imports: [ReactiveFormsModule, JsonPipe, Select],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
-  providers: [Forms, Tags]
+  providers: [Forms, Select]
 })
 export class KnowledgeForm {
   db = inject(Supabase)

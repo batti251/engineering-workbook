@@ -6,12 +6,12 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { tags } from '../../../../shared/interfaces/knowledge-entry-data';
 
 @Component({
-  selector: 'app-tags',
+  selector: 'app-select',
   imports: [Combobox, ComboboxPopup, ComboboxWidget, Listbox, Option, OverlayModule],
-  templateUrl: './tags.html',
-  styleUrl: './tags.scss',
+  templateUrl: './select.html',
+  styleUrl: './select.scss',
 })
-export class Tags {
+export class Select {
   db = inject(Supabase)
 
   @Output() newTag = new EventEmitter<string[]>()
@@ -30,7 +30,7 @@ export class Tags {
   readonly displayValue = computed(() => {
     const values = this.selectedValues();
     if (values.length === 0) {
-      return 'Select a label';
+      return 'Select your tags';
     }
     if (values.length === 1) {
       return values[0];
@@ -62,6 +62,7 @@ export class Tags {
     effect(() => {
       const values = this.selectedValues();
       if (this.selectedValues().length == 0) {
+        this.addNewItems([])
         return
       }
       this.addNewItems(values);

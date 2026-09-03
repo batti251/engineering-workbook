@@ -3,6 +3,7 @@
 .form {
   padding: min(20px, 3%);
   &__group {
+    @include dFlex($ai: flex-start, $g: 8px);
     @include size($w: 100%);
     &--edit {
       @include dFlex($ai: baseline, $g: 8px);

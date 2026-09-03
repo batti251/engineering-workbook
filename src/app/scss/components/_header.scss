@@ -2,7 +2,7 @@
 
 .header {
   &__nav {
-    @include dFlex($fd: unset, $jc: space-between);
+    @include dFlex($fd: unset, $jc: flex-start, $g: 8px);
   }
   &__login {
     @include dFlex($fd: row, $jc: space-between);

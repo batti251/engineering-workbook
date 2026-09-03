@@ -9,6 +9,6 @@
 
     &--wrap{
         @include dFlex($fd: row, $jc: flex-start, $g: 8px);
-
+        @include size($h: 30px);
     }
 }

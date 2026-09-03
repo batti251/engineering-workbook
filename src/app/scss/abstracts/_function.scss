@@ -1,0 +1,26 @@
+
+
+@keyframes smoothPopupClose {
+  0% {
+    max-height: 11rem;
+    opacity: 1;
+  }
+  100% {
+    max-height: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes smoothPopupOpen {
+  0% {
+    max-height: 0;
+    opacity: 0;
+  }
+  16.7% {
+    opacity: 1;
+  }
+  100% {
+    max-height: 11rem;
+    opacity: 1;
+  }
+}

@@ -33,7 +33,7 @@
           }
 
           @if (knowledgeEntry.description) {
-            <p class="text__tertiary paragraph">{{ knowledgeEntry.description }}</p>
+            <pre class="text__tertiary paragraph">{{ knowledgeEntry.description }}</pre>
           }
 
           @if (knowledgeEntry.image) {
@@ -47,7 +47,7 @@
               <h3 class="text__tertiary text__tertiary--h3">{{ subEntry.subTitle }}</h3>
 
               @if (subEntry?.description) {
-                <p class="text__tertiary paragraph">{{ subEntry.description }}</p>
+                <pre class="text__tertiary paragraph">{{ subEntry.description }}</pre>
               }
 
               @if (subEntry.externalLinks?.length) {
