@@ -11,6 +11,8 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { Keys } from '../../../shared/services/key';
 import { Storage } from '../../../core/storage';
 import { Select } from './select/select';
+import { Links } from './links/links';
+import { Screenshot } from './screenshot/screenshot';
 
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
@@ -25,7 +27,7 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, JsonPipe, Select],
+  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
   providers: [Forms, Select]

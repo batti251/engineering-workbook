@@ -29,6 +29,12 @@
     &--textarea {
       @include size($h: 120px, $w: 100%);
     }
+    &--img{
+      @include size($w: 100%);
+      min-height: 100px;
+      @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
+      box-shadow: 0px 0px 7px #e9da92;
+    }
   }
   &__wrap {
     @include dFlex($ai: normal, $g: 8px);

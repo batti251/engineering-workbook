@@ -19,7 +19,7 @@
         type="text"
         formControlName="description"
         placeholder="enter the main description. sub-categories can be written in Sub Entry - section below"
-        class="form__input form__input--textarea  text__primary--input"
+        class="form__input form__input--textarea text__primary--input"
       ></textarea>
     </div>
 
@@ -28,10 +28,10 @@
         <div class="header__nav">
           <h4 class="text__primary">Tags:</h4>
           <div class="tag--wrap">
-      @for (item of forms.tags.controls; track item; let tagIndex = $index) {
-          <span id="tags-{{ tagIndex }}" class="tag">{{ item.value }}</span>
-        }
-      </div>
+            @for (item of forms.tags.controls; track item; let tagIndex = $index) {
+              <span id="tags-{{ tagIndex }}" class="tag">{{ item.value }}</span>
+            }
+          </div>
         </div>
       </div>
       <app-select [renderedTags]="forms.tags.value" (newTag)="forms.addTags($event)"></app-select>
@@ -46,11 +46,7 @@
       <div>
         <section class="form__group--sub-entry">
           @for (subEntry of forms.subEntries.controls; track subEntry; let indexSubEntry = $index) {
-            <div
-              [formGroupName]="indexSubEntry"
-              class="form--sub-entry"
-              (paste)="forms.addScreenshots($event, indexSubEntry)"
-            >
+            <div [formGroupName]="indexSubEntry" class="form--sub-entry">
               <div>
                 <label for="subTitle-{{ indexSubEntry }}-{{ subEntry }}"></label>
                 <input
@@ -73,136 +69,31 @@
                 ></textarea>
               </div>
 
-              <div formArrayName="details" class="form__wrap form__border">
+              <section formArrayName="details" class="form__wrap form__border">
                 <h3 class="text__secondary text__secondary--h3">Details</h3>
-                @for (
-                  detail of forms.getSubEntryControls(indexSubEntry, 'details').controls;
-                  track detail;
-                  let detailIndex = $index
-                ) {
-                  <div class="form__wrap--input">
-                    <button
-                      type="button"
-                      (click)="forms.addSubEntryControls(indexSubEntry, 'details')"
-                      class="btn btn__icon--add"
-                    ></button>
+                <app-links
+                  [indexSubEntry]="indexSubEntry"
+                  [formArray]="forms.getSubEntryControls(indexSubEntry, 'details')"
+                  [target]="'details'"
+                ></app-links>
+              </section>
 
-                    <div class="form__wrap g-0">
-                      <label for="detail-{{ indexSubEntry }}.{{ detailIndex }}"></label>
-                      <input
-                        id="detail-{{ indexSubEntry }}.{{ detailIndex }}"
-                        type="text"
-                        [formControlName]="detailIndex"
-                        class="form__input text__primary--input"
-                        placeholder="enter next detail {{ detailIndex + 1 }}"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      (click)="forms.removeSubEntryControl(indexSubEntry, detailIndex, 'details')"
-                      class="btn btn__icon--delete"
-                    ></button>
-                  </div>
-                } @empty {
-                  <button
-                    type="button"
-                    (click)="forms.addSubEntryControls(indexSubEntry, 'details')"
-                    class="btn btn__icon--add"
-                  ></button>
-                }
-              </div>
-
-              <div formArrayName="externalLinks" class="form__wrap form__border">
+              <section formArrayName="externalLinks" class="form__wrap form__border">
                 <h3 class="text__secondary text__secondary--h3">Links</h3>
-                @for (
-                  link of forms.getSubEntryControls(indexSubEntry, 'externalLinks').controls;
-                  track link;
-                  let linkIndex = $index
-                ) {
-                  <div class="form__wrap--input">
-                    <button
-                      type="button"
-                      (click)="forms.addSubEntryControls(indexSubEntry, 'externalLinks')"
-                      class="btn btn__icon--add"
-                    ></button>
-                    <div class="form__wrap g-0">
-                      <label for="link-{{ indexSubEntry }}.{{ linkIndex }}"></label>
-                      <input
-                        id="link-{{ indexSubEntry }}.{{ linkIndex }}"
-                        type="text"
-                        [formControlName]="linkIndex"
-                        class="form__input text__primary--input"
-                        placeholder="add links here {{ linkIndex + 1 }}"
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      (click)="
-                        forms.removeSubEntryControl(indexSubEntry, linkIndex, 'externalLinks')
-                      "
-                      class="btn btn__icon--delete"
-                      [disabled]="$first"
-                    ></button>
-                  </div>
-                } @empty {
-                  <button
-                    type="button"
-                    (click)="forms.addSubEntryControls(indexSubEntry, 'externalLinks')"
-                    class="btn btn__icon--add"
-                  ></button>
-                }
-              </div>
+                <app-links
+                  [indexSubEntry]="indexSubEntry"
+                  [formArray]="forms.getSubEntryControls(indexSubEntry, 'externalLinks')"
+                  [target]="'externalLinks'"
+                ></app-links>
+              </section>
 
-              <div formArrayName="screenshots">
-                @for (
-                  screenshot of forms.getSubEntryControls(indexSubEntry, 'screenshots').controls;
-                  track screenshot;
-                  let screenshotIndex = $index
-                ) {
-                  @if ($first) {
-                    <!-- <div
-                      (paste)="forms.addScreenshots($event, indexSubEntry)"
-                      class="upload-area upload-area__file"
-                    ></div> -->
-                  }
-                  <div class="list list__element">
-                    <div
-                      class="list__element--wrap"
-                      (mouseover)="clipboard.toggleDeleteBtn(screenshot.value)"
-                      (mouseout)="clipboard.toggleDeleteBtn(screenshot.value)"
-                    >
-                      @if (screenshot.value.includes('blob')) {
-                        <img class="img" [src]="screenshot.value" alt="" />
-                      } @else {
-                        <img
-                          class="img"
-                          src="{{ forms.storageImgPath + '/' + screenshot.value }}"
-                          alt=""
-                        />
-                      }
-                      @if (screenshot.value === clipboard.hoveredBlob) {
-                        <button
-                          type="button"
-                          (click)="
-                            forms.removeSubEntryControl(
-                              indexSubEntry,
-                              screenshotIndex,
-                              'screenshots'
-                            )
-                          "
-                          class="btn__hovered"
-                        >
-                          <img src="/img/close.svg" alt="" class="btn__hovered--delete" />
-                        </button>
-                      }
-                    </div>
-                  </div>
-                }
-                <!-- @empty {
-                  <div class="list list__element"></div>
-                  <div class="list__element--wrap"></div>
-                } -->
-              </div>
+              <section formArrayName="screenshots">
+                <h3 class="text__secondary text__secondary--h3">Screenshots</h3>
+                <app-screenshot
+                  [indexSubEntry]="indexSubEntry"
+                  [formArray]="forms.getSubEntryControls(indexSubEntry, 'screenshots')"
+                ></app-screenshot>
+              </section>
 
               <div>
                 <button

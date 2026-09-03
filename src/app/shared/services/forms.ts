@@ -171,7 +171,7 @@ export class Forms {
      * @param subEntry - Index of the link-array
      */
     addLinksControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData) {
-        let control = this.subEntries.at(subEntryIndex).get('links') as FormArray
+        let control = this.subEntries.at(subEntryIndex).get('externalLinks') as FormArray
         subEntry?.externalLinks?.forEach(detail => {
             control.push(this.formBuilder.control(detail))
         })
