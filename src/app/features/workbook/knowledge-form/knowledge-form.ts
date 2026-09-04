@@ -79,7 +79,6 @@ export class KnowledgeForm {
    * @param data - the single entry data, to edit
    */
   buildEditForm(data: KnowledgeEntryData):void {
-    
     this.forms.buildEditForm(data)
   }
 
@@ -87,7 +86,7 @@ export class KnowledgeForm {
    * initiates to build a new form for a new entry 
    */
   buildNewForm():void {
-    this.forms.buildNewForm()
+    this.forms.buildNewForm()   
   }
 
   async sendDataToDB():Promise<void> {

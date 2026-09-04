@@ -27,6 +27,7 @@
         [tabindex]="-1"
         selectionMode="explicit"
         [(value)]="selectedValues"
+        (valueChange)="addNewItems($event)"
         [activeDescendant]="listbox.activeDescendant()"
       >
         @for (label of labels(); track label.tag) {

@@ -53,21 +53,10 @@ export class Select {
   /** Whether the popup is expanded. */
   readonly popupExpanded = signal(false);
   constructor() {
-
     // Scrolls to the active item when the active option changes.
     afterRenderEffect(() => {
       this.listbox()?.scrollActiveItemIntoView();
     });
-
-    effect(() => {
-      const values = this.selectedValues();
-      if (this.selectedValues().length == 0) {
-        this.addNewItems([])
-        return
-      }
-      this.addNewItems(values);
-
-    })
   }
 
   /**

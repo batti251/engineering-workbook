@@ -66,8 +66,6 @@ export class Forms {
      * @param data 
      */
     buildEditForm(data: KnowledgeEntryData) {
-        console.log(data);
-        
         this.entryForm = this.buildMainEntryForm(data)
         let entry = this.entryForm.get('subEntries') as FormArray
         entry.removeAt(0)
@@ -205,7 +203,7 @@ export class Forms {
                 this.tags.push(this.formBuilder.control(tag));
             })
             return
-        }  if (Array.isArray(data)) {
+        } if (Array.isArray(data) && data.length > 0) {
             data.forEach(tag => {
                 this.tags.push(this.formBuilder.control(tag));
             })
