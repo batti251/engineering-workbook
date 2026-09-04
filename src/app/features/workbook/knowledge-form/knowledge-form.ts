@@ -79,6 +79,7 @@ export class KnowledgeForm {
    * @param data - the single entry data, to edit
    */
   buildEditForm(data: KnowledgeEntryData):void {
+    
     this.forms.buildEditForm(data)
   }
 

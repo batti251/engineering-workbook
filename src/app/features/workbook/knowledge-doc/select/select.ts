@@ -1,7 +1,9 @@
-import { afterRenderEffect, Component, computed, output, signal, viewChild } from '@angular/core';
+import { afterRenderEffect, Component, computed, output, signal, viewChild, inject } from '@angular/core';
 import { Combobox, ComboboxPopup, ComboboxWidget } from '@angular/aria/combobox';
 import { Listbox, Option } from '@angular/aria/listbox';
 import { OverlayModule } from '@angular/cdk/overlay';
+import { Supabase } from '../../../../core/db';
+import { tags } from '../../../../shared/interfaces/knowledge-entry-data';
 
 @Component({
   selector: 'app-select',
@@ -11,24 +13,35 @@ import { OverlayModule } from '@angular/cdk/overlay';
 })
 
 export class Select {
-  selectedValue = output<string[]>()
+  private db = inject(Supabase)
+  readonly selectedValue = output<string[]>()
   readonly listbox = viewChild(Listbox);
   readonly selectedValues = signal<string[]>([]);
   readonly displayValue = computed(() => this.selectedValues()[0] || 'Select a label');
   readonly popupExpanded = signal(false);
-  readonly labels = [
-    'Python',
-    'git'
-  ];
+  labels: string[] = [];
+
+
+
   constructor() {
     afterRenderEffect(() => {
       this.listbox()?.scrollActiveItemIntoView();
     });
   }
+
+  async ngOnInit() {
+    await this.getAllTagsFromDB();
+  }
+
+  async getAllTagsFromDB() {
+    let getTags = await this.db.readDbTable('tags') as tags[];
+    getTags.forEach((tag) => {
+      this.labels.push(tag.tag)
+    })
+  }
+
   onCommit() {
     this.popupExpanded.set(false);
     this.selectedValue.emit(this.selectedValues())
-    console.log(this.selectedValue.emit(this.selectedValues()));
-    
   }
 }

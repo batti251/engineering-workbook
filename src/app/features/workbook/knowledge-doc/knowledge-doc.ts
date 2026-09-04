@@ -1,82 +1,69 @@
 import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
 import { Supabase } from '../../../core/db';
 import { KnowledgeEntryData, KnowledgeSubEntryData } from '../../../shared/interfaces/knowledge-entry-data';
-import { JsonPipe } from '@angular/common';
-import { Select } from '../../../shared/components/select/select';
+import { Select } from './select/select';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../../shared/services/key';
 
 @Component({
   selector: 'app-coding-doc',
-  imports: [JsonPipe, RouterLink, Select],
+  imports: [RouterLink, Select],
   templateUrl: './knowledge-doc.html',
   styleUrl: './knowledge-doc.scss',
 })
 export class KnowledgeDoc {
-  db = inject(Supabase)
-  selectedValue: string = 'Python'
-  key = inject(Keys)
-  storageImgPath = this.key.dbURL+'/'+ this.key.dbStorage + '/' + this.key.ImgStore
+  private db = inject(Supabase)
+  selectedValue: string = ''
+  private key = inject(Keys)
+  readonly storageImgPath = this.key.dbURL + '/' + this.key.dbStorage + '/' + this.key.ImgStore
 
-    subEnt = signal<KnowledgeSubEntryData[]>([{
-    subTitle: '',
-    description: '',
-    details: [],
-    screenshots: [],
-    externalLinks: []
-  }])
-
-
-  datas = signal<KnowledgeEntryData[]>([{
-    title: "",
-    description: "",
-    tags: [],
-    image: '',
-    subEntries: this.subEnt()
-  }])
-
-  filteredItems = signal<KnowledgeEntryData[]>([{
-    title: "",
-    description: "",
-    tags: [],
-    image: '',
-    subEntries: this.subEnt()
-  }])
-
-
-  getSelectedValue(value: string[]) {
-    console.log(value[0]);
-
-    this.filterDatas(value[0])
-    console.log(this.filterDatas(value[0]));
-
-  }
-
-  filterDatas(value: string) {
-  /*   this.filteredItems.update(() => this.datas().filter((entry) => {
-      return entry.language == value
-    }))
-    console.log(this.selectedValue);
-    this.selectedValue = value
-    console.log(this.filteredItems()); */
-
-  }
+  private entryDatas = signal<KnowledgeEntryData[]>([])
+  filteredItems = signal<KnowledgeEntryData[]>([])
 
   async ngOnInit() {
     await this.readKnowledgeEntries()
-    console.log(this.datas());
-    console.log(this.filteredItems());
-
   }
 
-  async readKnowledgeEntries() {
+  /**
+   * Reads the knoweledge_entry table from the database
+   * Sets the entryDatas() & filteredItems() Signal to its initial state
+   * The initial state contains all entries from the database
+   */
+  async readKnowledgeEntries(): Promise<void> {
     let database = await this.db.readKnowledgeEntries() as KnowledgeEntryData[]
     if (database.length > 0) {
-      this.datas.set(database)
+      this.entryDatas.set(database)
       this.filteredItems.set(database)
     }
   }
 
+  /**
+   * Filters the entries according to the selected Tag from the User
+   * Updates the displayed entries, by updating the according filteredItems() Signal
+   * @param selectedTag - the selected Tag, the user wants to filter for
+   */
+  filterDatas(selectedTag: string[]) {
+    selectedTag[0]
+    let tempFilteredTags = []
+    this.entryDatas().forEach(entry => {
+      if (this.tagIsIncluded(entry, selectedTag[0])) {
+        tempFilteredTags.push(entry)
+      }
+      this.filteredItems.update(() => tempFilteredTags)
+    }
+    );
+    this.selectedValue = selectedTag[0]
+  }
 
-
+  /**
+   * Checks if the current entry tag contains the selected Tag parameter
+   * @param entry - the current entry that is checkewd
+   * @param selectedTag - selected Tag from the User
+   * @returns - true, if selectedTag is within entry.tags
+   */
+  tagIsIncluded(entry: KnowledgeEntryData, selectedTag: string):boolean {
+    return entry.tags.some((tag) =>
+      tag === selectedTag
+    )
+  }
 }

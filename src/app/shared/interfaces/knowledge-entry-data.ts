@@ -17,5 +17,7 @@ export interface KnowledgeSubEntryData {
 }
 
 export interface tags {
+    created_at?: string,
+    id: number,
     tag : string
 }

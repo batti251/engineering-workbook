@@ -1,18 +1,10 @@
 <div class="content__wrap">
   <div class="sub-header">
-    <app-select (selectedValue)="getSelectedValue($event)"></app-select>
+    <app-select (selectedValue)="filterDatas($event)"></app-select>
     <div class="flex-center-end">
       <a class="text__primary" [routerLink]="['/knowledge/new-entry']">Add Code Entry</a>
     </div>
   </div>
-  <!--  @switch (selectedValue) {
-    @case ("git") {
-      <app-git [data]="filteredItems()"></app-git>
-    }
-    @case ("Python") {
-      <app-python [data]="filteredItems()"></app-python>
-    }
-  } -->
 
   <main class="knowledge-entry__content">
 
