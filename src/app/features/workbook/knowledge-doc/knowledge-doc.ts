@@ -1,17 +1,28 @@
-import { Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
+import { afterRenderEffect, Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
 import { Supabase } from '../../../core/db';
 import { KnowledgeEntryData, KnowledgeSubEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { Select } from './select/select';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../../shared/services/key';
-
+import { LowerCasePipe } from '@angular/common';
+import * as Prism from 'prismjs';
+import 'prismjs/components/prism-sql';
 @Component({
   selector: 'app-coding-doc',
-  imports: [RouterLink, Select],
+  imports: [RouterLink, Select, LowerCasePipe],
   templateUrl: './knowledge-doc.html',
   styleUrl: './knowledge-doc.scss',
 })
 export class KnowledgeDoc {
+
+  highlightSql(code: string): string {
+    return Prism.highlight(
+      code,
+      Prism.languages['sql'],
+      'sql'
+    );
+  }
+
   private db = inject(Supabase)
   selectedValue: string = ''
   private key = inject(Keys)
@@ -20,8 +31,16 @@ export class KnowledgeDoc {
   private entryDatas = signal<KnowledgeEntryData[]>([])
   filteredItems = signal<KnowledgeEntryData[]>([])
 
+  constructor() {
+    afterRenderEffect(() => {
+      this.filteredItems();
+      Prism.highlightAll()
+    });
+  }
+
   async ngOnInit() {
     await this.readKnowledgeEntries()
+
   }
 
   /**
@@ -61,7 +80,7 @@ export class KnowledgeDoc {
    * @param selectedTag - selected Tag from the User
    * @returns - true, if selectedTag is within entry.tags
    */
-  tagIsIncluded(entry: KnowledgeEntryData, selectedTag: string):boolean {
+  tagIsIncluded(entry: KnowledgeEntryData, selectedTag: string): boolean {
     return entry.tags.some((tag) =>
       tag === selectedTag
     )

@@ -67,7 +67,8 @@
                   class="form__input form__input--textarea text__primary--input"
                   placeholder="enter description"
                 ></textarea>
-                <label for="isCode-{{ indexSubEntry }}-{{ subEntry }}"></label>
+                <div>
+                <label for="isCode-{{ indexSubEntry }}-{{ subEntry }}">mark as Code block</label>
                 <input
                   id="isCode-{{ indexSubEntry }}-{{ subEntry }}"
                   type="checkbox"
@@ -75,6 +76,7 @@
                   name="isCode-{{ indexSubEntry }}-{{ subEntry }}"
                   id="isCode-{{ indexSubEntry }}-{{ subEntry }}"
                 />
+                </div>
               </div>
 
               <section formArrayName="details" class="form__wrap form__border">

@@ -41,8 +41,10 @@
                   @case (false) {
                     <div class="text__tertiary paragraph">{{ subEntry.description }}</div>
                   }
-                  @default {
-                    <pre class="text__tertiary paragraph">{{ subEntry.description }}</pre>
+                  @default {  
+                    <pre>
+                      <code class="language-{{knowledgeEntry.tags[0] | lowercase}}">{{ subEntry.description }}</code>
+                    </pre>
                   }
                 }
               }
