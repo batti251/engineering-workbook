@@ -7,12 +7,10 @@
   </div>
 
   <main class="knowledge-entry__content">
-
     @for (knowledgeEntry of filteredItems(); track $index; let itemIndex = $index) {
-
       <article class="knowledge-entry">
         <a class="btn" [routerLink]="[`/knowledge/edit-entry/${knowledgeEntry.id}`]">Edit</a>
-        
+
         <section class="knowledge-entry knowledge-entry__main">
           <h2 class="text__tertiary text__tertiary--h2">{{ knowledgeEntry.title }}</h2>
 
@@ -25,7 +23,7 @@
           }
 
           @if (knowledgeEntry.description) {
-            <pre class="text__tertiary paragraph">{{ knowledgeEntry.description }}</pre>
+            <div class="text__tertiary paragraph">{{ knowledgeEntry.description }}</div>
           }
 
           @if (knowledgeEntry.image) {
@@ -39,7 +37,14 @@
               <h3 class="text__tertiary text__tertiary--h3">{{ subEntry.subTitle }}</h3>
 
               @if (subEntry?.description) {
-                <pre class="text__tertiary paragraph">{{ subEntry.description }}</pre>
+                @switch (subEntry?.isCode) {
+                  @case (false) {
+                    <div class="text__tertiary paragraph">{{ subEntry.description }}</div>
+                  }
+                  @default {
+                    <pre class="text__tertiary paragraph">{{ subEntry.description }}</pre>
+                  }
+                }
               }
 
               @if (subEntry.externalLinks?.length) {
@@ -58,7 +63,7 @@
               @if (subEntry.details?.length) {
                 <section class="sub-entry__accordion" id="details">
                   <ul class="list">
-                  @for (detail of subEntry.details; track $index) {
+                    @for (detail of subEntry.details; track $index) {
                       <li class="list__element text__tertiary">{{ detail }}</li>
                     } @empty {}
                   </ul>
@@ -76,7 +81,6 @@
           }
         </section>
       </article>
-
     }
   </main>
 </div>

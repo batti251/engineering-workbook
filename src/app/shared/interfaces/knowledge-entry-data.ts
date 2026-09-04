@@ -11,6 +11,7 @@ export interface KnowledgeEntryData {
 export interface KnowledgeSubEntryData {
     subTitle: string,
     description?: string,
+    isCode?: boolean,
     details?: string[],
     screenshots?: string[],
     externalLinks?: string[]

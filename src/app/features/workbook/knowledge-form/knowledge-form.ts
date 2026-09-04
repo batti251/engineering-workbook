@@ -92,6 +92,8 @@ export class KnowledgeForm {
   async sendDataToDB():Promise<void> {
     await this.forms.sendScreenshotsToDB()
     let data = new KnowledgeEntry(this.forms.entryForm.value as Partial<KnowledgeEntryData>)
+    console.log(data);
+    
     try {
       if (this.isEditForm()) {
         let databaseSuccess = await this.db.updateKnowledgeEntry(data)

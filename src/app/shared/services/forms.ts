@@ -55,6 +55,7 @@ export class Forms {
         return this.formBuilder.group({
             subTitle: this.formBuilder.control(data?.subTitle ?? ''),
             description: [data?.description ?? '', Validators.required],
+            isCode: [data?.isCode ?? false],
             details: this.formBuilder.array([]),
             externalLinks: this.formBuilder.array([]),
             screenshots: this.formBuilder.array([]),
