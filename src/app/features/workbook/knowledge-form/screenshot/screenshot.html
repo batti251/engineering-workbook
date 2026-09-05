@@ -1,26 +1,35 @@
-<div class="form__input--img" (paste)="forms.addScreenshots($event, indexSubEntry)">
-@for (screenshot of formArray.controls; track screenshot; let screenshotIndex = $index) {
-  <div class="list list__element">
-    <div
-      class="list__element--wrap"
-      (mouseover)="clipboard.toggleDeleteBtn(screenshot.value)"
-      (mouseout)="clipboard.toggleDeleteBtn(screenshot.value)"
-    >
-      @if (screenshot.value.includes('blob')) {
-        <img class="img" [src]="screenshot.value" alt="" />
-      } @else {
-        <img class="img" src="{{ forms.storageImgPath + '/' + screenshot.value }}" alt="" />
+<ul
+  class="list"
+  [class.list--active]="state.activeScreenshot() === indexSubEntry"
+  (paste)="forms.addScreenshots($event, indexSubEntry)"
+>
+  @for (screenshot of formArray.controls; track screenshot; let screenshotIndex = $index) {
+    <li class="list__element">
+      @if ($first) {
+        <div class="list__paste-area" (click)="setActiveTarget($event, indexSubEntry)">setScreenshots here</div>
       }
-      @if (screenshot.value === clipboard.hoveredBlob) {
-        <button
-          type="button"
-          (click)="forms.removeSubEntryControl(indexSubEntry, screenshotIndex, 'screenshots')"
-          class="btn__hovered"
-        >
-          <img src="/img/close.svg" alt="" class="btn__hovered--delete" />
-        </button>
-      }
-    </div>
-  </div>
-} 
-</div>
+      <div
+        class="list__element--wrap"
+        (mouseover)="clipboard.toggleDeleteBtn(screenshot.value)"
+        (mouseout)="clipboard.toggleDeleteBtn(screenshot.value)"
+      >
+        @if (screenshot.value.includes('blob')) {
+          <img class="img" [src]="screenshot.value" alt="" />
+        } @else {
+          <img class="img" src="{{ forms.storageImgPath + '/' + screenshot.value }}" alt="" />
+        }
+        @if (screenshot.value === clipboard.hoveredBlob) {
+          <button
+            type="button"
+            (click)="forms.removeSubEntryControl(indexSubEntry, screenshotIndex, 'screenshots')"
+            class="btn__hovered"
+          >
+            <img src="/img/close.svg" alt="" class="btn__hovered--delete" />
+          </button>
+        }
+      </div>
+    </li>
+  } @empty {
+    <div class="list__paste-area h-100" (click)="setActiveTarget($event, indexSubEntry)"></div>
+  }
+</ul>

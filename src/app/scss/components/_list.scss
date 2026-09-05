@@ -5,7 +5,7 @@
     @include dFlex($ai: flex-start, $g: 8px);
     height: 100%;
     &--wrap {
-      @include size($w: 100%, $h:100%);
+      @include size($w: 100%, $h:90%);
       position: relative;
       display: flex;
       margin: unset;

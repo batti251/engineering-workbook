@@ -1,6 +1,16 @@
 <form (ngSubmit)="sendDataToDB()" [formGroup]="forms.entryForm" class="form">
   <section class="form__wrap g-1">
-    <h2 class="text__primary text__primary--h2">Knowledge Entry</h2>
+    <header class="sub-header">
+      <h2 class="text__primary text__primary--h2">Knowledge Entry</h2>
+      <div>
+        <button
+          class="btn btn__icon--cancel"
+          type="button"
+          (click)="db.deleteKnowledgeEntry(forms.entryForm.get('id')!.value!)"
+        ></button>
+      </div>
+    </header>
+
     <div>
       <label for="title" class="text__primary">Title: </label>
       <input
@@ -40,7 +50,6 @@
   <section>
     <div class="header__nav">
       <h2 class="text__primary text__primary--h2">Sub Entry:</h2>
-      <button class="btn btn__icon--add" type="button" (click)="forms.addSubEntry()"></button>
     </div>
     <div formArrayName="subEntries">
       <div>
@@ -67,20 +76,27 @@
                   class="form__input form__input--textarea text__primary--input"
                   placeholder="enter description"
                 ></textarea>
-                <div>
-                <label for="isCode-{{ indexSubEntry }}-{{ subEntry }}">mark as Code block</label>
-                <input
-                  id="isCode-{{ indexSubEntry }}-{{ subEntry }}"
-                  type="checkbox"
-                  formControlName="isCode"
-                  name="isCode-{{ indexSubEntry }}-{{ subEntry }}"
-                  id="isCode-{{ indexSubEntry }}-{{ subEntry }}"
-                />
+                <div class="text__secondary form__wrap--row">
+                  <label for="isCode-{{ indexSubEntry }}-{{ subEntry }}">mark as Code block</label>
+                  <input
+                    id="isCode-{{ indexSubEntry }}-{{ subEntry }}"
+                    type="checkbox"
+                    formControlName="isCode"
+                    name="isCode-{{ indexSubEntry }}-{{ subEntry }}"
+                    id="isCode-{{ indexSubEntry }}-{{ subEntry }}"
+                  />
                 </div>
               </div>
 
               <section formArrayName="details" class="form__wrap form__border">
-                <h3 class="text__secondary text__secondary--h3">Details</h3>
+                <header class="sub-header">
+                  <h3 class="text__secondary text__secondary--h3">Details</h3>
+                  <button
+                    type="button"
+                    (click)="forms.addSubEntryControls(indexSubEntry, 'details')"
+                    class="btn btn__icon--add"
+                  ></button>
+                </header>
                 <app-links
                   [indexSubEntry]="indexSubEntry"
                   [formArray]="forms.getSubEntryControls(indexSubEntry, 'details')"
@@ -89,7 +105,14 @@
               </section>
 
               <section formArrayName="externalLinks" class="form__wrap form__border">
-                <h3 class="text__secondary text__secondary--h3">Links</h3>
+                <header class="sub-header">
+                  <h3 class="text__secondary text__secondary--h3">Links</h3>
+                  <button
+                    type="button"
+                    (click)="forms.addSubEntryControls(indexSubEntry, 'externalLinks')"
+                    class="btn btn__icon--add"
+                  ></button>
+                </header>
                 <app-links
                   [indexSubEntry]="indexSubEntry"
                   [formArray]="forms.getSubEntryControls(indexSubEntry, 'externalLinks')"
@@ -105,18 +128,45 @@
                 ></app-screenshot>
               </section>
 
-              <div>
+              <div class="form__wrap--row">
                 <button
                   class="btn btn__icon--cancel"
                   type="button"
                   (click)="forms.removeSubEntries(indexSubEntry)"
                 ></button>
-                <button class="btn btn__icon--submit" type="submit"></button>
+                <span class="text__secondary">Delete Sub Entry</span>
               </div>
             </div>
+
+            @if ($last) {
+              <button class="btn preview__btn" type="button" (click)="forms.addSubEntry()">
+                <div class="form--sub-entry w-100 preview__card">
+                  <section class="form__wrap form__border">
+                    <h3 class="text__secondary text__secondary--h3">Title</h3>
+                  </section>
+
+                  <section class="form__wrap form__border form__input--textarea">
+                    <h3 class="text__secondary text__secondary--h3">Description</h3>
+                  </section>
+
+                  <section class="form__wrap form__border">
+                    <h3 class="text__secondary text__secondary--h3">Details</h3>
+                  </section>
+
+                  <section class="form__wrap form__border">
+                    <h3 class="text__secondary text__secondary--h3">Links</h3>
+                  </section>
+
+                  <section class="form__wrap form__border form__input--textarea">
+                    <h3 class="text__secondary text__secondary--h3">Screenshots</h3>
+                  </section>
+                </div>
+              </button>
+            }
           }
         </section>
       </div>
     </div>
   </section>
+  <button class="btn btn__icon--submit" type="submit"></button>
 </form>

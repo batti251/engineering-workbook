@@ -1,18 +1,14 @@
+<ul class="list">
 @for (
   item of formArray.controls;
   track item;
   let itemIndex = $index
 ) {
-  <div class="form__wrap--input">
-    <button
-      type="button"
-      (click)="forms.addSubEntryControls(indexSubEntry, target)"
-      class="btn btn__icon--add"
-    ></button>
-    <div class="form__wrap g-0">
-      <label for="link-{{ indexSubEntry }}.{{ itemIndex }}"></label>
+  <li class="form__wrap--input list--element">
+    <div class="form__wrap">
+      <label for="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"></label>
       <input
-        id="link-{{ indexSubEntry }}.{{ itemIndex }}"
+        id="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"
         type="text"
         [formControl]="item"
         class="form__input text__primary--input"
@@ -23,13 +19,7 @@
       type="button"
       (click)="forms.removeSubEntryControl(indexSubEntry, itemIndex, target)"
       class="btn btn__icon--delete"
-      [disabled]="$first"
     ></button>
-  </div>
-} @empty {
-  <button
-    type="button"
-    (click)="forms.addSubEntryControls(indexSubEntry, target)"
-    class="btn btn__icon--add"
-  ></button>
+  </li>
 }
+</ul>  

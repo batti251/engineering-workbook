@@ -55,7 +55,7 @@
                   <ul class="list__element">
                     @for (link of subEntry.externalLinks; track $index) {
                       <li class="list__element">
-                        <a [href]="link">Helpful Link</a>
+                        <a [href]="link">{{link}}</a>
                       </li>
                     } @empty {}
                   </ul>

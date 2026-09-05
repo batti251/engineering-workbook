@@ -1,12 +1,58 @@
 @use '../../../scss/abstracts/index' as *;
 
+.form {
+  @include dFlex($fd: column, $ai: unset, $g: 8px);
+  &__border {
+    @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
+    box-shadow: 0px 0px 6px #e9da92;
+    padding: 8px;
+  }
+}
 
-.form{
-    @include dFlex($fd: column, $ai: unset, $g: 8px);
-    
+.d-none {
+  display: none;
+}
+
+.preview {
+  &__btn {
+    @include size($w: min(420px, 80%));
+    border: unset;
+    position: relative;
+    filter: opacity(0.6);
+    &::before {
+      content: url('/img/add_entry_96.svg');
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &:hover {
+      filter: opacity(1);
+    }
+  }
+
+  &__card {
+    background: #053f388f;
+  }
+}
+
+input[type='checkbox'] {
+  outline: unset;
+  background-color: transparent;
+  appearance: none;
+  border: 1px solid rgb(85, 82, 82);
+  width: 24px;
+  height: 24px;
+  border-radius: 12px;
+  &:checked {
+    background: url('/img/checked_code.svg');
+    background-position: center;
+  }
 }
 
 
-.d-none{
-    display: none;
+
+.sub-header{
+  @include dFlex($fd: row, $jc: space-between);
+  @include size();
+  margin: unset;
 }

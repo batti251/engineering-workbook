@@ -27,10 +27,24 @@ h6 {
   margin: 0;
 }
 
-$base-unit: 8px;
 
 @for $i from 0 through 4{
+  $base-unit: 8px;
   .g-#{$i} {
     gap: $i*$base-unit !important;
+  }
+}
+
+@for $i from 0 through 100{
+  $value : $i * 20;
+  .w-#{$value} {
+    width: #{$value} + '%' !important;
+  }
+}
+
+@for $i from 0 through 100{
+  $value : $i * 20;
+  .h-#{$value} {
+    height: #{$value} + '%' !important;
   }
 }

@@ -29,12 +29,6 @@
     &--textarea {
       @include size($h: 120px, $w: 100%);
     }
-    &--img{
-      @include size($w: 100%);
-      min-height: 100px;
-      @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
-      box-shadow: 0px 0px 7px #e9da92;
-    }
   }
   &__wrap {
     @include dFlex($ai: normal, $g: 8px);
@@ -53,10 +47,6 @@
       @include border($br: 8px);
     }
   }
-  &__border {
-    @include border($br: 4px);
-    padding: 8px;
-  }
   &--sub-entry {
     width: min(420px, 80%);
     @include dFlex($ai: unset, $jc: unset);
@@ -71,7 +61,6 @@ input,
 textarea {
   &:focus {
     background-color: #ffefb3;
-
     outline: 3px outset #013e37;
   }
   &:-webkit-autofill {

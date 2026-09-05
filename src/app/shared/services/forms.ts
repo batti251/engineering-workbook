@@ -133,7 +133,7 @@ export class Forms {
      * @param target 
      */
     addSubEntryControls(indexSubEntry: number, target: string) {
-        let control = this.subEntries.at(indexSubEntry).get(target) as FormArray
+        let control = this.getSubEntryControls(indexSubEntry, target) as FormArray
         control?.push(this.formBuilder.control(''));
     }
 

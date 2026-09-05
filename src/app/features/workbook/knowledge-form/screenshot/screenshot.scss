@@ -1,0 +1,52 @@
+@use '../../../../scss/abstracts/index' as *;
+
+.list {
+  @include size($w: 100%);
+  @include size($h: 200px);
+  overflow: overlay;
+  @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
+  box-shadow: 0px 0px 6px #e9da92;
+  list-style-type: none;
+  padding: unset;
+  &--active {
+    border-color: #c1f5b7;
+    box-shadow: 0px 0px 9px #92e9a1;
+  }
+  &__element {
+    padding: 4px;
+  }
+  &__paste-area {
+    @include size($h:50px, $w: 100%);
+    display: flex;
+    justify-content: center;
+    &:active {
+      background-color: red;
+    }
+  }
+
+  --sb-track-color: #231e03;
+  --sb-thumb-color: #f5e8b7;
+  --sb-size: 7px;
+  &::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+&::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 4px;
+}
+
+&::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 4px;
+}
+
+}
+
+
+
+@supports not selector(::-webkit-scrollbar) {
+  .list {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
