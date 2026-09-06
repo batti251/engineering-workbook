@@ -1,3 +1,6 @@
+<app-confirm-dialog #showDialog></app-confirm-dialog>
+
+
 <form (ngSubmit)="sendDataToDB()" [formGroup]="forms.entryForm" class="form">
   <section class="form__wrap g-1">
     <header class="sub-header">
@@ -6,7 +9,7 @@
         <button
           class="btn btn__icon--cancel"
           type="button"
-          (click)="db.deleteKnowledgeEntry(forms.entryForm.get('id')!.value!)"
+          (click)="showDialog.open()"
         ></button>
       </div>
     </header>

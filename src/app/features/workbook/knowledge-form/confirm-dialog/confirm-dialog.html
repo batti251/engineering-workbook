@@ -1,0 +1,20 @@
+<dialog #dialog class="dialog">
+  <h3 class="dialog__title">Wirklich löschen?</h3>
+  <p>
+    <i class="dialog__info">
+      Dies löscht den gesamten Eintrag. <br />
+      Die Aktion kann nicht rückgängig gemacht werden</i
+    >
+  </p>
+
+  @if (isError()) {
+    <span [class.message--error]="isError()">{{ message() }}</span>
+  } @else {
+    <span class="message--success">{{ message() }}</span>
+  }
+
+  <div class="btn__header">
+    <button class="btn btn--submit" type="button" (click)="confirmDelete()">Bestätigen</button>
+    <button class="btn btn--cancel" type="button" (click)="close()">Abbrechen</button>
+  </div>
+</dialog>

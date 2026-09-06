@@ -4,7 +4,7 @@
   background-color: transparent;
   border: 1px solid black;
   border-radius: 4px;
-@include font($fs: clamp(1rem, 1rem, 1vw));
+  @include font($fs: clamp(1rem, 1rem, 1vw));
   &__icon {
     &--add {
       @include backgroundImg($w: 24px, $h: 24px, $bi: url('/img/add.svg'));
@@ -21,6 +21,16 @@
     &--edit {
       display: flex;
       @include backgroundImg($w: 40px, $h: 32px, $bi: url('/img/edit_white.svg'));
+      &:hover {
+        cursor: pointer;
+        transform: scale(1.1);
+        @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
+        box-shadow: 0px 0px 6px #e9da92;
+      }
+    }
+    &--confirm {
+      @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
+      box-shadow: 0px 0px 6px #e9da92;
     }
   }
 
@@ -52,7 +62,7 @@
     filter: brightness(1.1);
     cursor: pointer;
   }
-  &:disabled{
+  &:disabled {
     opacity: 0;
     cursor: default;
   }

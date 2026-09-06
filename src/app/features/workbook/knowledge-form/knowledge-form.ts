@@ -13,6 +13,7 @@ import { Storage } from '../../../core/storage';
 import { Select } from './select/select';
 import { Links } from './links/links';
 import { Screenshot } from './screenshot/screenshot';
+import { ConfirmDialog } from "./confirm-dialog/confirm-dialog";
 
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
@@ -27,7 +28,7 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot],
+  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot, ConfirmDialog],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
   providers: [Forms, Select]
@@ -119,4 +120,6 @@ export class KnowledgeForm {
   redirectToDoc() {
     this.router.navigateByUrl('/knowledge/doc')
   }
+
+
 }

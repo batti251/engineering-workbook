@@ -131,6 +131,8 @@ export class Supabase {
             .from('knowledge_entry')
             .delete()
             .eq('id', id)
-        return error
+        if (error) {
+            throw new Error('Löschung nicht erfoglreich! Bitte nochmal versuchen',error)
+        }
     }
 }
