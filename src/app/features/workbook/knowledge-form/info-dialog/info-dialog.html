@@ -1,0 +1,24 @@
+<dialog class="dialog" #infoDialog>
+  @switch (message === 200) {
+    @case (true) {
+      <h3 class="dialog__title dialog__title--success">Erfolg!</h3>
+      <p>
+        <i class="dialog__info">
+          {{ errorMessage[message ?? ''] ?? message }} <br />
+          Du wirst zur Hauptseite weitergeleitet
+        </i>
+      </p>
+    }
+    @case (false) {
+      <h3 class="dialog__title">{{ message === 200 ? 'Erfolg!' : 'Fehler!' }}</h3>
+      <p>
+        <i class="dialog__info">
+          {{ errorMessage[message ?? ''] ?? message }}
+        </i>
+      </p>
+      <div class="btn__header">
+        <button class="btn btn--submit" type="button" (click)="close()">Verstanden!</button>
+      </div>
+    }
+  }
+</dialog>

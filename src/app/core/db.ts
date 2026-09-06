@@ -1,5 +1,5 @@
 import { inject, Service, signal } from '@angular/core';
-import { createClient, RealtimeChannel } from '@supabase/supabase-js'
+import { createClient, PostgrestError, RealtimeChannel } from '@supabase/supabase-js'
 import { Keys } from '../shared/services/key';
 import { KnowledgeEntryData, tags } from '../shared/interfaces/knowledge-entry-data';
 
@@ -7,7 +7,7 @@ import { KnowledgeEntryData, tags } from '../shared/interfaces/knowledge-entry-d
 export class Supabase {
     private key = inject(Keys)
     db = createClient(this.key.dbURL, this.key.dbKey)
-    
+
     channelAll!: RealtimeChannel
     realtimeEventType = signal('')
 
@@ -44,7 +44,7 @@ export class Supabase {
      * @param userData - the filled KnowledgeEntryData from the form-component  
      * @returns 
      */
-    async createNewKnowledgeEntry(userData: KnowledgeEntryData):Promise<boolean> {
+    async createNewKnowledgeEntry(userData: KnowledgeEntryData): Promise<void> {
         const { data, error } = await this.db
             .from('knowledge_entry')
             .insert([
@@ -57,21 +57,19 @@ export class Supabase {
                 },
             ])
             .select()
-        if (!error) {
-            return true
-        } else
-            console.log(error);
-        return false
+        if (error) {
+            throw new Error(error.code)
+        }
     }
 
     /**
      * Reads and returns the database KnowledgeEntryDatas
      * @returns 
      */
-    async readKnowledgeEntries():Promise<KnowledgeEntryData[]> {
+    async readKnowledgeEntries(): Promise<KnowledgeEntryData[]> {
         let { data: knowledge_entry, error } = await this.db
             .from('knowledge_entry')
-            .select('*') 
+            .select('*')
         return knowledge_entry as KnowledgeEntryData[]
     }
 
@@ -80,7 +78,7 @@ export class Supabase {
      * @param id - the entry Id
      * @returns 
      */
-    async readSingleKnowledgeEntry(id: string):Promise<KnowledgeEntryData[]> {
+    async readSingleKnowledgeEntry(id: string): Promise<KnowledgeEntryData[]> {
         let { data: knowledge_entry, error } = await this.db
             .from('knowledge_entry')
             .select('*')
@@ -88,15 +86,15 @@ export class Supabase {
         return knowledge_entry as KnowledgeEntryData[]
     }
 
-     /**
-     * Reads and returns the database KnowledgeEntryDatas
-     * @returns 
-     */
-    async readDbTable(table:string):Promise<(KnowledgeEntryData|tags)[]> {
+    /**
+    * Reads and returns the database KnowledgeEntryDatas
+    * @returns 
+    */
+    async readDbTable(table: string): Promise<(KnowledgeEntryData | tags)[]> {
         let { data: data, error } = await this.db
             .from(table)
-            .select('*') 
-        return data as (KnowledgeEntryData|tags)[] 
+            .select('*')
+        return data as (KnowledgeEntryData | tags)[]
     }
 
     /**
@@ -104,7 +102,7 @@ export class Supabase {
      * @param editedData - the edited KnowledgeEntryData from the form-component
      * @returns 
      */
-    async updateKnowledgeEntry(editedData: KnowledgeEntryData):Promise<boolean> {
+    async updateKnowledgeEntry(editedData: KnowledgeEntryData): Promise<void> {
         const { data, error } = await this.db
             .from('knowledge_entry')
             .update({
@@ -116,9 +114,9 @@ export class Supabase {
             })
             .eq('id', editedData.id)
             .select()
-        if (!error) {
-            return true
-        } else return false
+        if (error) {
+            throw new Error('Das hat nicht funktioniert!', error)
+        }
     }
 
     /**
@@ -132,7 +130,7 @@ export class Supabase {
             .delete()
             .eq('id', id)
         if (error) {
-            throw new Error('Löschung nicht erfoglreich! Bitte nochmal versuchen',error)
+            throw new Error('Löschung nicht erfoglreich! Bitte nochmal versuchen', error)
         }
     }
 }

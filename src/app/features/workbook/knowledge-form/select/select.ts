@@ -4,6 +4,8 @@ import { afterRenderEffect, Component, computed, effect, EventEmitter, inject, I
 import { Supabase } from '../../../../core/db';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { tags } from '../../../../shared/interfaces/knowledge-entry-data';
+import { KnowledgeForm } from '../knowledge-form';
+import { Forms } from '../../../../shared/services/forms';
 
 @Component({
   selector: 'app-select',
@@ -13,6 +15,8 @@ import { tags } from '../../../../shared/interfaces/knowledge-entry-data';
 })
 export class Select {
   db = inject(Supabase)
+  form = inject(KnowledgeForm)
+  forms = inject(Forms)
 
   @Output() newTag = new EventEmitter<string[]>()
   @Input() renderedTags: string[] = [];

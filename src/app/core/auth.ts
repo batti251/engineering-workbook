@@ -1,5 +1,5 @@
 import { inject, Service, signal } from '@angular/core';
-import { AuthError, createClient } from '@supabase/supabase-js'
+import { AuthError, AuthSessionMissingError, createClient, PostgrestError } from '@supabase/supabase-js'
 import { Keys } from '../shared/services/key';
 import { AbstractControl } from '@angular/forms';
 import { LocalStorage } from './local-storage';
@@ -46,12 +46,12 @@ export class Auth {
    * @returns 
    */
   returnErrorMessage(error: AuthError): string {
-    type ErrorMessages = 
-    "E-Mail, oder Passwort falsch" | 
-    "Bitte eine E-Mail eingeben" | 
-    "Der Benutzer ist gesperrt" | 
-    "Ein unbekannter Fehler ist aufgetreten";
-    
+    type ErrorMessages =
+      "E-Mail, oder Passwort falsch" |
+      "Bitte eine E-Mail eingeben" |
+      "Der Benutzer ist gesperrt" |
+      "Ein unbekannter Fehler ist aufgetreten";
+
     const errorMessage: Record<string, ErrorMessages> = {
       invalid_credentials: "E-Mail, oder Passwort falsch",
       validation_failed: "Bitte eine E-Mail eingeben",
@@ -112,6 +112,27 @@ export class Auth {
   removeActiveSession() {
     this.local.deleteLocalStorage(this.key.token);
     this.isActiveSession.update(() => false);
+  }
+
+
+
+  /**
+   * User Validation, if the User exists.
+   * @returns - state code, 200, when User found, 400, when User is not found in the directory
+   */
+  async getUser() {
+    let state
+    try {
+      let isUser = await this.db.auth.getUser()
+      if (isUser.error) {
+        throw new AuthSessionMissingError()
+      }
+      return 200
+    } catch (error) {
+      if (error instanceof AuthSessionMissingError) {
+        state = error.status
+      } return state
+    }
   }
 }
 

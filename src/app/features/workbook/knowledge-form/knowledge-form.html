@@ -1,5 +1,5 @@
-<app-confirm-dialog #showDialog></app-confirm-dialog>
-
+<app-confirm-dialog></app-confirm-dialog>
+<app-info-dialog [message]="error()"></app-info-dialog>
 
 <form (ngSubmit)="sendDataToDB()" [formGroup]="forms.entryForm" class="form">
   <section class="form__wrap g-1">
@@ -9,7 +9,7 @@
         <button
           class="btn btn__icon--cancel"
           type="button"
-          (click)="showDialog.open()"
+          (click)="deleteEntry()"
         ></button>
       </div>
     </header>
@@ -20,8 +20,9 @@
         id="title"
         type="text"
         formControlName="title"
-        placeholder="what topic is it about?"
+        placeholder="Enter your topic"
         class="form__input form__input--title text__primary--input"
+        [class.invalid]="(formSubmit() || forms.title?.touched) && forms.title?.invalid"
       />
     </div>
 

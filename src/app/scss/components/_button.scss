@@ -28,10 +28,7 @@
         box-shadow: 0px 0px 6px #e9da92;
       }
     }
-    &--confirm {
-      @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
-      box-shadow: 0px 0px 6px #e9da92;
-    }
+   
   }
 
   &__hovered {

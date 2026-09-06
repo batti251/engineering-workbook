@@ -4,6 +4,7 @@
   [(expanded)]="popupExpanded"
   [preserveContent]="true"
   class="select"
+  [class.invalid]="(form.formSubmit() || forms.tags.touched) && forms.tags.invalid"
 >
   <span class="combobox-label">
     <span class="selected-label-text">{{ displayValue() }}</span>

@@ -35,9 +35,9 @@ export class Forms {
         return this.formBuilder.group({
             id: data?.id,
             title: [data?.title ?? '', Validators.required],
-            description: [data?.description ?? '', Validators.required],
-            tags: this.formBuilder.array([]),
-            image: ['', Validators.required],
+            description: [data?.description ?? ''],
+            tags: this.formBuilder.array([],Validators.required),
+            image: [''],
             subEntries: this.formBuilder.array([
                 this.buildSubEntryForm()
             ]),
@@ -53,14 +53,23 @@ export class Forms {
      */
     buildSubEntryForm(data?: KnowledgeSubEntryData, subEntryIndex?: number) {
         return this.formBuilder.group({
-            subTitle: this.formBuilder.control(data?.subTitle ?? ''),
-            description: [data?.description ?? '', Validators.required],
+            subTitle: this.formBuilder.control(data?.subTitle ?? '', Validators.required),
+            description: [data?.description ?? ''],
             isCode: [data?.isCode ?? false],
             details: this.formBuilder.array([]),
             externalLinks: this.formBuilder.array([]),
             screenshots: this.formBuilder.array([]),
         })
     }
+
+    get title(){
+        return this.entryForm.get('title')
+    }
+    get tags() {
+        return this.entryForm.get('tags') as FormArray;
+    }
+
+
 
     /**
      * Edit Form: Builds a editable Form, filled with @param data
@@ -186,10 +195,6 @@ export class Forms {
         subEntry?.screenshots?.forEach(img => {
             control.push(this.formBuilder.control(img))
         })
-    }
-
-    get tags() {
-        return this.entryForm.get('tags') as FormArray;
     }
 
     /**

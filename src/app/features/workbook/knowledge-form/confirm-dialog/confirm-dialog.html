@@ -1,5 +1,5 @@
 <dialog #dialog class="dialog">
-  <h3 class="dialog__title">Wirklich löschen?</h3>
+  <h3 class="dialog__title">{{ isConfirmed() ? 'Geschafft!' : 'Wirklich löschen?' }}</h3>
   <p>
     <i class="dialog__info">
       Dies löscht den gesamten Eintrag. <br />
@@ -13,7 +13,7 @@
     <span class="message--success">{{ message() }}</span>
   }
 
-  <div class="btn__header">
+  <div class="btn__header" [class.d-none]="isConfirmed()">
     <button class="btn btn--submit" type="button" (click)="confirmDelete()">Bestätigen</button>
     <button class="btn btn--cancel" type="button" (click)="close()">Abbrechen</button>
   </div>

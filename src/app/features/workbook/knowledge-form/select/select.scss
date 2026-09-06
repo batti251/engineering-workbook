@@ -75,6 +75,11 @@
   animation: smoothPopupClose 150ms ease-in forwards;
 }
 
+.invalid {
+  border: 2px solid red !important;
+  color: red;
+}
+
 
 [ngListbox] {
   gap: 2px;

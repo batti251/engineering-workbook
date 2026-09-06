@@ -5,11 +5,18 @@
   @include border();
   &__title {
     @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));
-    color: #ffefb3;
+    color: #ce3f3f;
+    &--success{
+      color: green;
+    }
   }
   &__info {
     @include font($fw: 500, $fs: clamp(1rem, 1rem, 2vw));
     color: #a9a87d;
+  }
+  &[open]{
+  @include dFlex();
+
   }
 }
 
@@ -29,25 +36,4 @@
     background-color: green;
     color: #ffefb3;
   }
-  &--cancel {
-    @include border($br: 4px);
-    background-color: rgb(151, 50, 4);
-    color: #ffefb3;
-  }
-}
-
-.message {
-  height: 40px;
-  &--error {
-    @include font($fw: 500, $fs: clamp(1rem, 1rem, 2vw));
-    color: rgb(197, 15, 15);
-  }
-  &--success{
-    @include font($fw: 500, $fs: clamp(1rem, 1rem, 2vw));
-    color: rgb(15, 197, 15);
-  }
-}
-
-.d-none{
-    display: none !important;
 }

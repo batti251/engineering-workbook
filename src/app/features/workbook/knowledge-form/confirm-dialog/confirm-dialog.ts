@@ -20,7 +20,7 @@ export class ConfirmDialog {
   private router = inject(Router)
   message = signal<string>('');
   isError = signal(false);
-
+  isConfirmed = signal(false);
 
   open() {
     this.dialog.nativeElement.showModal()
@@ -32,8 +32,12 @@ export class ConfirmDialog {
     this.message.set('')
   }
 
+  /**
+   * Deletes the given Entry from the Database
+   */
   async confirmDelete() {
     this.isError.set(false)
+    this.isConfirmed.set(true)
     try {
       await this.db.deleteKnowledgeEntry(this.form.entryForm.get('id')!.value!);
       this.message.set('Eintrag gelöscht! Sie werden zur Hauptseite geleitet')
