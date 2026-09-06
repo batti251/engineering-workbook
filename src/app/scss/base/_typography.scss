@@ -35,6 +35,7 @@
     text-decoration: none;
     &--h2 {
       @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 1vw));
+      color: #b7b7a7;
     }
     &--h3 {
       @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));

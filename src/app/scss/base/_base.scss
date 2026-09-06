@@ -18,6 +18,10 @@ body {
   @include size($h: 100%);
 }
 
+.flex--row {
+  @include dFlex($fd: row, $ai: center, $jc: unset);
+}
+
 h1,
 h2,
 h3,
@@ -27,10 +31,13 @@ h6 {
   margin: 0;
 }
 
+ul, pre{
+  margin: unset;
+}
 
+$base-unit: 8px;
 @for $i from 0 through 4{
-  $base-unit: 8px;
-  .g-#{$i} {
+  .g-#{$i*8} {
     gap: $i*$base-unit !important;
   }
 }

@@ -1,8 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'app/scss/main.scss' as *;
 
-.language-sql{
-    display: block;
+.language-sql {
+  display: block;
+  font-weight: 600;
+  font-size: clamp(1rem, 1.25rem, 1vw);
 }
 
 .token {
@@ -10,11 +12,16 @@
   font-size: clamp(1rem, 1.25rem, 1vw);
 }
 
-.token.keyword {
-  color: #00807b;
+.keyword, .boolean  {
+  color: #00807b !important;
 }
 
-.token.operator {
-  color: #d19914bf;
+.comment {
+  color: #53735a !important;
+  font-style: italic;
+}
+
+.operator {
+  color: #00807b !important;
 }
 

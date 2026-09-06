@@ -18,6 +18,10 @@
     &--submit {
       @include backgroundImg($w: 80px, $h: 32px, $bi: url('/img/submit_alt.svg'));
     }
+    &--edit {
+      display: flex;
+      @include backgroundImg($w: 40px, $h: 32px, $bi: url('/img/edit_white.svg'));
+    }
   }
 
   &__hovered {

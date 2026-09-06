@@ -9,7 +9,7 @@
   <main class="knowledge-entry__content">
     @for (knowledgeEntry of filteredItems(); track $index; let itemIndex = $index) {
       <article class="knowledge-entry">
-        <a class="btn" [routerLink]="[`/knowledge/edit-entry/${knowledgeEntry.id}`]">Edit</a>
+        <a class="btn btn__icon--edit" [routerLink]="[`/knowledge/edit-entry/${knowledgeEntry.id}`]"></a>
 
         <section class="knowledge-entry knowledge-entry__main">
           <h2 class="text__tertiary text__tertiary--h2">{{ knowledgeEntry.title }}</h2>
@@ -42,8 +42,8 @@
                     <div class="text__tertiary paragraph">{{ subEntry.description }}</div>
                   }
                   @default {  
-                    <pre>
-                      <code class="language-{{knowledgeEntry.tags[0] | lowercase}}">{{ subEntry.description }}</code>
+                    <pre class="code--wrap">
+                      <code class="code--box language-{{knowledgeEntry.tags[0] | lowercase}}">{{ subEntry.description }}</code>
                     </pre>
                   }
                 }
@@ -51,14 +51,16 @@
 
               @if (subEntry.externalLinks?.length) {
                 <section class="sub-entry__accordion" id="links">
-                  <h4 class="text__tertiary text__tertiary--h3">Links</h4>
-                  <ul class="list__element">
+                  <details>
+                  <summary class="text__tertiary--h3 link__title">Links</summary>
+                  <ul class="list--link">
                     @for (link of subEntry.externalLinks; track $index) {
-                      <li class="list__element">
-                        <a [href]="link">{{link}}</a>
+                      <li class="">
+                        <a class="link" [href]="link">{{link}}</a>
                       </li>
                     } @empty {}
                   </ul>
+                  </details>
                 </section>
               }
 
@@ -66,7 +68,9 @@
                 <section class="sub-entry__accordion" id="details">
                   <ul class="list">
                     @for (detail of subEntry.details; track $index) {
-                      <li class="list__element text__tertiary">{{ detail }}</li>
+                      <li >
+                        <span class="list__element text__tertiary">{{ detail }}</span>
+                      </li>
                     } @empty {}
                   </ul>
                 </section>

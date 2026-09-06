@@ -1,25 +1,57 @@
-@use '../../../scss/abstracts/' as * ;
+@use '../../../scss/abstracts/' as *;
 
-
-.content__wrap{
-    padding: 24px;
+.content__wrap {
+  padding: 24px;
 }
 
-.knowledge-entry{
-    background-color: #282b2a;
-    padding: 24px;
-    border-radius: 24px;
-    &__content {
-        @include dFlex($ai: unset, $g: 16px);
-    }
-    &__main {
-        @include dFlex($ai: unset, $jc: unset, $g: 16px);
-    }
+.knowledge-entry {
+  background-color: #08332b;
+  padding: 8px;
+  border-radius: 24px;
+  &__content {
+    @include dFlex($ai: unset, $g: 16px);
+  }
+  &__main {
+    @include dFlex($ai: unset, $jc: unset, $g: 16px);
+  }
 }
 
-.sub-entry{
+.sub-entry {
+  @include dFlex($ai: flex-start);
+  margin-top: 8px;
+  &__accordion {
     @include dFlex($ai: flex-start, $g: 8px);
-    &__accordion{
-        @include dFlex($ai: flex-start, $g: 8px);
-    }
+  }
+}
+
+.list {
+  list-style-image: url('/img/arrow_white_16.svg');
+  &--link {
+    list-style-image: url('/img/arrow_white_24.svg');
+    list-style-position: inside;
+  }
+}
+
+.code {
+  &--wrap {
+    @include dFlex($fd: unset);
+    padding: 4px;
+    border-radius: 16px;
+  }
+  &--box {
+    background-color: #121314;
+    box-shadow: inset 0px 0px 16px #979797;
+    color: #b3b3b3;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 4px;
+  }
+}
+
+.link {
+  @include font($fs: clamp(1rem, 1.5rem, 2vw));
+  color: #1b93c3;
+  &__title {
+    color: #99b7dde6;
+  }
 }
