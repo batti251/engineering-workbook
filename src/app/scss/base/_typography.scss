@@ -2,43 +2,43 @@
 
 .text {
   &__primary {
-    @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
+    @include font($fw: 800, $fs: clamp(1rem, 1.5rem, 2rem));
     color: #013e37;
     text-decoration: none;
     &--h2 {
-      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 1vw));
+      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
     }
     &--h3 {
-      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));
+      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 2rem));
     }
     &--input {
-      @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1vw));
+      @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1.375rem));
     }
     &--basic{
       font-weight: 500;
     }
   }
   &__secondary {
-    @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
+    @include font($fw: 800, $fs: clamp(1rem, 1.5rem, 2rem));
     color: #ffefb3;
     text-decoration: none;
     &--h2 {
-      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 1vw));
+      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
     }
     &--h3 {
-      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));
+      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 2rem));
     }
   }
   &__tertiary {
-    @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
+    @include font($fw: 800, $fs: clamp(1rem, 1.5rem, 2rem));
     color: #d19914bf;
     text-decoration: none;
     &--h2 {
-      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 1vw));
+      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
       color: #b7b7a7;
     }
     &--h3 {
-      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 1vw));
+      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 2rem));
     }
     &--basic{
       color: #a9a87d;
@@ -46,7 +46,7 @@
     }
   }
   &__regular {
-    @include font($fw: 400, $fs: clamp(1rem, 1rem, 1vw));
+    @include font($fw: 400, $fs: clamp(1rem, 1.5rem, 2rem));
     color: #013e37;
     text-decoration: none;
   }
@@ -63,8 +63,16 @@
 
 .paragraph {
   text-overflow: ellipsis;
+  text-align: justify;
+  line-height: 130%;
   word-break: break-word;
   padding: unset;
   margin: unset;
+  hyphens: auto;
   width: min(800px, 80%);
+
+  @include respond(s){
+    width: 100%;
+    padding: 0 8px;
+  }
 }

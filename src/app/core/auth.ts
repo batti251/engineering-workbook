@@ -117,7 +117,7 @@ export class Auth {
 
 
   /**
-   * User Validation, if the User exists.
+   * User Authentication, if the User exists.
    * @returns - state code, 200, when User found, 400, when User is not found in the directory
    */
   async getUser() {

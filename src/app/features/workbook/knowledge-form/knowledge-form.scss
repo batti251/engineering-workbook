@@ -28,6 +28,11 @@
     &:hover {
       filter: opacity(1);
     }
+
+    @include respond(s) {
+      @include size($w: 100%, $h: 100px);
+      overflow-y: hidden;
+    }
   }
 
   &__card {
@@ -40,23 +45,38 @@ input[type='checkbox'] {
   background-color: transparent;
   appearance: none;
   border: 1px solid rgb(85, 82, 82);
-  width: 24px;
-  height: 24px;
+  width: 40px;
+  height: 40px;
   border-radius: 12px;
   &:checked {
     background: url('/img/checked_code.svg');
     background-position: center;
+    background-repeat: no-repeat;
   }
 }
 
-
-
-.sub-header{
+.sub-header {
   @include dFlex($fd: row, $jc: space-between);
   @include size();
   margin: unset;
 }
 
+.form-header {
+  @include dFlex($fd: row, $jc: space-between);
+  @include size();
+  margin: unset;
+  position: sticky;
+  top: 0;
+  
+  &.sticky {
+    background: #ffefb3;
+    height: 100px;
+    z-index: 1;
+  }
+  @include respond(m){
+    padding: 8px;
+  }
+}
 
 .invalid {
   border: 2px solid red !important;

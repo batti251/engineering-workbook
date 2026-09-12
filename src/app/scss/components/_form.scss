@@ -2,6 +2,7 @@
 
 .form {
   padding: min(20px, 3%);
+
   &__group {
     @include dFlex($ai: flex-start, $g: 8px);
     @include size($w: 100%);
@@ -19,7 +20,7 @@
   &__input {
     @include border($br: 10px, $bs: solid, $bw: 2px, $bc: #ffefb3);
     padding: 8px;
-    @include size($h: 32px, $w: 90%);
+    @include size($h: 40px, $w: 90%);
     &--tag {
       width: 120px;
     }
@@ -28,6 +29,10 @@
     }
     &--textarea {
       @include size($h: 120px, $w: 100%);
+
+      @include respond(s) {
+        height: 240px;
+      }
     }
   }
   &__wrap {
@@ -54,6 +59,13 @@
     background: #013e37;
     padding: 32px 16px;
     gap: 16px;
+    @include respond(s) {
+      width: 100%;
+    }
+  }
+
+  @include respond(s) {
+    padding: 8px;
   }
 }
 

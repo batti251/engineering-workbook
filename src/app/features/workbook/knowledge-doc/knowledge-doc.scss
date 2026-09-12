@@ -2,6 +2,9 @@
 
 .content__wrap {
   padding: 24px;
+  @include respond(s) {
+    padding: 8px;
+  }
 }
 
 .knowledge-entry {
@@ -19,6 +22,8 @@
 .sub-entry {
   @include dFlex($ai: flex-start);
   margin-top: 8px;
+  word-break: break-word;
+  text-overflow: ellipsis;
   &__accordion {
     @include dFlex($ai: flex-start, $g: 8px);
   }
@@ -37,6 +42,9 @@
     @include dFlex($fd: unset);
     padding: 4px;
     border-radius: 16px;
+    max-width: 100%;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
   }
   &--box {
     background-color: #121314;

@@ -7,20 +7,22 @@
   @include font($fs: clamp(1rem, 1rem, 1vw));
   &__icon {
     &--add {
-      @include backgroundImg($w: 24px, $h: 24px, $bi: url('/img/add.svg'));
+      @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/add.svg'));
     }
     &--cancel {
-      @include backgroundImg($w: 24px, $h: 24px, $bi: url('/img/close_red.svg'));
+      @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/close_red.svg'));
     }
     &--delete {
-      @include backgroundImg($w: 24px, $h: 24px, $bi: url('/img/delete.svg'));
+      @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/delete.svg'));
     }
     &--submit {
-      @include backgroundImg($w: 80px, $h: 32px, $bi: url('/img/submit_alt.svg'));
+      @include backgroundImg($w: 80px, $h: 40px, $bi: url('/img/submit_alt.svg'));
+    }
+     &--back {
+      @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/back.svg'));
     }
     &--edit {
-      display: flex;
-      @include backgroundImg($w: 40px, $h: 32px, $bi: url('/img/edit_white.svg'));
+      @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/edit_white.svg'));
       &:hover {
         cursor: pointer;
         transform: scale(1.1);
@@ -64,3 +66,7 @@
     cursor: default;
   }
 }
+
+  a.btn {
+    display: flex;
+  }

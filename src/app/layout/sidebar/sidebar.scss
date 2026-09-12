@@ -1,0 +1,46 @@
+@use '../../scss/abstracts/' as *;
+
+.sidebar {
+  @include dFlex($ai: flex-start, $g: 8px);
+  position: fixed;
+  padding: 10px;
+
+  @include respond(m) {
+    flex-direction: row;
+    position: unset;
+    justify-content: flex-start;
+    gap: 16px;
+  }
+}
+
+.link {
+  @include dFlex($fd: row, $ai: center, $g: 12px);
+  &:hover {
+    .icon__text {
+      font-weight: 700;
+    }
+    background-color: rgb(223, 194, 35) !important;
+    border-radius: 20px;
+    corner-shape: squircle;
+  }
+}
+
+.icon {
+  @include size($h: inherit, $w: inherit);
+  background-color: whitesmoke;
+  border-radius: 20px;
+  corner-shape: squircle;
+
+  &__wrap {
+    @include dFlex($fd: row, $jc: unset, $g: 16px);
+    @include size($h: 40px);
+  }
+
+  &__text {
+    @include dFlex($fd: row, $jc: unset);
+    @include size($w: 120px, $h: 40px);
+    @include font($fw: 400, $fs: clamp(1rem, 1.5rem, 2rem));
+    color: #ffefb3;
+
+  }
+}

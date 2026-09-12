@@ -17,7 +17,7 @@ export class Select {
   readonly selectedValue = output<string[]>()
   readonly listbox = viewChild(Listbox);
   readonly selectedValues = signal<string[]>([]);
-  readonly displayValue = computed(() => this.selectedValues()[0] || 'Select a label');
+  readonly displayValue = computed(() => this.selectedValues()[0] || 'Filter Topic');
   readonly popupExpanded = signal(false);
   labels: string[] = [];
 

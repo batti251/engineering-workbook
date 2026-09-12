@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, ViewChild, ViewChildren } from '@angular/core';
+import { Component, computed, ElementRef, HostListener, inject, signal, ViewChild, ViewChildren } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { KnowledgeEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { KnowledgeEntry } from '../../../shared/models/knowledge-entry';
@@ -6,7 +6,7 @@ import { Supabase } from '../../../core/db';
 import { JsonPipe } from '@angular/common';
 import { Forms } from '../../../shared/services/forms';
 import { Clipboard } from '../../../core/clipboard';
-import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Keys } from '../../../shared/services/key';
 import { Storage } from '../../../core/storage';
@@ -30,7 +30,7 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot, ConfirmDialog, InfoDialog],
+  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot, ConfirmDialog, InfoDialog, RouterLink],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
   providers: [Forms, Select]
@@ -53,6 +53,7 @@ export class KnowledgeForm {
   error = signal<any>({})
   private isEditForm = signal(false)
 
+  isSticky = false;
   formSubmit = signal(false)
 
   @ViewChild(InfoDialog)
@@ -61,6 +62,27 @@ export class KnowledgeForm {
   @ViewChild(ConfirmDialog)
   confirmDialog!: ConfirmDialog;
 
+  @ViewChild('sticky')
+  sticky!: ElementRef<HTMLElement>
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.checkSticky();
+  }
+
+  checkSticky(): void {
+    const element = this.sticky.nativeElement;
+    const rect = element.getBoundingClientRect();
+console.log(rect);
+console.log(element);
+
+    this.isSticky = rect.top <= 0;
+  if (this.isSticky) {
+    element.classList.add('sticky')
+  } else element.classList.remove('sticky')
+
+
+  }
 
   ngOnInit() {
     this.initFormBuild()
@@ -104,7 +126,7 @@ export class KnowledgeForm {
    * Validates if the User is permitted to enter the confirm Dialog to delete Entry
    * @returns 
    */
-  async deleteEntry():Promise<void> {
+  async deleteEntry(): Promise<void> {
     if (!await this.isValidUser()) return;
     this.confirmDialog.open()
   }
@@ -146,7 +168,7 @@ export class KnowledgeForm {
    * Indicates form as valid, when no invalid Inputs found 
    * @returns 
    */
-  formIsValid():boolean {
+  formIsValid(): boolean {
     let invalidSection = document.querySelector('section')
     let invalidInput = invalidSection?.querySelector<HTMLElement>('.ng-invalid')
     if (invalidInput) {
@@ -161,7 +183,7 @@ export class KnowledgeForm {
    * If an error is catched, a dialog will sho up, with the thrown error
    * @param data - the filled form by the user
    */
-  async tryUpdateData(data: KnowledgeEntryData):Promise<void> {
+  async tryUpdateData(data: KnowledgeEntryData): Promise<void> {
     try {
       await this.updateEntry(data);
       await this.forms.sendScreenshotsToDB()
@@ -180,7 +202,7 @@ export class KnowledgeForm {
    * If an error is catched, a dialog will sho up, with the thrown error
    * @param data - the filled form by the user
    */
-  async tryAddNewData(data: KnowledgeEntryData):Promise<void> {
+  async tryAddNewData(data: KnowledgeEntryData): Promise<void> {
     try {
       await this.db.createNewKnowledgeEntry(data)
       this.infoDialog.open()
@@ -197,7 +219,7 @@ export class KnowledgeForm {
    * Executes Database and storage update functions
    * @param data - the submitted form data
    */
-  async updateEntry(data: KnowledgeEntryData):Promise<void> {
+  async updateEntry(data: KnowledgeEntryData): Promise<void> {
     await this.db.updateKnowledgeEntry(data)
     this.db.toDeleteDBFiles.forEach(async file => {
       await this.storage.deleteFile(file)
@@ -207,7 +229,7 @@ export class KnowledgeForm {
   /**
    * redirects the user to the knowledge documentation page
    */
-  redirectToDoc():void {
+  redirectToDoc(): void {
     setTimeout(() => {
       this.router.navigateByUrl('/knowledge/doc')
     }, 2000);

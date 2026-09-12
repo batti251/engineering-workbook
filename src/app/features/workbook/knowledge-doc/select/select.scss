@@ -1,0 +1,152 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+
+
+:host {
+  display: flex;
+  justify-content: center;
+  font-family: var(--inter-font);
+}
+.select {
+  display: flex;
+  position: relative;
+  align-items: center;
+  color: whitesmoke;
+  background-color: #013e37;
+  border-radius: 0.5rem;
+  border: 1px solid #013e37;
+  /* Modernized additions for div-trigger Select: */
+  height: 2.5rem;
+  padding: 0 2rem;
+  cursor: pointer;
+  box-sizing: border-box;
+  width: 16rem;
+  user-select: none;
+  -webkit-user-select: none;
+  outline: none;
+}
+.select span {
+  user-select: none;
+  -webkit-user-select: none;
+}
+.select:hover {
+  background-color: #013e3762;
+}
+.select[aria-disabled='true'] {
+  opacity: 0.6;
+  cursor: default;
+}
+.select:focus,
+.select:focus-within {
+  outline: 2px outset #013e37;
+}
+.combobox-label {
+  gap: 1rem;
+  left: 1.5rem;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  pointer-events: none;
+}
+.example-arrow {
+  right: 1rem;
+  position: absolute;
+  pointer-events: none;
+  transition: transform 150ms ease-in-out;
+}
+.select[aria-expanded='true'] .example-arrow {
+  transform: rotate(180deg);
+}
+.example-popup-container {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 8px;
+  border-radius: 0.5rem;
+  background-color: #d5d68d;
+  font-size: 0.9rem;
+  max-height: 11rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  animation: smoothPopupOpen 150ms ease-out forwards;
+  transform-origin: top;
+}
+
+
+.example-popup-container.closing {
+  animation: smoothPopupClose 150ms ease-in forwards;
+}
+
+.invalid {
+  border: 2px solid red !important;
+  color: red;
+}
+
+
+[ngListbox] {
+  gap: 2px;
+  height: 100%;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  outline: none;
+
+
+  
+  --sb-track-color: #231e03;
+  --sb-thumb-color: #f5e8b7;
+  --sb-size: 7px;
+  &::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+&::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 4px;
+}
+
+&::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 4px;
+}
+
+
+@supports not selector(::-webkit-scrollbar) {
+  [ngListbox] {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+}
+
+[ngOption] {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  margin: 1px;
+  padding: 0 1rem;
+  min-height: 2.25rem;
+  border-radius: 0.5rem;
+  outline: none;
+}
+[ngOption]:hover {
+  background-color: #ffefb3;
+}
+[ngOption][data-active='true'] {
+  outline-offset: -2px;
+  outline: 2px solid #013e37;
+}
+[ngOption][aria-selected='true'] {
+  color: #013e37;
+  font-weight: 800;
+  background-color: #013e375b;
+}
+
+[ngOption]:not([aria-selected='true']) .example-option-check {
+  display: none;
+}
+
+
+.example-option-check {
+  font-size: 1.2rem;
+}
+.example-option-text {
+  flex: 1;
+}

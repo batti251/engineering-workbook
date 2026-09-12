@@ -1,4 +1,3 @@
-<div class="">
   @if (!auth.isActiveSession()) {
 
     <form class="form" [formGroup]="form.signInForm" (submit)="sendCredentials(email, password)">
@@ -37,4 +36,3 @@
       <button class="btn btn--submit" type="submit">Sign In</button>
     </form>
   }
-</div>

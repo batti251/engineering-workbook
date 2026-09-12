@@ -34,6 +34,7 @@ export class ConfirmDialog {
 
   /**
    * Deletes the given Entry from the Database
+   * A message after succes, or error will be shown to the user
    */
   async confirmDelete() {
     this.isError.set(false)

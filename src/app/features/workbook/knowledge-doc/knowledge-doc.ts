@@ -7,6 +7,7 @@ import { Keys } from '../../../shared/services/key';
 import { LowerCasePipe } from '@angular/common';
 import * as Prism from 'prismjs';
 import 'prismjs/components/prism-sql';
+
 @Component({
   selector: 'app-coding-doc',
   imports: [RouterLink, Select, LowerCasePipe],

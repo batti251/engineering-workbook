@@ -8,4 +8,8 @@
     line-height: 150%;
     text-align: center;
   }
+
+  @include respond(s){
+    padding: 16px;
+  }
 }

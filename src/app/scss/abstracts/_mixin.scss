@@ -68,8 +68,11 @@ $breakpoints: (
   l: 1280px,
 );
 
-@mixin respond($maxsize) {
+@mixin respond($maxsize, $minsize:null) {
   @media screen and (max-width: map-get($breakpoints, $maxsize)) {
+    @content;
+  }
+  @media screen and (min-width: map-get($breakpoints, $minsize)) {
     @content;
   }
 }

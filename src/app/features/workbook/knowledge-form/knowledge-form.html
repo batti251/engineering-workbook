@@ -2,18 +2,15 @@
 <app-info-dialog [message]="error()"></app-info-dialog>
 
 <form (ngSubmit)="sendDataToDB()" [formGroup]="forms.entryForm" class="form">
+  <header class="form-header" #sticky>
+    <h2 class="text__primary text__primary--h2">Knowledge Entry</h2>
+    <div class="form__wrap--row">
+      <a class="btn btn__icon--back" [routerLink]="['/knowledge/doc']"></a>
+      <button class="btn btn__icon--submit" type="submit"></button>
+      <button class="btn btn__icon--delete" type="button" (click)="deleteEntry()"></button>
+    </div>
+  </header>
   <section class="form__wrap g-1">
-    <header class="sub-header">
-      <h2 class="text__primary text__primary--h2">Knowledge Entry</h2>
-      <div>
-        <button
-          class="btn btn__icon--cancel"
-          type="button"
-          (click)="deleteEntry()"
-        ></button>
-      </div>
-    </header>
-
     <div>
       <label for="title" class="text__primary">Title: </label>
       <input
@@ -172,5 +169,4 @@
       </div>
     </div>
   </section>
-  <button class="btn btn__icon--submit" type="submit"></button>
 </form>

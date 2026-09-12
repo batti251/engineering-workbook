@@ -2,12 +2,13 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 200px auto;
+  grid-template-columns: 60px auto;
   grid-template-rows: 120px 100%;
   grid-template-areas:
     'header header'
     'nav main';
   background-color: #013e37;
+  transition: 0.5s ease;
 
   &__header {
     grid-area: header;
@@ -19,6 +20,8 @@
     grid-area: nav;
     background: #013e37;
     color: #ffefb3;
+    z-index: 1;
+
     @include respond(m) {
       background-color: #013e37;
     }
@@ -27,14 +30,24 @@
     grid-area: main;
     background: #ffefb3;
     border-radius: 20px 40px 20px 20px;
+    z-index: 2;
   }
 
   @include respond(m) {
-    grid-template-columns: auto;
-    grid-template-rows: 120px 120px calc(100vh - 240px);
+    grid-template-columns: 100%;
+    grid-template-rows: 80px 80px 100%;
     grid-template-areas:
       'header'
       'nav'
       'main';
+
+  }
+
+  @include respond(null, m) {
+    &:has(&__nav:hover) {
+      transition: 0.5s ease-in-out;
+      grid-template-columns: 200px auto;
+      
+    }
   }
 }

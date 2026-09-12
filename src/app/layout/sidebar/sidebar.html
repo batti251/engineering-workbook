@@ -1,4 +1,15 @@
 <nav class="sidebar">
-    <a class="text__sidebar" [routerLink]="['/']">Home</a>
-    <a class="text__sidebar" [routerLink]="['/knowledge/doc']">Knowledge Doc</a>
+  <div class="link">
+    <a class="icon__wrap" [routerLink]="['/']">
+      <img class="icon" src="/img/home.svg" alt="" />
+      <span class="text__secondary--regular icon__text">Home</span>
+    </a>
+  </div>
+
+  <div class="link">
+    <a class="icon__wrap" [routerLink]="['/knowledge/doc']">
+      <img class="icon" src="/img/workbook.svg" alt="" />
+      <span class="text__secondary--regular icon__text">Workbook</span>
+    </a>
+  </div>
 </nav>
