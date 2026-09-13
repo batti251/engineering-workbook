@@ -7,6 +7,7 @@ import { Keys } from '../../../shared/services/key';
 import { LowerCasePipe } from '@angular/common';
 import * as Prism from 'prismjs';
 import 'prismjs/components/prism-sql';
+import { LocalStorage } from '../../../core/local-storage';
 
 @Component({
   selector: 'app-coding-doc',
@@ -25,6 +26,7 @@ export class KnowledgeDoc {
   }
 
   private db = inject(Supabase)
+  private local = inject(LocalStorage)
   selectedValue: string = ''
   private key = inject(Keys)
   readonly storageImgPath = this.key.dbURL + '/' + this.key.dbStorage + '/' + this.key.ImgStore
@@ -41,7 +43,7 @@ export class KnowledgeDoc {
 
   async ngOnInit() {
     await this.readKnowledgeEntries()
-
+    this.filterDatas(this.local.getActiveTag())
   }
 
   /**
