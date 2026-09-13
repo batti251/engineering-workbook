@@ -67,17 +67,67 @@ input[type='checkbox'] {
   margin: unset;
   position: sticky;
   top: 0;
-  
+  height: 100px;
+
   &.sticky {
     background: #ffefb3;
-    height: 100px;
     z-index: 1;
   }
-  @include respond(m){
+  @include respond(m) {
     padding: 8px;
   }
 }
 
 .invalid {
   border: 2px solid red !important;
+}
+
+.menu {
+  @include dFlex($d: none, $fd: column, $ai: unset, $g: 8px);
+  @include size();
+  position: absolute;
+  right: 0;
+  top: 70px;
+  padding: 8px;
+  background-color: #d5d68d;
+  border-radius: 20px;
+
+  &__element {
+    @include dFlex($fd: row, $jc: unset, $g: 16px);
+    @include size($h: 40px);
+    border: unset;
+    padding: 4px;
+    &:hover {
+      background-color: #013e375b;
+      border-radius: 10px;
+    }
+  }
+  &__text {
+    @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1.375rem));
+    color: #013e37;
+  }
+  &__icon {
+    @include size($h: 40px, $w: 40px);
+  }
+
+  &__btn {
+    @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/menu_vert.svg'));
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.568);
+    border-radius: 20px;
+    corner-shape: squircle;
+    &:hover {
+      box-shadow:
+        0px 0px 4px 3px #90910e,
+        inset 0px 0px 8px 1px #b1a622fa;
+    }
+  }
+
+  &.open {
+    display: flex;
+  }
+}
+
+.hide {
+  display: none !important;
 }

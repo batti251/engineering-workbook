@@ -51,7 +51,7 @@ export class KnowledgeForm {
   });
   private entry = computed(() => this.data()['entry']);
   error = signal<any>({})
-  private isEditForm = signal(false)
+  isEditForm = signal(false)
 
   isSticky = false;
   formSubmit = signal(false)
@@ -73,15 +73,10 @@ export class KnowledgeForm {
   checkSticky(): void {
     const element = this.sticky.nativeElement;
     const rect = element.getBoundingClientRect();
-console.log(rect);
-console.log(element);
-
     this.isSticky = rect.top <= 0;
-  if (this.isSticky) {
-    element.classList.add('sticky')
-  } else element.classList.remove('sticky')
-
-
+    if (this.isSticky) {
+      element.classList.add('sticky')
+    } else element.classList.remove('sticky')
   }
 
   ngOnInit() {
@@ -233,5 +228,17 @@ console.log(element);
     setTimeout(() => {
       this.router.navigateByUrl('/knowledge/doc')
     }, 2000);
+  }
+
+  @ViewChild('menu')
+  menu!: ElementRef<HTMLElement>
+
+  @ViewChild('menuBtn')
+  menuBtn!: ElementRef<HTMLElement>
+
+  toggleMenu(event: PointerEvent):void {
+    let clickTarget = event.target
+    let menuBtn = this.menuBtn.nativeElement
+    clickTarget == menuBtn ? this.menu.nativeElement.classList.toggle('open') : this.menu.nativeElement.classList.remove('open')
   }
 }

@@ -1,14 +1,25 @@
 <app-confirm-dialog></app-confirm-dialog>
 <app-info-dialog [message]="error()"></app-info-dialog>
 
-<form (ngSubmit)="sendDataToDB()" [formGroup]="forms.entryForm" class="form">
+<form (ngSubmit)="sendDataToDB()" [formGroup]="forms.entryForm" class="form" (click)="toggleMenu($event)">
   <header class="form-header" #sticky>
     <h2 class="text__primary text__primary--h2">Knowledge Entry</h2>
-    <div class="form__wrap--row">
-      <a class="btn btn__icon--back" [routerLink]="['/knowledge/doc']"></a>
-      <button class="btn btn__icon--submit" type="submit"></button>
-      <button class="btn btn__icon--delete" type="button" (click)="deleteEntry()"></button>
-    </div>
+    <button class="btn menu__btn" type="button" #menuBtn>
+      <div class="menu" #menu>
+        <a class="btn menu__element" [routerLink]="['/knowledge/doc']">
+          <img src="/img/close_red.svg" alt="a red cross icon" class="menu__icon"/>
+          <span class="menu__text">Zurück</span>
+        </a>
+        <button class="btn menu__element" type="submit">
+          <img src="/img/submit_alt.svg" alt="a floppy disk icon" class="menu__icon"/>
+          <span class="menu__text">Speichern</span>
+        </button>
+          <button class="btn menu__element" type="button" (click)="deleteEntry()" [class.hide]="!isEditForm()">
+            <img src="/img/delete.svg" alt="a trash bin icon" class="menu__icon">
+            <span class="menu__text">Löschen</span>
+          </button>
+        </div>
+    </button>
   </header>
   <section class="form__wrap g-1">
     <div>
