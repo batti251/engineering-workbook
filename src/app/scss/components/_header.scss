@@ -7,23 +7,26 @@
   &__login {
     @include dFlex($fd: row, $jc: space-between);
     padding: 0 24px;
-     @include respond(m) {
+    @include respond(m) {
       justify-content: center;
     }
-    &--state{
-     @include respond(m) {
-      display: none;
+    &--state {
+      @include respond(m) {
+        display: none;
+      }
     }
-}
   }
 }
 
 .sub-header {
   @include size($h: 100px);
-  @include dFlex($fd: unset, $jc: flex-start, $ai: flex-start, $g: 80px);
+  @include dFlex($fd: unset, $jc: space-between, $ai: flex-start, $g: 80px);
   margin: 0 0 32px 0;
-
+  position: sticky;
+  top: 0;
   @include respond(m) {
     gap: 16px;
+    height: 100%;
+    margin: 0 16px 32px 16px;
   }
 }

@@ -71,7 +71,7 @@
   hyphens: auto;
   width: min(800px, 80%);
 
-  @include respond(s){
+  @include respond(m){
     width: 100%;
     padding: 0 8px;
   }

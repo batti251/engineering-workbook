@@ -1,4 +1,4 @@
-import { afterRenderEffect, Component, computed, EventEmitter, inject, Output, signal } from '@angular/core';
+import { afterRenderEffect, Component, computed, ElementRef, EventEmitter, HostListener, inject, Output, signal, ViewChild } from '@angular/core';
 import { Supabase } from '../../../core/db';
 import { KnowledgeEntryData, KnowledgeSubEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { Select } from './select/select';
@@ -85,5 +85,24 @@ export class KnowledgeDoc {
     return entry.tags.some((tag) =>
       tag === selectedTag
     )
+  }
+
+  isSticky = false;
+
+  @ViewChild('sticky')
+  sticky!: ElementRef<HTMLElement>
+
+  @HostListener('window:scroll')
+  onScroll() {
+    this.checkSticky();
+  }
+
+  checkSticky(): void {
+    const element = this.sticky.nativeElement;
+    const rect = element.getBoundingClientRect();
+    this.isSticky = rect.top <= 0;
+    if (this.isSticky) {
+      element.classList.add('sticky')
+    } else element.classList.remove('sticky')
   }
 }

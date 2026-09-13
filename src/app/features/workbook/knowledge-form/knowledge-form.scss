@@ -53,6 +53,9 @@ input[type='checkbox'] {
     background-position: center;
     background-repeat: no-repeat;
   }
+  &:hover{
+    cursor: pointer;
+  }
 }
 
 .sub-header {

@@ -3,7 +3,7 @@
 .content__wrap {
   padding: 24px;
   @include respond(s) {
-    padding: 8px;
+    padding: 24px 8px 0 8px;
   }
 }
 
@@ -62,4 +62,54 @@
   &__title {
     color: #99b7dde6;
   }
+}
+
+.btn {
+  &__wrap {
+    @include dFlex($fd: row);
+    background-color: #013e37;
+    border-radius: 0.5rem;
+    border: 1px solid #013e37;
+    padding: 0 8px;
+    margin: unset;
+    &:hover {
+      background-color: rgba(1, 62, 55, 0.3843137255);
+    }
+    @include respond(m){
+      padding: unset;
+    }
+  }
+  &__icon {
+    @include size($h: 38px, $w: 38px);
+  }
+  &__text {
+    @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1.375rem));
+    color: whitesmoke;
+    @include respond(m){
+      display: none;
+    }
+  }
+}
+
+.side-nav{
+  @include dFlex();
+  @include size($h: 100%);
+}
+
+.sub-header {
+  @include size($h: 100px);
+  @include dFlex($fd: unset, $jc: space-between, $ai: center, $g: 80px);
+  margin: 0 0 32px 0;
+  background: #ffefb3;
+  position: sticky;
+  top: 0;
+  @include respond(m) {
+    gap: 16px;
+    height: 100%;
+  }
+}
+
+.sticky{
+    padding: 16px 0px 24px 0px;
+
 }

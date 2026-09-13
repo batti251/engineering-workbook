@@ -1,15 +1,21 @@
 <div class="content__wrap">
-  <div class="sub-header">
+  <div class="sub-header" #sticky>
     <app-select (selectedValue)="filterDatas($event)"></app-select>
-    <div class="flex-center-end">
-      <a class="text__primary" [routerLink]="['/knowledge/new-entry']">Add Code Entry</a>
+    <div class="side-nav">
+      <a class="btn__wrap" [routerLink]="['/knowledge/new-entry']">
+        <img src="/img/add.svg" alt="a green plus icon" class="btn__icon" />
+        <span class="btn__text">Add Code Entry</span>
+      </a>
     </div>
   </div>
 
   <main class="knowledge-entry__content">
     @for (knowledgeEntry of filteredItems(); track $index; let itemIndex = $index) {
       <article class="knowledge-entry">
-        <a class="btn btn__icon--edit" [routerLink]="[`/knowledge/edit-entry/${knowledgeEntry.id}`]"></a>
+        <a
+          class="btn btn__icon--edit"
+          [routerLink]="[`/knowledge/edit-entry/${knowledgeEntry.id}`]"
+        ></a>
 
         <section class="knowledge-entry knowledge-entry__main">
           <h2 class="text__tertiary text__tertiary--h2">{{ knowledgeEntry.title }}</h2>
@@ -39,9 +45,11 @@
               @if (subEntry?.description) {
                 @switch (subEntry?.isCode) {
                   @case (false) {
-                    <div class="text__tertiary text__tertiary--basic paragraph">{{ subEntry.description }}</div>
+                    <div class="text__tertiary text__tertiary--basic paragraph">
+                      {{ subEntry.description }}
+                    </div>
                   }
-                  @default {  
+                  @default {
                     <pre class="code--wrap">
                       <code class="code--box language-{{knowledgeEntry.tags[0] | lowercase}}">{{ subEntry.description }}</code>
                     </pre>
@@ -52,14 +60,14 @@
               @if (subEntry.externalLinks?.length) {
                 <section class="sub-entry__accordion" id="links">
                   <details>
-                  <summary class="text__tertiary--h3 link__title">Links</summary>
-                  <ul class="list--link">
-                    @for (link of subEntry.externalLinks; track $index) {
-                      <li class="">
-                        <a class="link" [href]="link">{{link}}</a>
-                      </li>
-                    } @empty {}
-                  </ul>
+                    <summary class="text__tertiary--h3 link__title">Links</summary>
+                    <ul class="list--link">
+                      @for (link of subEntry.externalLinks; track $index) {
+                        <li class="">
+                          <a class="link" [href]="link">{{ link }}</a>
+                        </li>
+                      } @empty {}
+                    </ul>
                   </details>
                 </section>
               }
@@ -68,8 +76,10 @@
                 <section class="sub-entry__accordion" id="details">
                   <ul class="list">
                     @for (detail of subEntry.details; track $index) {
-                      <li >
-                        <span class="list__element text__tertiary text__tertiary--basic">{{ detail }}</span>
+                      <li>
+                        <span class="list__element text__tertiary text__tertiary--basic">{{
+                          detail
+                        }}</span>
                       </li>
                     } @empty {}
                   </ul>

@@ -15,6 +15,8 @@
 
 .link {
   @include dFlex($fd: row, $ai: center, $g: 12px);
+  filter: contrast(0.6);
+
   &:hover {
     .icon__text {
       font-weight: 700;
@@ -42,5 +44,12 @@
     @include font($fw: 400, $fs: clamp(1rem, 1.5rem, 2rem));
     color: #ffefb3;
 
+    @include respond(m) {
+      display: none;
+    }
   }
+}
+
+.active {
+  filter: contrast(1);
 }
