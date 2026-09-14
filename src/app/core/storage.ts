@@ -16,6 +16,8 @@ export class Storage {
     async getFileURLFromStorage(file: File, fileName: string) {
         try {
             const path = await this.uploadFileToStorage(file, fileName)
+            console.log(path?.path);
+            
             return path?.path
         } catch (error) {
             console.log(error);

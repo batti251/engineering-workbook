@@ -136,6 +136,7 @@ export class KnowledgeForm {
     this.formSubmit.set(true)
     if (!await this.isValidUser()) return;
     if (!this.formIsValid()) return;
+    await this.forms.sendScreenshotsToDB()
     let data = new KnowledgeEntry(this.forms.entryForm.value as Partial<KnowledgeEntryData>)
     this.isEditForm() ? this.tryUpdateData(data) : this.tryAddNewData(data);
   }
@@ -181,7 +182,6 @@ export class KnowledgeForm {
   async tryUpdateData(data: KnowledgeEntryData): Promise<void> {
     try {
       await this.updateEntry(data);
-      await this.forms.sendScreenshotsToDB()
       this.infoDialog.open()
       this.redirectToDoc()
     } catch (error) {
@@ -236,7 +236,7 @@ export class KnowledgeForm {
   @ViewChild('menuBtn')
   menuBtn!: ElementRef<HTMLElement>
 
-  toggleMenu(event: PointerEvent):void {
+  toggleMenu(event: PointerEvent): void {
     let clickTarget = event.target
     let menuBtn = this.menuBtn.nativeElement
     clickTarget == menuBtn ? this.menu.nativeElement.classList.toggle('open') : this.menu.nativeElement.classList.remove('open')
