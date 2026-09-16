@@ -90,11 +90,11 @@ export class Supabase {
     * Reads and returns the database KnowledgeEntryDatas
     * @returns 
     */
-    async readDbTable(table: string): Promise<(KnowledgeEntryData | tags)[]> {
+    async readDbTable(table: string): Promise<(KnowledgeEntryData | tags | string)[]> {
         let { data: data, error } = await this.db
             .from(table)
             .select('*')
-        return data as (KnowledgeEntryData | tags)[]
+        return data as (KnowledgeEntryData | tags | string)[]
     }
 
     /**

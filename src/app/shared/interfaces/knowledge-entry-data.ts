@@ -11,10 +11,15 @@ export interface KnowledgeEntryData {
 export interface KnowledgeSubEntryData {
     subTitle: string,
     description?: string,
-    isCode?: boolean,
+    code?: Code,
     details?: string[],
     screenshots?: string[],
     externalLinks?: string[]
+}
+
+export interface Code {
+    isCode?: boolean,
+    language: string
 }
 
 export interface tags {

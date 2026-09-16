@@ -53,7 +53,7 @@ input[type='checkbox'] {
     background-position: center;
     background-repeat: no-repeat;
   }
-  &:hover{
+  &:hover {
     cursor: pointer;
   }
 }
@@ -133,4 +133,45 @@ input[type='checkbox'] {
 
 .hide {
   display: none !important;
+}
+
+.code {
+  &__wrap {
+    @include dFlex($fd: row, $jc: unset, $g: 8px);
+    @include size($w: 100%);
+    @include font($ff: roboto, $fw: 800, $fs: clamp(1rem, 1.25rem, 1.5rem));
+    text-decoration: none;
+    color: #ffefb3;
+
+    @include respond(m){
+      flex-direction: column;
+    }
+  }
+  &__input{
+    @include dFlex($fd: row, $jc: unset, $g: 8px);
+  }
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+  width: min-content;
+  padding: 0.5rem;
+  margin-top: 8px;
+  border-radius: 0.5rem;
+  background-color: #ffefb3;
+  border: 1px outset #08332b;
+  border-radius: 12px;
+  color: #08332b;
+  font-size: 1rem;
+  max-height: 11rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  transform-origin: top;
+  &:hover {
+    cursor: pointer;
+  }
+  @include respond(m){
+      width: 200px;
+    }
 }

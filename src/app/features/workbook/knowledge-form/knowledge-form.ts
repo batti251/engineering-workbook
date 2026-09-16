@@ -138,6 +138,8 @@ export class KnowledgeForm {
     if (!this.formIsValid()) return;
     await this.forms.sendScreenshotsToDB()
     let data = new KnowledgeEntry(this.forms.entryForm.value as Partial<KnowledgeEntryData>)
+    console.log(data);
+    
     this.isEditForm() ? this.tryUpdateData(data) : this.tryAddNewData(data);
   }
 

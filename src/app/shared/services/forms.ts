@@ -37,7 +37,7 @@ export class Forms {
             id: data?.id,
             title: [data?.title ?? '', Validators.required],
             description: [data?.description ?? ''],
-            tags: this.formBuilder.array([],Validators.required),
+            tags: this.formBuilder.array([], Validators.required),
             image: [''],
             subEntries: this.formBuilder.array([
                 this.buildSubEntryForm()
@@ -56,18 +56,25 @@ export class Forms {
         return this.formBuilder.group({
             subTitle: this.formBuilder.control(data?.subTitle ?? '', Validators.required),
             description: [data?.description ?? ''],
-            isCode: [data?.isCode ?? false],
+            code: this.formBuilder.group({
+                isCode: [data?.code?.isCode ?? false],
+                language: [data?.code?.language ?? '', Validators.required],
+            }),
             details: this.formBuilder.array([]),
             externalLinks: this.formBuilder.array([]),
             screenshots: this.formBuilder.array([]),
         })
     }
 
-    get title(){
+    get title() {
         return this.entryForm.get('title')
     }
     get tags() {
         return this.entryForm.get('tags') as FormArray;
+    }
+
+    getCodeState(indexSubEntry:number) {
+        return this.subEntries.at(indexSubEntry).get('code')?.get('isCode') as FormControl
     }
 
 
@@ -97,7 +104,7 @@ export class Forms {
      * @param data 
      * @returns 
      */
-    addSubEntry(data?: KnowledgeEntryData):void {
+    addSubEntry(data?: KnowledgeEntryData): void {
         this.db.tempDBFiles = []
         if (data) {
             this.setEditSubEntries(data)
@@ -278,11 +285,11 @@ export class Forms {
      */
     async sendScreenshotsToDB() {
         console.log(this.tempFiles);
-        
+
         for (const file of this.tempFiles) {
             let fileName = this.setNewFileName(file.file)
             console.log(fileName);
-            
+
             let screenshotURL = await this.storage.getFileURLFromStorage(file.file, fileName) as string
             this.setSubEntryScreenshot(file.indexSubEntry, screenshotURL)
             this.clearBlobScreenshot()
@@ -311,7 +318,7 @@ export class Forms {
         let control = this.subEntries.at(indexSubEntry).get('screenshots') as FormArray
         console.log(control);
         console.log(url);
-        
+
         control?.push(this.formBuilder.control(url));
     }
 

@@ -43,7 +43,7 @@
               <h3 class="text__tertiary text__tertiary--h3">{{ subEntry.subTitle }}</h3>
 
               @if (subEntry?.description) {
-                @switch (subEntry?.isCode) {
+                @switch (subEntry?.code?.isCode) {
                   @case (false) {
                     <div class="text__tertiary text__tertiary--basic paragraph">
                       {{ subEntry.description }}
@@ -51,7 +51,7 @@
                   }
                   @default {
                     <pre class="code--wrap">
-                      <code class="code--box language-{{knowledgeEntry.tags[0] | lowercase}}">{{ subEntry.description }}</code>
+                      <code class="code--box language-{{subEntry.code?.language | lowercase}}">{{ subEntry.description }}</code>
                     </pre>
                   }
                 }
