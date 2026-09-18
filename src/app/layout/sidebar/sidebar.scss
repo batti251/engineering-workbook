@@ -53,3 +53,22 @@
 .active {
   filter: contrast(1);
 }
+
+.btn--sticky {
+  @include backgroundImg($bi: url('/img/sidebar_dock.svg'), $bc: whitesmoke, $w: 40px, $h: 40px);
+  border-radius: 20px;
+  corner-shape: squircle;
+  border: 1px solid transparent;
+  &:hover {
+    cursor: pointer;
+  }
+  &.active {
+    background-image: url('/img/sidebar_dock--fixed.svg');
+    border: 1px solid #ffefb3;
+    background-color: black;
+  }
+
+  @include respond(m) {
+    display: none;
+  }
+}

@@ -1,4 +1,10 @@
 <nav class="sidebar">
+
+
+  <div class="link" >
+    <button type="button" class="btn--sticky" [class.active]="dockSidebar" (click)="toggleSticky()"></button>
+  </div>
+
   <div class="link" (click)="toggleState(0)" #link>
     <a class="icon__wrap" [routerLink]="['/']">
       <img class="icon" src="/img/home.svg" alt="" />

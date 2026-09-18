@@ -3,7 +3,7 @@
 .grid {
   display: grid;
   grid-template-columns: 60px auto;
-   min-height: 100dvh;
+  min-height: 100dvh;
   grid-template-rows: 120px 1fr;
   grid-template-areas:
     'header header'
@@ -41,14 +41,16 @@
       'header'
       'nav'
       'main';
-
   }
 
   @include respond(null, m) {
     &:has(&__nav:hover) {
       transition: 0.5s ease-in-out;
       grid-template-columns: 200px auto;
-      
+    }
+    &:has(&__nav.sticky) {
+      transition: 0.5s ease-in-out;
+      grid-template-columns: 200px auto;
     }
   }
 }

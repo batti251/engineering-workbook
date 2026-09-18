@@ -1,5 +1,5 @@
 <main class="grid">
-  <app-sidebar class="grid__nav"></app-sidebar>
+  <app-sidebar class="grid__nav"  [class.sticky]="isDocked" (isSticky)="isDockedEvent($event)"></app-sidebar>
   <app-header class="grid__header"></app-header>
   <div class="grid__main">
     <router-outlet />
