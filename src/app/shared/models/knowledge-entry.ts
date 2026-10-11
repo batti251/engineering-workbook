@@ -2,18 +2,18 @@ import { KnowledgeEntryData, KnowledgeSubEntryData } from "../interfaces/knowled
 
 export class KnowledgeEntry {
     id?: number;
+    userId: string;
     title: string;
     description: string;
     tags: string[];
-    image?: string;
     subEntries: KnowledgeSubEntryData[]
 
     constructor(data: Partial<KnowledgeEntryData>) {
         this.id = data.id ?? 0;
+        this.userId = data.userId ?? '';
         this.title = data.title ?? "";
         this.description = data.description ?? "";
         this.tags = data.tags ?? [];
-        this.image = data.image ?? '';
         this.subEntries = data.subEntries ?? [];
     }
 }

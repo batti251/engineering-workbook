@@ -45,6 +45,8 @@ export class Supabase {
      * @returns 
      */
     async createNewKnowledgeEntry(userData: KnowledgeEntryData): Promise<void> {
+        console.log(userData);
+        
         const { data, error } = await this.db
             .from('knowledge_entry')
             .insert([
@@ -52,12 +54,14 @@ export class Supabase {
                     title: userData.title,
                     description: userData.description,
                     tags: userData.tags,
-                    image: userData.image,
                     subEntries: userData.subEntries,
+                    userId: userData.userId
                 },
             ])
             .select()
         if (error) {
+            console.log(error.message);
+            
             throw new Error(error.code)
         }
     }
@@ -109,8 +113,8 @@ export class Supabase {
                 title: editedData.title,
                 description: editedData.description,
                 tags: editedData.tags,
-                image: editedData.image,
                 subEntries: editedData.subEntries,
+                userId: editedData.userId
             })
             .eq('id', editedData.id)
             .select()

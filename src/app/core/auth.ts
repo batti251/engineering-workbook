@@ -134,6 +134,17 @@ export class Auth {
       } return state
     }
   }
+
+
+  async signUpUser(mail:string, password:string) {
+    const { data, error } = await this.db.auth.signUp({
+      email: mail,
+      password: password,
+    })
+  }
+
+
+
 }
 
 

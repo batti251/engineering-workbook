@@ -1,0 +1,38 @@
+@use '../../scss/abstracts/' as * ;
+
+.form {
+    padding: min(20px, 3%);
+    @include dFlex($ai: unset, $jc: unset, $g: unset);
+}
+
+.error{
+    @include size($h:20px);
+
+    &__message{
+        @include font($fs: 1rem);
+        color: red;
+    }
+    opacity: 0;
+}
+
+.form__group--split{
+    display: flex;
+    flex-direction: column;
+}
+
+.invalid {
+  outline: 3px outset #830606;
+}
+
+.valid{
+    outline: 3px auto green;
+    color: unset;
+}
+
+.show{
+    opacity: 1;
+}
+
+.hide{
+    opacity: 0;
+}

@@ -1,0 +1,104 @@
+<form class="form" [formGroup]="userSignup" (ngSubmit)="sendNewUser()">
+  <div class="form__group--sub-entry">
+    <div class="form__group--split">
+      <label for="firstName"></label>
+      <input
+        class="form__input text__primary--input"
+        [class.invalid]="
+          userSignup.controls.firstName.invalid && userSignup.controls.firstName.touched
+        "
+        [class.valid]="userSignup.controls.firstName.valid && userSignup.controls.firstName.touched"
+        placeholder="Vorname"
+        type="text"
+        name="firstName"
+        id="firstName"
+        autocomplete="given-name"
+        formControlName="firstName"
+      />
+      <span class="error"
+      [class.hide]="userSignup.controls.firstName.valid && userSignup.controls.firstName.dirty"
+        ><i class="error__message">{{ error() }}</i></span
+      >
+    </div>
+
+    <div class="form__group--split">
+      <label for="lastName"></label>
+      <input
+        class="form__input text__primary--input"
+        [class.invalid]="
+          userSignup.controls.lastName.invalid && userSignup.controls.lastName.touched
+        "
+        [class.valid]="userSignup.controls.lastName.valid && userSignup.controls.lastName.touched"
+        placeholder="Nachname"
+        type="text"
+        name="lastName"
+        id="lastName"
+        autocomplete="family-name"
+        formControlName="lastName"
+      />
+      <span class="error"
+       [class.hide]="userSignup.controls.lastName.valid && userSignup.controls.lastName.dirty"
+        ><i class="error__message">{{ error() }}</i></span
+      >
+    </div>
+  </div>
+
+  <div class="form__group">
+    <label for="email"></label>
+    <input
+      class="form__input text__primary--input"
+      [class.invalid]="userSignup.controls.email.invalid && userSignup.controls.email.touched"
+      [class.valid]="userSignup.controls.email.valid && userSignup.controls.email.touched"
+      placeholder="Email"
+      type="email"
+      name="email"
+      id="email"
+      autocomplete="email"
+      formControlName="email"
+    />
+    <span class="error"
+     [class.hide]="userSignup.controls.email.valid && userSignup.controls.email.dirty"
+      ><i class="error__message">{{ error() }}</i></span
+    >
+  </div>
+
+  <div class="form__group">
+    <label for="password"></label>
+    <input
+      class="form__input text__primary--input"
+      [class.invalid]="userSignup.controls.password.invalid && userSignup.controls.password.touched"
+      [class.valid]="userSignup.controls.password.valid && userSignup.controls.password.touched"
+      placeholder="Passwort"
+      type="password"
+      name="password"
+      id="password"
+      autocomplete="new-password"
+      formControlName="password"
+    />
+    <span class="error"
+     [class.hide]="userSignup.controls.password.valid && userSignup.controls.password.dirty"
+      ><i class="error__message">{{ error() }}</i></span
+    >
+  </div>
+
+  <div class="form__group">
+    <label for="passwordConfirm"></label>
+    <input
+      class="form__input text__primary--input"
+      [class.invalid]="userSignup.controls.passwordConfirm.invalid && userSignup.controls.passwordConfirm.touched"
+      [class.valid]="userSignup.controls.passwordConfirm.valid && userSignup.controls.passwordConfirm.touched"
+      placeholder="Passwort"
+      type="password"
+      name="passwordConfirm"
+      id="passwordConfirm"
+      autocomplete="new-password"
+      formControlName="passwordConfirm"
+    />
+    <span class="error"
+     [class.hide]="userSignup.controls.passwordConfirm.valid && userSignup.controls.passwordConfirm.dirty"
+      ><i class="error__message">{{ error() }}</i></span
+    >
+  </div>
+
+  <button type="submit">Submit</button>
+</form>

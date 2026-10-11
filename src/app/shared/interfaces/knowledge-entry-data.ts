@@ -1,9 +1,9 @@
 export interface KnowledgeEntryData {
     id?: number,
+    userId: string,
     title: string,
     description: string,
     tags: string[],
-    image?: string,
     subEntries: KnowledgeSubEntryData[]
 
 }
