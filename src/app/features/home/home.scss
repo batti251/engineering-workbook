@@ -13,3 +13,9 @@
     padding: 16px;
   }
 }
+
+
+.components{
+  @include dFlex($fd: row , $jc: space-evenly);
+  border: 1px solid black;
+}
