@@ -101,6 +101,28 @@ export class Supabase {
         return data as (KnowledgeEntryData | tags | string)[]
     }
 
+        /**
+     * Creates a new Knowledge Entry to the db
+     * @param userData - the filled KnowledgeEntryData from the form-component  
+     * @returns 
+     */
+    async addCustomTag(table: string, userTag: string, userId: string): Promise<void> {
+        
+        const { data, error } = await this.db
+            .from(table)
+            .insert([
+                {
+                    tag: userTag,
+                    userId: userId
+                },
+            ])
+            .eq('userId', userId)
+            .select()
+        if (error) {
+            throw new Error(error.code)
+        }
+    }
+
     /**
      * Updates the existing equivalent row in the db, with the users @param editedData
      * @param editedData - the edited KnowledgeEntryData from the form-component

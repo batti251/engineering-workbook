@@ -25,5 +25,6 @@ export interface Code {
 export interface tags {
     created_at?: string,
     id: number,
-    tag : string
+    tag : string,
+    userId: string
 }
