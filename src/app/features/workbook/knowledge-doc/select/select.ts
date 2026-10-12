@@ -38,9 +38,12 @@ export class Select {
 
   async getAllTagsFromDB() {
     let getTags = await this.db.readDbTable('tags') as tags[];
-    getTags.forEach((tag) => {
+    let userId = this.local.parseJSON(this.local.token).user.id
+    let filteredTags = getTags.filter(item => item.userId === 'global' || item.userId === userId)
+    filteredTags.forEach((tag) => {
       this.labels.push(tag.tag)
     })
+
   }
 
   onCommit() {

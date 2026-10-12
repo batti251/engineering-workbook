@@ -67,8 +67,9 @@ export class KnowledgeDoc {
   filterDatas(selectedTag: string[]) {
     selectedTag[0]
     let tempFilteredTags = []
+    let userId = this.local.parseJSON(this.local.token).user.id
     this.entryDatas().forEach(entry => {
-      if (this.tagIsIncluded(entry, selectedTag[0])) {
+      if (this.tagIsIncluded(entry, selectedTag[0]) && entry.userId === userId) {
         tempFilteredTags.push(entry)
       }
       this.filteredItems.update(() => tempFilteredTags)

@@ -20,6 +20,10 @@ export class LocalStorage {
         localStorage.removeItem(key)
     }
 
+    reloadToken(){
+        this.token = this.getItem(this.key.token)
+    }
+
     /**
      * Returns the selected Tag as Array
      * It is exclusivley used for the listbox-select component

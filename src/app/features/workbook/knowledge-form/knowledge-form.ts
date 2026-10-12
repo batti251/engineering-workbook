@@ -138,12 +138,9 @@ export class KnowledgeForm {
     if (!this.formIsValid()) return;
     await this.forms.sendScreenshotsToDB()
     let data = new KnowledgeEntry(this.forms.entryForm.value as Partial<KnowledgeEntryData>)
-    if (this.auth.token) {
-      let tokenObj = JSON.parse(this.auth.token);
-      data.userId = tokenObj.user.id
+    let userId = this.local.parseJSON(this.local.token).user.id
+      data.userId = userId
       this.isEditForm() ? this.tryUpdateData(data) : this.tryAddNewData(data);
-    }
-    
   }
 
   /**
