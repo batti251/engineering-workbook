@@ -9,13 +9,14 @@ import { Clipboard } from '../../../core/clipboard';
 import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot, RouterLink } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Keys } from '../../../shared/services/key';
-import { Storage } from '../../../core/storage';
 import { Select } from './select/select';
 import { Links } from './links/links';
 import { Screenshot } from './screenshot/screenshot';
 import { ConfirmDialog } from "./confirm-dialog/confirm-dialog";
 import { InfoDialog } from './info-dialog/info-dialog';
 import { Auth } from '../../../core/auth';
+import { LocalStorage } from '../../../core/local-storage';
+import { Storage } from '../../../core/storage';
 
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
@@ -40,6 +41,7 @@ export class KnowledgeForm {
   forms = inject(Forms)
   clipboard = inject(Clipboard)
   key = inject(Keys)
+  local = inject(LocalStorage)
   storage = inject(Storage)
   router = inject(Router)
   auth = inject(Auth)
