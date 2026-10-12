@@ -284,12 +284,8 @@ export class Forms {
      * Shortens the screenshot FormArray to non-blob URLs
      */
     async sendScreenshotsToDB() {
-        console.log(this.tempFiles);
-
         for (const file of this.tempFiles) {
             let fileName = this.setNewFileName(file.file)
-            console.log(fileName);
-
             let screenshotURL = await this.storage.getFileURLFromStorage(file.file, fileName) as string
             this.setSubEntryScreenshot(file.indexSubEntry, screenshotURL)
             this.clearBlobScreenshot()
@@ -316,9 +312,6 @@ export class Forms {
      */
     setSubEntryScreenshot(indexSubEntry: number, url: string) {
         let control = this.subEntries.at(indexSubEntry).get('screenshots') as FormArray
-        console.log(control);
-        console.log(url);
-
         control?.push(this.formBuilder.control(url));
     }
 

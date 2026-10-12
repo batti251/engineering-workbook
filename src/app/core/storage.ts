@@ -16,11 +16,8 @@ export class Storage {
     async getFileURLFromStorage(file: File, fileName: string) {
         try {
             const path = await this.uploadFileToStorage(file, fileName)
-            console.log(path?.path);
-            
             return path?.path
         } catch (error) {
-            console.log(error);
             return
         }
     }
@@ -36,10 +33,8 @@ export class Storage {
             .from('screenshots')
             .upload(`${this.key.ImgStore}/${fileName}`, file)
         if (error) {
-            console.log(`${this.key.ImgStore}/${fileName}`);
             return
         } else {
-            console.log(`${this.key.ImgStore}/${fileName}`);
             return data
         }
     }

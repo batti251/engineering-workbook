@@ -35,7 +35,6 @@ export class Sidebar {
       element.nativeElement.classList.remove('active')
     })
     let target = this.link.get(index)
-    console.log();
     target?.nativeElement.classList.add('active')
     this.isActive.set(true)
   }

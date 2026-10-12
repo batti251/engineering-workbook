@@ -151,8 +151,7 @@ export class KnowledgeForm {
    * @returns - 
    */
   async isValidUser(): Promise<boolean> {
-    let error = await this.auth.getUser()
-    console.log(error);
+    let error = await this.auth.getUser();
     if (error !== 200) {
       this.error.set(error)
       this.infoDialog.open()

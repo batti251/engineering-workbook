@@ -41,7 +41,6 @@ export class UserSignup {
     this.checkFieldsRequired()
     if (this.signUpSuccess()) {
       this.auth.signUpUser(this.newUserData().email, this.newUserData().password)
-      console.log(this.userSignup.value);
     }
   }
 

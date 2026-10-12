@@ -145,7 +145,6 @@ export class Auth {
 
   async logoutUser() {
     const { error } = await this.db.auth.signOut()
-    console.log(error);
     if (!error) {
       return null
     } else return error

@@ -34,9 +34,7 @@ export class Supabase {
     }
 
     setEventType(payload: any) {
-        console.log(payload);
         this.realtimeEventType.set(payload.eventType)
-        console.log(this.realtimeEventType());
     }
 
     /**
@@ -45,8 +43,6 @@ export class Supabase {
      * @returns 
      */
     async createNewKnowledgeEntry(userData: KnowledgeEntryData): Promise<void> {
-        console.log(userData);
-        
         const { data, error } = await this.db
             .from('knowledge_entry')
             .insert([
@@ -60,8 +56,6 @@ export class Supabase {
             ])
             .select()
         if (error) {
-            console.log(error.message);
-            
             throw new Error(error.code)
         }
     }
