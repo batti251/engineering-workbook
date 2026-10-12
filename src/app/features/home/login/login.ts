@@ -4,10 +4,11 @@ import { Forms } from '../../../shared/services/forms';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';
 import { Keys } from '../../../shared/services/key';
 import { LocalStorage } from '../../../core/local-storage';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
 })

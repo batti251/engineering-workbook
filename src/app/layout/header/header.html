@@ -1,11 +1,15 @@
 <div class="header__login">
   <div class="header__login--state">
-    <span>Status: </span>
-    <span>{{ signInStatus() }}</span>
+    <div>
+      <span>Status: </span>
+      <span>{{ signInStatus() }}</span>
+    </div>
+    @if (auth.isActiveSession()) {
+      <button class="btn btn__logout" (click)="triggerLogout()">Logout</button>
+    }
   </div>
 
-<h1>My Engineering Workbook</h1>
+  <h1>My Engineering Workbook</h1>
 
-<div></div>
-
+  <div></div>
 </div>

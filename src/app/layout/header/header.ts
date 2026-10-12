@@ -1,5 +1,6 @@
 import { Component, effect, inject, signal } from '@angular/core';
 import { Auth } from '../../core/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -10,6 +11,7 @@ import { Auth } from '../../core/auth';
 export class Header {
   signInStatus = signal<'logged in' | 'logged out'>('logged out');
   auth = inject(Auth)
+  route = inject(Router)
 
   constructor() {
     effect(() => {
@@ -24,4 +26,11 @@ export class Header {
       this.signInStatus.update(() => 'logged in')
     } else this.signInStatus.update(() => 'logged out')
   }
+
+
+ async triggerLogout(){
+  if (await this.auth.logoutUser() === null) {
+    window.location.replace('home')
+  }    
+}
 }

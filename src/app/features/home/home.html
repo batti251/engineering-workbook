@@ -3,7 +3,9 @@
     Welcome to my personal engineering and knowledge workbook!
   </h2>
 
-  <p class="text__primary text__primary--basic welcome--paragraph">
+  @if (auth.isActiveSession()) {
+
+ <p class="text__primary text__primary--basic welcome--paragraph">
     @if (auth.isActiveSession()) {
       Let's get started!
     } @else {
@@ -13,29 +15,36 @@
       I'm happy hearing from you!
     }
   </p>
+  
+  <p>
+    This Area ,in the Home-Section, should be the personal space for the User <br />
+    Current Ideas are to set a simple To-Do-App <br />
+    second Area is to allow the User to customize some settings on this website <br />
+  </p>
+  
+  <ul>
+    <li>Both Components should be accessible via the Home-component</li>
+    <li>Both Components should be accessible via the Sidebar</li>
+    <li>Both Components in 1 Screen?</li>
+    <ul><li>consider to split components</li></ul>
+  </ul>
+  
+  <div class="components">
+    <p>
+      <app-to-do></app-to-do>
+    </p>
+    
+    <p>
+      <app-custom-settings></app-custom-settings>
+    </p>
+    
+  </div>
+  
+  
+} @else {
+  <app-login></app-login>
+}
+
+
+
 </section>
-
-<p>
-  This Area ,in the Home-Section, should be the personal space for the User <br />
-  Current Ideas are to set a simple To-Do-App <br />
-  second Area is to allow the User to customize some settings on this website <br />
-</p>
-
-<ul>
-  <li>Both Components should be accessible via the Home-component</li>
-  <li>Both Components should be accessible via the Sidebar</li>
-  <li>Both Components in 1 Screen?</li>
-  <ul><li>consider to split components</li></ul>
-</ul>
-
-<div class="components">
-  <p>
-    <app-to-do></app-to-do>
-  </p>
-
-  <p>
-    <app-custom-settings></app-custom-settings>
-  </p>
-</div>
-<app-user-signup></app-user-signup>
-<app-login></app-login>

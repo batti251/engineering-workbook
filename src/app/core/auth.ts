@@ -136,13 +136,20 @@ export class Auth {
   }
 
 
-  async signUpUser(mail:string, password:string) {
+  async signUpUser(mail: string, password: string) {
     const { data, error } = await this.db.auth.signUp({
       email: mail,
       password: password,
     })
   }
 
+  async logoutUser() {
+    const { error } = await this.db.auth.signOut()
+    console.log(error);
+    if (!error) {
+      return null
+    } else return error
+  }
 
 
 }

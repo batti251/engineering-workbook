@@ -1,9 +1,18 @@
+<header class="header">
+    <a class="btn btn__icon--back" [routerLink]="['/home']"></a>
+    <h2 class="text__primary text__primary--h2">Signup</h2>
+    <div></div>
+  </header>
+
+<div class="signup">
+  
+    
 <form class="form" [formGroup]="userSignup" (ngSubmit)="sendNewUser()">
-  <div class="form__group--sub-entry">
+  <div class="form__group--sub-entry g-24">
     <div class="form__group--split">
       <label for="firstName"></label>
       <input
-        class="form__input text__primary--input"
+        class="form__input form__input--split text__primary--input"
         [class.invalid]="
           userSignup.controls.firstName.invalid && userSignup.controls.firstName.touched
         "
@@ -15,8 +24,9 @@
         autocomplete="given-name"
         formControlName="firstName"
       />
-      <span class="error"
-      [class.hide]="userSignup.controls.firstName.valid && userSignup.controls.firstName.dirty"
+      <span
+        class="error"
+        [class.hide]="userSignup.controls.firstName.valid && userSignup.controls.firstName.dirty"
         ><i class="error__message">{{ error() }}</i></span
       >
     </div>
@@ -24,7 +34,7 @@
     <div class="form__group--split">
       <label for="lastName"></label>
       <input
-        class="form__input text__primary--input"
+        class="form__input form__input--split text__primary--input"
         [class.invalid]="
           userSignup.controls.lastName.invalid && userSignup.controls.lastName.touched
         "
@@ -36,8 +46,9 @@
         autocomplete="family-name"
         formControlName="lastName"
       />
-      <span class="error"
-       [class.hide]="userSignup.controls.lastName.valid && userSignup.controls.lastName.dirty"
+      <span
+        class="error"
+        [class.hide]="userSignup.controls.lastName.valid && userSignup.controls.lastName.dirty"
         ><i class="error__message">{{ error() }}</i></span
       >
     </div>
@@ -56,8 +67,9 @@
       autocomplete="email"
       formControlName="email"
     />
-    <span class="error"
-     [class.hide]="userSignup.controls.email.valid && userSignup.controls.email.dirty"
+    <span
+      class="error"
+      [class.hide]="userSignup.controls.email.valid && userSignup.controls.email.dirty"
       ><i class="error__message">{{ error() }}</i></span
     >
   </div>
@@ -75,8 +87,9 @@
       autocomplete="new-password"
       formControlName="password"
     />
-    <span class="error"
-     [class.hide]="userSignup.controls.password.valid && userSignup.controls.password.dirty"
+    <span
+      class="error"
+      [class.hide]="userSignup.controls.password.valid && userSignup.controls.password.dirty"
       ><i class="error__message">{{ error() }}</i></span
     >
   </div>
@@ -85,8 +98,12 @@
     <label for="passwordConfirm"></label>
     <input
       class="form__input text__primary--input"
-      [class.invalid]="userSignup.controls.passwordConfirm.invalid && userSignup.controls.passwordConfirm.touched"
-      [class.valid]="userSignup.controls.passwordConfirm.valid && userSignup.controls.passwordConfirm.touched"
+      [class.invalid]="
+        userSignup.controls.passwordConfirm.invalid && userSignup.controls.passwordConfirm.touched
+      "
+      [class.valid]="
+        userSignup.controls.passwordConfirm.valid && userSignup.controls.passwordConfirm.touched
+      "
       placeholder="Passwort"
       type="password"
       name="passwordConfirm"
@@ -94,11 +111,16 @@
       autocomplete="new-password"
       formControlName="passwordConfirm"
     />
-    <span class="error"
-     [class.hide]="userSignup.controls.passwordConfirm.valid && userSignup.controls.passwordConfirm.dirty"
+    <span
+      class="error"
+      [class.hide]="
+        userSignup.controls.passwordConfirm.valid && userSignup.controls.passwordConfirm.dirty
+      "
       ><i class="error__message">{{ error() }}</i></span
     >
   </div>
 
-  <button type="submit">Submit</button>
+  <button class="btn btn__submit" type="submit">Submit</button>
 </form>
+
+</div>

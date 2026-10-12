@@ -18,7 +18,7 @@
     &--submit {
       @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/submit_alt.svg'));
     }
-     &--back {
+    &--back {
       @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/back.svg'));
     }
     &--edit {
@@ -30,7 +30,6 @@
         box-shadow: 0px 0px 6px #e9da92;
       }
     }
-   
   }
 
   &__hovered {
@@ -49,10 +48,22 @@
     }
   }
 
-  &--submit {
+  &__submit {
     @include border($br: 4px);
-    @include size($h: 24px);
+    @include size($h: 32px, $w: 72px);
     background-color: green;
+    color: #ffefb3;
+  }
+  &__signup {
+    @include border($br: 4px);
+    @include size($h: 40px, $w: 72px);
+    background-color: rgb(42, 82, 211);
+    color: #ffefb3;
+  }
+  &__logout {
+    @include border($br: 4px);
+    @include size($h: 40px, $w: 72px);
+    background-color: rgb(122, 32, 32);
     color: #ffefb3;
   }
 
@@ -65,6 +76,7 @@
   }
 }
 
-  a.btn {
-    display: flex;
-  }
+a.btn {
+  @include dFlex();
+  padding: 8px;
+}

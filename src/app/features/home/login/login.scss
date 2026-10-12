@@ -7,6 +7,10 @@
     }
 }
 
+.form__input{
+  width: unset;
+}
+
 .login__input {
   @include dFlex($ai: flex-start, $g: 4px);
   @include size($w: min(300px, 80%));
@@ -16,4 +20,8 @@
   &--error{
     @include size($h: 40px);
   }
+}
+
+.authentication{
+  @include dFlex();
 }

@@ -1,5 +1,12 @@
-  @if (!auth.isActiveSession()) {
+<section>
+  <h2 class="text__primary text__primary--h2">Login</h2>
 
+  <p class="authentication text__primary--basic">
+    No account, yet? Create your personal Account here:
+    <a class="btn btn__signup" [routerLink]="['/signup']">Signup</a>
+  </p>
+
+  @if (!auth.isActiveSession()) {
     <form class="form" [formGroup]="form.signInForm" (submit)="sendCredentials(email, password)">
       <div class="login__input">
         <label for="email_input" class="text__primary">Email</label>
@@ -33,6 +40,7 @@
         }
       </div>
 
-      <button class="btn btn--submit" type="submit">Sign In</button>
+      <button class="btn btn__submit" type="submit">Sign In</button>
     </form>
   }
+</section>

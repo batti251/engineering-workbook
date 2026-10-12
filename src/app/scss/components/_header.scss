@@ -6,7 +6,7 @@
   }
   &__login {
     @include dFlex($fd: row, $jc: space-between);
-    padding: 0 24px;
+    padding: 24px;
     @include respond(m) {
       justify-content: center;
     }
