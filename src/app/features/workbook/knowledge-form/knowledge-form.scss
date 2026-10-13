@@ -3,6 +3,26 @@
 .form {
   @include dFlex($fd: column, $ai: unset, $g: 8px);
   padding: min(20px, 3%);
+  &__header {
+    @include dFlex($fd: row, $jc: space-between);
+    @include size();
+    margin: unset;
+    position: sticky;
+    top: 0;
+    height: 100px;
+
+    &.sticky {
+      background: $bc-primary;
+      z-index: 1;
+      padding: 16px 0;
+      transition: .25s ease-out
+    }
+    @include respond(m) {
+      flex-direction: column-reverse;
+      height: unset;
+      align-items: flex-end;
+    }
+  }
   &__border {
     @include border($bw: 2px, $bs: outset, $bc: $bc-quaternary);
     box-shadow: 0px 0px 6px $bc-quaternary;
@@ -16,10 +36,12 @@
 
   &--title {
     width: 440px;
+    @include respond(m){
+      width: 100%;
+    }
   }
   &--description {
     @include size($h: 120px, $w: 100%);
-
     @include respond(s) {
       height: 240px;
     }
@@ -34,17 +56,26 @@
     width: min(420px, 80%);
     @include dFlex($ai: unset, $jc: unset);
     @include border($br: 16px);
-    background: $bc-tertiary;
+    background: $bc-dark;
     padding: 32px 16px;
     gap: 16px;
     @include respond(s) {
       width: 100%;
     }
+    @include respond(m){
+    width: 90%;
+  }
   }
   &__header {
     @include dFlex($fd: row, $jc: space-between);
     @include size();
     margin: unset;
+  }
+  &__footer {
+    @include dFlex($fd: row, $g: 16px);
+  }
+  @include respond(m){
+    justify-content: center;
   }
 }
 
@@ -52,86 +83,29 @@
   display: none;
 }
 
-.preview {
-  width: min(420px, 80%);
-  @include dFlex($ai: unset, $jc: unset);
-  @include border($br: 16px);
-  background: #013e37;
-  padding: 32px 16px;
-  gap: 16px;
-
-  &__card {
-    background: $bc-tertiary;
-  }
-
-  &__btn {
-    @include size($w: min(420px, 80%));
-    border: unset;
-    position: relative;
-    filter: opacity(0.6);
-    &::before {
-      content: url('/img/add_entry_96.svg');
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-    &:hover {
-      filter: opacity(1);
-    }
-    @include respond(s) {
-      @include size($w: 100%, $h: 100px);
-      overflow-y: hidden;
-    }
-  }
-
-  @include respond(s) {
-    width: 100%;
-  }
-
-  @include respond(s) {
-    padding: 8px;
-  }
-}
-
-input[type='checkbox'] {
-  outline: unset;
-  background-color: transparent;
-  appearance: none;
-  border: 1px solid rgb(85, 82, 82);
-  width: 40px;
-  height: 40px;
-  border-radius: 12px;
-  &:checked {
-    background: url('/img/checked_code.svg');
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  &:hover {
-    cursor: pointer;
-  }
-}
-
-.form__header {
-  @include dFlex($fd: row, $jc: space-between);
-  @include size();
-  margin: unset;
-  position: sticky;
-  top: 0;
-  height: 100px;
-
-  &.sticky {
-    background: #ffefb3;
-    z-index: 1;
-  }
-  @include respond(m) {
-    padding: 8px;
-  }
-}
-
 .invalid {
-  border: 2px solid red !important;
+  border: 2px solid $text-error !important;
 }
 
+.menu__btn {
+  @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/menu_vert.svg'));
+  background-color: $bc-secondary;
+  border: 1px solid $bc-light;
+  border-radius: 20px;
+  corner-shape: squircle;
+  &:hover {
+    box-shadow:
+      0px 0px 4px 3px $bc-bright,
+      inset 0px 0px 8px 1px $bc-bright;
+  }
+}
+
+.open {
+  display: flex;
+}
+.hide {
+  display: none !important;
+}
 
 .code {
   &__wrap {
@@ -139,7 +113,7 @@ input[type='checkbox'] {
     @include size($w: 100%);
     @include font($ff: roboto, $fw: 800, $fs: clamp(1rem, 1.25rem, 1.5rem));
     text-decoration: none;
-    color: #ffefb3;
+    color: $bc-quaternary;
 
     @include respond(m) {
       flex-direction: column;
@@ -153,14 +127,13 @@ input[type='checkbox'] {
 select,
 ::picker(select) {
   appearance: base-select;
-  width: min-content;
+  width: min(139px, 100%);
   padding: 0.5rem;
-  margin-top: 8px;
   border-radius: 0.5rem;
-  background-color: #ffefb3;
-  border: 1px outset #08332b;
+  background-color: $bc-secondary;
+  border: 1px solid $bc-quaternary;
   border-radius: 12px;
-  color: #08332b;
+  color: $bc-light;
   font-size: 1rem;
   max-height: 11rem;
   box-sizing: border-box;
@@ -168,46 +141,26 @@ select,
   transform-origin: top;
   &:hover {
     cursor: pointer;
-  }
-  @include respond(m) {
-    width: 200px;
+    background-color: $bc-tertiary;
   }
 }
 
-.menu__btn {
-    @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/menu_vert.svg'));
-    background-color: transparent;
-    border: 1px solid rgba(0, 0, 0, 0.568);
-    border-radius: 20px;
-    corner-shape: squircle;
-    &:hover {
-      box-shadow:
-        0px 0px 4px 3px #90910e,
-        inset 0px 0px 8px 1px #b1a622fa;
-    }
+.checkbox {
+  outline: unset;
+  background-color: transparent;
+  appearance: none;
+  border: 1px solid $bc-tertiary;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  &:checked {
+    background: url('/img/checked_code.svg');
+    background-position: center;
+    background-repeat: no-repeat;
   }
-
-.open{
-  display: flex;
-}
-.hide {
-  display: none !important;
-}
-
-
-input,
-textarea {
-  background-color: $bc-secondary;
-  &:focus {
+  &:hover {
+    cursor: pointer;
     background-color: $bc-secondary;
-    outline: 3px outset $bc-tertiary;
-  }
-  &:-webkit-autofill {
-    appearance: textfield;
-    box-shadow: 0 0 0 1000px $bc-quaternary inset;
-  }
-  &:autofill {
-    appearance: textfield;
-    box-shadow: 0 0 0 1000px $bc-quaternary inset;
+    border-color: $bc-quaternary;
   }
 }

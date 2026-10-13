@@ -36,6 +36,26 @@ ul, pre{
   margin: unset;
 }
 
+
+input,
+textarea {
+  background-color: $bc-secondary;
+  &:focus {
+    background-color: $bc-secondary;
+    outline: 3px outset $bc-tertiary;
+  }
+  &:-webkit-autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-quaternary inset;
+  }
+  &:autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-quaternary inset;
+  }
+  resize: none;
+}
+
+
 $base-unit: 8px;
 @for $i from 0 through 4{
   .g-#{$i*8} {

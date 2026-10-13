@@ -10,14 +10,20 @@ use for colors, fonts, spacing
 :root {
     --color--primary: #021c1e;
     --color--secondary: #003b46;
-    --color--tertiary: #07171b;
+    --color--tertiary: #1780aa;
     --color--quaternary: #f5e8b7;
     --color--dark: #18181a;
-    --color--light: #8d8fa5;
+    --color--light: #e5e6de;
+
+    --color--bright: #90910e;
+
+    --color--green: #75e287;
+    --color--lime: #aef1a1;
+
 
     --text--primary: #1995ad;
     --text--secondary: #567d8f;
-    --text--tertiary: #bcbabe;
+    --text--tertiary: #e5e6de;
     --text--error: #a71919;
 
 }
@@ -26,10 +32,14 @@ $bc-primary: var(--color--primary);
 $bc-secondary: var(--color--secondary);
 $bc-tertiary: var(--color--tertiary);
 $bc-quaternary: var(--color--quaternary);
-$bc-dark: var(--color-dark);
+$bc-dark: var(--color--dark);
 $bc-light: var(--color--light);
+$bc-bright: var(--color--bright);
 
 $text-primary: var(--text--primary);
 $text-secondary: var(--text--secondary);
 $text-tertiary: var(--text--tertiary);
 $text-error: var(--text--error);
+
+$green: var(--color--green);
+$lime: var(--color--lime)

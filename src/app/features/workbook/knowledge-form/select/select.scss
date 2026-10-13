@@ -1,13 +1,14 @@
+@use '../../../../scss/abstracts/' as *;
 @import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
 
 .select {
   display: flex;
   position: relative;
   align-items: center;
-  color: whitesmoke;
-  background-color: #013e37;
+  color: $bc-light;
+  background-color: $bc-secondary;
   border-radius: 0.5rem;
-  border: 1px solid #013e37;
+  border: 1px solid $bc-quaternary;
   /* Modernized additions for div-trigger Select: */
   height: 2.5rem;
   padding: 0 2rem;
@@ -17,13 +18,16 @@
   user-select: none;
   -webkit-user-select: none;
   outline: none;
+  @include respond(m){
+    width: 100%;
+  }
 }
 .select span {
   user-select: none;
   -webkit-user-select: none;
 }
 .select:hover {
-  background-color: #013e3762;
+  background-color: $bc-tertiary;
 }
 .select[aria-disabled='true'] {
   opacity: 0.6;
@@ -31,7 +35,7 @@
 }
 .select:focus,
 .select:focus-within {
-  outline: 2px outset #013e37;
+  outline: 2px outset $bc-secondary;
 }
 .combobox-label {
   gap: 1rem;
@@ -55,7 +59,9 @@
   padding: 0.5rem;
   margin-top: 8px;
   border-radius: 0.5rem;
-  background-color: #d5d68d;
+  border: 1px solid $green;
+  background-color: $bc-secondary;
+  color: $bc-light;
   font-size: 0.9rem;
   max-height: 11rem;
   box-sizing: border-box;
@@ -64,16 +70,14 @@
   transform-origin: top;
 }
 
-
 .example-popup-container.closing {
   animation: smoothPopupClose 150ms ease-in forwards;
 }
 
 .invalid {
-  border: 2px solid red !important;
-  color: red;
+  border: 2px solid $text-error !important;
+  color: $text-error;
 }
-
 
 [ngListbox] {
   gap: 2px;
@@ -82,32 +86,28 @@
   overflow: auto;
   flex-direction: column;
   outline: none;
-
-
-  
   --sb-track-color: #231e03;
   --sb-thumb-color: #f5e8b7;
   --sb-size: 7px;
   &::-webkit-scrollbar {
-  width: var(--sb-size);
-}
-
-&::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 4px;
-}
-
-&::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 4px;
-}
-
-
-@supports not selector(::-webkit-scrollbar) {
-  [ngListbox] {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    width: var(--sb-size);
   }
-}
+
+  &::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 4px;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    [ngListbox] {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+  }
 }
 
 [ngOption] {
@@ -121,22 +121,21 @@
   outline: none;
 }
 [ngOption]:hover {
-  background-color: #ffefb3;
+  background-color: $bc-primary;
 }
 [ngOption][data-active='true'] {
   outline-offset: -2px;
-  outline: 2px solid #013e37;
+  outline: 2px solid $bc-tertiary;
 }
 [ngOption][aria-selected='true'] {
-  color: #013e37;
+  color: $text-tertiary;
   font-weight: 800;
-  background-color: #013e375b;
+  background-color: $bc-tertiary;
 }
 
 [ngOption]:not([aria-selected='true']) .example-option-check {
   display: none;
 }
-
 
 .example-option-check {
   font-size: 1.2rem;

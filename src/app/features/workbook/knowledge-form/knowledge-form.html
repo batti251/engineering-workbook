@@ -8,8 +8,8 @@
   (click)="openBtn($event)"
 >
   <header class="form__header" #sticky>
-    <div>
-      <label for="title" class="text__primary">Title: </label>
+    <div class="w-100">
+      <label for="title" class="text__secondary">Title: </label>
       <input
         id="title"
         type="text"
@@ -28,7 +28,7 @@
   <section>
     <div formArrayName="tags" class="pb-16">
       <div>
-        <div class="header__nav">
+        <div class="header__nav pb-8">
           <h4 class="text__primary">Tags:</h4>
           <div class="tag--wrap">
             @for (item of forms.tags.controls; track item; let tagIndex = $index) {
@@ -46,8 +46,8 @@
         id="description"
         type="text"
         formControlName="description"
-        placeholder="enter the main description. sub-categories can be written in Sub Entry - section below"
-        class="text__secondary form__input form--description"
+        placeholder="write your main description here. specify, or split your entries in the section below"
+        class="text__tertiary form__input form--description"
       ></textarea>
     </div>
   </section>
@@ -62,23 +62,23 @@
           @for (subEntry of forms.subEntries.controls; track subEntry; let indexSubEntry = $index) {
             <div [formGroupName]="indexSubEntry" class="subentry__form">
               <div>
-                <label for="subTitle-{{ indexSubEntry }}-{{ subEntry }}"></label>
+                <label for="subTitle-{{ indexSubEntry }}"></label>
                 <h3 class="text__secondary">
                   <input
-                    id="subTitle-{{ indexSubEntry }}-{{ subEntry }}"
+                    id="subTitle-{{ indexSubEntry }}"
                     type="text"
                     formControlName="subTitle"
-                    class="text__secondary form__input form--title w-100"
+                    class="text__primary form__input form--title w-100"
                     placeholder="enter sub-title"
                   />
                 </h3>
               </div>
 
               <section>
-                <label for="description-{{ indexSubEntry }}-{{ subEntry }}"></label>
+                <label for="description-{{ indexSubEntry }}"></label>
                 <h4>
                   <textarea
-                    id="description-{{ indexSubEntry }}-{{ subEntry }}"
+                    id="description-{{ indexSubEntry }}"
                     type="text"
                     formControlName="description"
                     class="text__tertiary form__input form--description"
@@ -87,25 +87,26 @@
                 </h4>
                 <div formGroupName="code" class="code__wrap">
                   <div class="code__input">
-                    <label class="text__tertiary" for="isCode-{{ indexSubEntry }}-{{ subEntry }}"
+                    <label class="text__tertiary" for="isCode-{{ indexSubEntry }}"
                       >mark as Code block</label
                     >
                     <input
-                      id="isCode-{{ indexSubEntry }}-{{ subEntry }}"
+                      id="isCode-{{ indexSubEntry }}"
                       type="checkbox"
+                      class="checkbox"
                       formControlName="isCode"
-                      name="isCode-{{ indexSubEntry }}-{{ subEntry }}"
+                      name="isCode-{{ indexSubEntry }}"
                     />
                   </div>
                   @if (forms.getCodeState(indexSubEntry).value) {
-                    <label for="language-{{ indexSubEntry }}-{{ subEntry }}"></label>
+                    <label for="language-{{ indexSubEntry }}"></label>
                     <select
                       class="select"
-                      name="language-{{ indexSubEntry }}-{{ subEntry }}"
-                      id="language-{{ indexSubEntry }}-{{ subEntry }}"
+                      name="language-{{ indexSubEntry }}"
+                      id="language-{{ indexSubEntry }}"
                       formControlName="language"
                     >
-                      <option value="javascript">Javascript</option>
+                      <option value="javascript" selected>Javascript</option>
                       <option value="sql">SQL</option>
                       <option value="css">CSS</option>
                       <option value="html">HTML</option>
@@ -154,7 +155,7 @@
                 ></app-screenshot>
               </section>
 
-              <div>
+              <div class="subentry__footer">
                 <button
                   class="btn btn__icon--cancel"
                   type="button"
@@ -165,28 +166,8 @@
             </div>
 
             @if ($last) {
-              <button class="btn preview__btn" type="button" (click)="forms.addSubEntry()">
-                <div class="preview preview__card w-100">
-                  <section class="form__border">
-                    <h4 class="text__secondary">Title</h4>
-                  </section>
-
-                  <section class="form__border form--description">
-                    <h4 class="text__secondary">Description</h4>
-                  </section>
-
-                  <section class="form__border">
-                    <h4 class="text__secondary">Details</h4>
-                  </section>
-
-                  <section class="form__border">
-                    <h4 class="text__secondary">Links</h4>
-                  </section>
-
-                  <section class="form__border form--description">
-                    <h4 class="text__secondary">Screenshots</h4>
-                  </section>
-                </div>
+              <button class="btn btn__preview" type="button" (click)="forms.addSubEntry()">
+                <app-preview-card></app-preview-card>
               </button>
             }
           }

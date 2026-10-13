@@ -66,6 +66,25 @@
     background-color: rgb(122, 32, 32);
     color: #ffefb3;
   }
+  &__preview{
+    @include size($w: min(420px, 80%));
+    border: unset;
+    position: relative;
+    filter: opacity(0.6);
+    &::before {
+      content: url('/img/add_entry_56.svg');
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    &:hover {
+      filter: opacity(1);
+    }
+    @include respond(s) {
+      @include size($w: 100%, $h: 100px);
+      overflow-y: hidden;
+    }
+  }
 
   &:hover {
     cursor: pointer;

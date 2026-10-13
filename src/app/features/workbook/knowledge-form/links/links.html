@@ -4,17 +4,15 @@
   track item;
   let itemIndex = $index
 ) {
-  <li class="form__wrap--input list--element">
-    <div class="form__wrap">
+  <li class="item">
       <label for="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"></label>
       <input
         id="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"
         type="text"
         [formControl]="item"
-        class="text__primary form__input"
+        class="text__tertiary form__input"
         placeholder="add {{target}} here"
       />
-    </div>
     <button
       type="button"
       (click)="forms.removeSubEntryControl(indexSubEntry, itemIndex, target)"

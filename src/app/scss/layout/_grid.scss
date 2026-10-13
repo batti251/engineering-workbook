@@ -8,35 +8,35 @@
   grid-template-areas:
     'header header'
     'nav main';
-  background-color: $bc-primary;
+  background-color: $bc-dark;
   transition: 0.5s ease;
 
   &__header {
     grid-area: header;
-    background: $bc-primary;
+    background: $bc-dark;
     color: $text-primary;
     text-align: center;
   }
   &__nav {
     grid-area: nav;
-    background: $bc-primary;
+    background: $bc-dark;
     color: $bc-secondary;
     z-index: 1;
 
     @include respond(m) {
-      background-color: $bc-primary;
+      background-color: $bc-secondary;
     }
   }
   &__main {
     grid-area: main;
-    background: $bc-secondary;
+    background: $bc-primary;
     border-radius: 20px 40px 20px 20px;
     z-index: 2;
   }
 
   @include respond(m) {
     grid-template-columns: 100%;
-    grid-template-rows: 80px 80px 1fr;
+    grid-template-rows: 80px 60px 1fr;
     grid-template-areas:
       'header'
       'nav'

@@ -3,7 +3,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { KnowledgeEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { KnowledgeEntry } from '../../../shared/models/knowledge-entry';
 import { Supabase } from '../../../core/db';
-import { JsonPipe } from '@angular/common';
 import { Forms } from '../../../shared/services/forms';
 import { Clipboard } from '../../../core/clipboard';
 import { ActivatedRoute, ActivatedRouteSnapshot, ResolveFn, Router, RouterStateSnapshot, RouterLink } from '@angular/router';
@@ -18,6 +17,7 @@ import { Auth } from '../../../core/auth';
 import { LocalStorage } from '../../../core/local-storage';
 import { Storage } from '../../../core/storage';
 import { OverflowMenu } from './overflow-menu/overflow-menu';
+import { PreviewCard } from './preview-card/preview-card';
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
   route: ActivatedRouteSnapshot,
@@ -31,7 +31,7 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot, OverflowMenu, ConfirmDialog, InfoDialog, RouterLink],
+  imports: [ReactiveFormsModule, Select, Links, Screenshot, OverflowMenu, ConfirmDialog, InfoDialog, PreviewCard],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
   providers: [Forms, Select]

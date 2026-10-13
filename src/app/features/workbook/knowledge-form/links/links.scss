@@ -5,32 +5,40 @@
   overflow: overlay;
   list-style-type: none;
   padding: 16px;
-  /* > .list--element {
-    padding: 4px;
-  } */
-
-
   --sb-track-color: #231e03;
   --sb-thumb-color: #f5e8b7;
   --sb-size: 7px;
   &::-webkit-scrollbar {
-  width: var(--sb-size);
-}
+    width: var(--sb-size);
+  }
 
-&::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 4px;
-}
+  &::-webkit-scrollbar-track {
+    background: var(--sb-track-color);
+    border-radius: 4px;
+  }
 
-&::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 4px;
-}
+  &::-webkit-scrollbar-thumb {
+    background: var(--sb-thumb-color);
+    border-radius: 4px;
+  }
 
+  @supports not selector(::-webkit-scrollbar) {
+    .list {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+  }
 
-@supports not selector(::-webkit-scrollbar) {
-  .list {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  .item {
+    @include dFlex($fd: row, $ai: center, $jc: unset, $g: 8px);
+    padding: 4px;
+
   }
 }
+
+.form__input {
+  @include border($br: 10px, $bs: solid, $bw: 2px, $bc: $bc-light);
+  padding: 8px;
+  @include size($h: 40px, $w: 90%);
+
 }
+
