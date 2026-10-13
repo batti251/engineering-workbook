@@ -2,10 +2,49 @@
 
 .form {
   @include dFlex($fd: column, $ai: unset, $g: 8px);
+  padding: min(20px, 3%);
   &__border {
-    @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
-    box-shadow: 0px 0px 6px #e9da92;
+    @include border($bw: 2px, $bs: outset, $bc: $bc-quaternary);
+    box-shadow: 0px 0px 6px $bc-quaternary;
     padding: 8px;
+  }
+  &__input {
+    @include border($br: 10px, $bs: solid, $bw: 2px, $bc: $bc-quaternary);
+    padding: 8px;
+    @include size($h: 40px, $w: 90%);
+  }
+
+  &--title {
+    width: 440px;
+  }
+  &--description {
+    @include size($h: 120px, $w: 100%);
+
+    @include respond(s) {
+      height: 240px;
+    }
+  }
+}
+
+.subentry {
+  @include dFlex($fd: row, $jc: flex-start, $ai: flex-start, $g: 16px);
+  @include size($w: 100%);
+  flex-wrap: wrap;
+  &__form {
+    width: min(420px, 80%);
+    @include dFlex($ai: unset, $jc: unset);
+    @include border($br: 16px);
+    background: $bc-tertiary;
+    padding: 32px 16px;
+    gap: 16px;
+    @include respond(s) {
+      width: 100%;
+    }
+  }
+  &__header {
+    @include dFlex($fd: row, $jc: space-between);
+    @include size();
+    margin: unset;
   }
 }
 
@@ -14,6 +53,17 @@
 }
 
 .preview {
+  width: min(420px, 80%);
+  @include dFlex($ai: unset, $jc: unset);
+  @include border($br: 16px);
+  background: #013e37;
+  padding: 32px 16px;
+  gap: 16px;
+
+  &__card {
+    background: $bc-tertiary;
+  }
+
   &__btn {
     @include size($w: min(420px, 80%));
     border: unset;
@@ -28,15 +78,18 @@
     &:hover {
       filter: opacity(1);
     }
-
     @include respond(s) {
       @include size($w: 100%, $h: 100px);
       overflow-y: hidden;
     }
   }
 
-  &__card {
-    background: #053f388f;
+  @include respond(s) {
+    width: 100%;
+  }
+
+  @include respond(s) {
+    padding: 8px;
   }
 }
 
@@ -58,13 +111,7 @@ input[type='checkbox'] {
   }
 }
 
-.sub-header {
-  @include dFlex($fd: row, $jc: space-between);
-  @include size();
-  margin: unset;
-}
-
-.form-header {
+.form__header {
   @include dFlex($fd: row, $jc: space-between);
   @include size();
   margin: unset;
@@ -143,11 +190,11 @@ input[type='checkbox'] {
     text-decoration: none;
     color: #ffefb3;
 
-    @include respond(m){
+    @include respond(m) {
       flex-direction: column;
     }
   }
-  &__input{
+  &__input {
     @include dFlex($fd: row, $jc: unset, $g: 8px);
   }
 }
@@ -171,7 +218,25 @@ select,
   &:hover {
     cursor: pointer;
   }
-  @include respond(m){
-      width: 200px;
-    }
+  @include respond(m) {
+    width: 200px;
+  }
+}
+
+
+input,
+textarea {
+  background-color: $bc-secondary;
+  &:focus {
+    background-color: $bc-secondary;
+    outline: 3px outset $bc-tertiary;
+  }
+  &:-webkit-autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-quaternary inset;
+  }
+  &:autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-quaternary inset;
+  }
 }

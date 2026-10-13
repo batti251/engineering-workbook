@@ -17,6 +17,7 @@ export class UserSignup {
   private auth = inject(Auth)
   error = signal('')
   signUpSuccess = signal(false);
+  submitted = signal(false);
   newUserData = signal<User>(
     {
       firstName: 'string',
@@ -38,6 +39,7 @@ export class UserSignup {
 
 
   sendNewUser() {
+    this.submitted.update(() => true)
     this.checkFieldsRequired()
     if (this.signUpSuccess()) {
       this.auth.signUpUser(this.newUserData().email, this.newUserData().password)

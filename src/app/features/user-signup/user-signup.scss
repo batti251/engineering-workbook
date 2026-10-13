@@ -1,58 +1,76 @@
-@use '../../scss/abstracts/' as * ;
+@use '../../scss/abstracts/' as *;
 
-.signup{
-    @include dFlex();
+.header {
+  @include dFlex($fd: row, $jc: space-around);
+  padding: 24px 0;
 }
-
 
 .form {
-    padding: min(20px, 3%);
-    @include dFlex($ai: center, $jc: unset, $g: unset);
-    width: 60%;
-}
+  padding: min(20px, 3%);
+  width: 80%;
+    @include dFlex($ai:unset, $g: 8px);
+  &__group {
+    @include dFlex($fd: row, $jc: unset, $ai: unset, $g: 16px);
 
-.error{
-    @include size($h:20px);
-
-    &__message{
-        @include font($fs: 1rem);
-        color: red;
+    &--split {
+      display: flex;
+      flex-direction: column;
+      width: 50%;
     }
-    opacity: 0;
+}
+  &__input{
+    @include border($br: 10px, $bs: solid, $bw: 2px, $bc: $bc-quaternary);
+    padding: 8px;
+    @include size($h: 40px, $w: 100%);
+  }
 }
 
-.form__group--split{
+.signup {
+  @include dFlex();
+}
+
+.error {
+  @include size($h: 20px);
     display: flex;
-    flex-direction: column;
-    width: 50%;
+  &__message {
+    @include font($fs: 1rem);
+    color: $text-error;
+  }
+  opacity: 0;
 }
 
-.form__input{
-    width: 100%;
-}
 
-.form__group--sub-entry{
-    flex-wrap: unset;
-}
 
 .invalid {
   outline: 3px outset #830606;
 }
 
-.valid{
-    outline: 3px auto green;
-    color: unset;
+.valid {
+  outline: 3px auto green;
+  color: unset;
 }
 
-.show{
-    opacity: 1;
+.show {
+  opacity: 1;
 }
 
-.hide{
-    opacity: 0;
+.hide {
+  opacity: 0;
 }
 
-.header{
-    @include dFlex($fd: row, $jc: space-around);
-    padding: 24px 0;
+
+input {
+  background-color: $bc-secondary;
+  &:focus {
+    background-color: $bc-secondary;
+    outline: 3px outset $bc-tertiary;
+  }
+  &:-webkit-autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-secondary inset;
+  }
+  &:autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-secondary inset;
+  }
 }

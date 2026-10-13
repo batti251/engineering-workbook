@@ -43,7 +43,7 @@
               @if (subEntry?.description) {
                 @switch (subEntry?.code?.isCode) {
                   @case (false) {
-                    <div class="text__tertiary text__tertiary--basic paragraph">
+                    <div class="text__tertiary text__ paragraph">
                       {{ subEntry.description }}
                     </div>
                   }
@@ -75,7 +75,7 @@
                   <ul class="list">
                     @for (detail of subEntry.details; track $index) {
                       <li>
-                        <span class="list__element text__tertiary text__tertiary--basic">{{
+                        <span class="list__element text__tertiary text__">{{
                           detail
                         }}</span>
                       </li>

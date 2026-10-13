@@ -7,8 +7,8 @@
   class="form"
   (click)="toggleMenu($event)"
 >
-  <header class="form-header" #sticky>
-    <h2 class="text__primary text__primary--h2">Knowledge Entry</h2>
+  <header class="form__header" #sticky>
+    <h2 class="text__primary">Knowledge Entry</h2>
     <button class="btn menu__btn" type="button" #menuBtn>
       <div class="menu" #menu>
         <a class="btn menu__element" [routerLink]="['/knowledge/doc']">
@@ -31,7 +31,7 @@
       </div>
     </button>
   </header>
-  <section class="form__wrap g-1">
+  <section class="form__group g-1">
     <div>
       <label for="title" class="text__primary">Title: </label>
       <input
@@ -39,24 +39,24 @@
         type="text"
         formControlName="title"
         placeholder="Enter your topic"
-        class="form__input form__input--title text__primary--input"
+        class="text__primary form__input form--title"
         [class.invalid]="(formSubmit() || forms.title?.touched) && forms.title?.invalid"
       />
     </div>
 
-    <div class="form__group--edit">
+    <div class="form__group">
       <label for="description" class="text__primary">Description: </label>
       <textarea
         id="description"
         type="text"
         formControlName="description"
         placeholder="enter the main description. sub-categories can be written in Sub Entry - section below"
-        class="form__input form__input--textarea text__primary--input"
+        class="text__secondary form__input form--description"
       ></textarea>
     </div>
 
     <div formArrayName="tags" class="form__group">
-      <div class="form__wrap">
+      <div class="form__group">
         <div class="header__nav">
           <h4 class="text__primary">Tags:</h4>
           <div class="tag--wrap">
@@ -71,36 +71,40 @@
   </section>
   <section>
     <div class="header__nav">
-      <h2 class="text__primary text__primary--h2">Sub Entry:</h2>
+      <h2 class="text__primary">Sub Entry:</h2>
     </div>
     <div formArrayName="subEntries">
       <div>
-        <section class="form__group--sub-entry">
+        <section class="subentry">
           @for (subEntry of forms.subEntries.controls; track subEntry; let indexSubEntry = $index) {
-            <div [formGroupName]="indexSubEntry" class="form--sub-entry">
+            <div [formGroupName]="indexSubEntry" class="subentry__form">
               <div>
                 <label for="subTitle-{{ indexSubEntry }}-{{ subEntry }}"></label>
-                <input
-                  id="subTitle-{{ indexSubEntry }}-{{ subEntry }}"
-                  type="text"
-                  formControlName="subTitle"
-                  class="form__input form__input--description text__primary--input"
-                  placeholder="enter sub-title"
-                />
+                <h3 class="text__secondary">
+                  <input
+                    id="subTitle-{{ indexSubEntry }}-{{ subEntry }}"
+                    type="text"
+                    formControlName="subTitle"
+                    class="text__secondary form__input form--title w-100"
+                    placeholder="enter sub-title"
+                  />
+                </h3>
               </div>
 
-              <div class="list__element">
+              <section>
                 <label for="description-{{ indexSubEntry }}-{{ subEntry }}"></label>
-                <textarea
-                  id="description-{{ indexSubEntry }}-{{ subEntry }}"
-                  type="text"
-                  formControlName="description"
-                  class="form__input form__input--textarea text__primary--input"
-                  placeholder="enter description"
-                ></textarea>
+                <h4>
+                  <textarea
+                    id="description-{{ indexSubEntry }}-{{ subEntry }}"
+                    type="text"
+                    formControlName="description"
+                    class="text__tertiary form__input form--description"
+                    placeholder="enter description"
+                  ></textarea>
+                </h4>
                 <div formGroupName="code" class="code__wrap">
                   <div class="code__input">
-                    <label for="isCode-{{ indexSubEntry }}-{{ subEntry }}"
+                    <label class="text__tertiary" for="isCode-{{ indexSubEntry }}-{{ subEntry }}"
                       >mark as Code block</label
                     >
                     <input
@@ -125,11 +129,11 @@
                     </select>
                   }
                 </div>
-              </div>
+              </section>
 
-              <section formArrayName="details" class="form__wrap form__border">
-                <header class="sub-header">
-                  <h3 class="text__secondary text__secondary--h3">Details</h3>
+              <section formArrayName="details" class="subentry form__border">
+                <header class="subentry__header w-100">
+                  <h4 class="text__secondary">Details</h4>
                   <button
                     type="button"
                     (click)="forms.addSubEntryControls(indexSubEntry, 'details')"
@@ -143,9 +147,9 @@
                 ></app-links>
               </section>
 
-              <section formArrayName="externalLinks" class="form__wrap form__border">
-                <header class="sub-header">
-                  <h3 class="text__secondary text__secondary--h3">Links</h3>
+              <section formArrayName="externalLinks" class="subentry form__border">
+                <header class="subentry__header w-100">
+                  <h4 class="text__secondary">Links</h4>
                   <button
                     type="button"
                     (click)="forms.addSubEntryControls(indexSubEntry, 'externalLinks')"
@@ -160,14 +164,14 @@
               </section>
 
               <section formArrayName="screenshots">
-                <h3 class="text__secondary text__secondary--h3">Screenshots</h3>
+                <h4 class="text__secondary">Screenshots</h4>
                 <app-screenshot
                   [indexSubEntry]="indexSubEntry"
                   [formArray]="forms.getSubEntryControls(indexSubEntry, 'screenshots')"
                 ></app-screenshot>
               </section>
 
-              <div class="form__wrap--row">
+              <div>
                 <button
                   class="btn btn__icon--cancel"
                   type="button"
@@ -179,25 +183,25 @@
 
             @if ($last) {
               <button class="btn preview__btn" type="button" (click)="forms.addSubEntry()">
-                <div class="form--sub-entry w-100 preview__card">
-                  <section class="form__wrap form__border">
-                    <h3 class="text__secondary text__secondary--h3">Title</h3>
+                <div class="preview preview__card w-100">
+                  <section class="form__border">
+                    <h4 class="text__secondary">Title</h4>
                   </section>
 
-                  <section class="form__wrap form__border form__input--textarea">
-                    <h3 class="text__secondary text__secondary--h3">Description</h3>
+                  <section class="form__border form--description">
+                    <h4 class="text__secondary">Description</h4>
                   </section>
 
-                  <section class="form__wrap form__border">
-                    <h3 class="text__secondary text__secondary--h3">Details</h3>
+                  <section class="form__border">
+                    <h4 class="text__secondary">Details</h4>
                   </section>
 
-                  <section class="form__wrap form__border">
-                    <h3 class="text__secondary text__secondary--h3">Links</h3>
+                  <section class="form__border">
+                    <h4 class="text__secondary">Links</h4>
                   </section>
 
-                  <section class="form__wrap form__border form__input--textarea">
-                    <h3 class="text__secondary text__secondary--h3">Screenshots</h3>
+                  <section class="form__border form--description">
+                    <h4 class="text__secondary">Screenshots</h4>
                   </section>
                 </div>
               </button>

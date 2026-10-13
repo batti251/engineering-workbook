@@ -6,3 +6,30 @@ use for colors, fonts, spacing
     font-family: roboto;
     src: url(/fonts/Roboto-VariableFont_wdth\,wght.ttf);
 }
+
+:root {
+    --color--primary: #021c1e;
+    --color--secondary: #003b46;
+    --color--tertiary: #07171b;
+    --color--quaternary: #f5e8b7;
+    --color--dark: #18181a;
+    --color--light: #8d8fa5;
+
+    --text--primary: #1995ad;
+    --text--secondary: #567d8f;
+    --text--tertiary: #bcbabe;
+    --text--error: #a71919;
+
+}
+
+$bc-primary: var(--color--primary);
+$bc-secondary: var(--color--secondary);
+$bc-tertiary: var(--color--tertiary);
+$bc-quaternary: var(--color--quaternary);
+$bc-dark: var(--color-dark);
+$bc-light: var(--color--light);
+
+$text-primary: var(--text--primary);
+$text-secondary: var(--text--secondary);
+$text-tertiary: var(--text--tertiary);
+$text-error: var(--text--error);

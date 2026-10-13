@@ -1,14 +1,18 @@
 @use '../../../scss/abstracts/' as *;
 
-.form {
-  @include dFlex($fd: column, $ai: center, $g: 16px);
-    &__input{
-      border-color: #013e37;
-    }
+.signup__text {
+  @include dFlex();
 }
 
-.form__input{
-  width: unset;
+
+.form {
+  padding: min(20px, 3%);
+  @include dFlex($fd: column, $ai: center, $g: 16px);
+  &__input {
+    @include border($br: 10px, $bs: solid, $bw: 2px, $bc: $bc-quaternary);
+    padding: 8px;
+    @include size($h: 40px, $w: 100%);
+  }
 }
 
 .login__input {
@@ -16,12 +20,35 @@
   @include size($w: min(300px, 80%));
 }
 
-.message {
-  &--error{
-    @include size($h: 40px);
+.error {
+  @include size($h: 20px);
+  display: flex;
+  opacity: 0;
+  &__message {
+    @include font($fs: 1rem);
+    color: $text-error;
+  }
+  &__border {
+    outline: 3px outset $text-error;
   }
 }
 
-.authentication{
-  @include dFlex();
+.show{
+  opacity: 1;
+}
+
+input {
+  background-color: $bc-quaternary;
+  &:focus {
+    background-color: $bc-secondary;
+    outline: 3px outset $bc-tertiary;
+  }
+  &:-webkit-autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-quaternary inset;
+  }
+  &:autofill {
+    appearance: textfield;
+    box-shadow: 0 0 0 1000px $bc-quaternary inset;
+  }
 }

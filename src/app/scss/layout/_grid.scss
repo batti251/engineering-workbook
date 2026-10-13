@@ -8,28 +8,28 @@
   grid-template-areas:
     'header header'
     'nav main';
-  background-color: #013e37;
+  background-color: $bc-primary;
   transition: 0.5s ease;
 
   &__header {
     grid-area: header;
-    background: #013e37;
-    color: #ffefb3;
+    background: $bc-primary;
+    color: $text-primary;
     text-align: center;
   }
   &__nav {
     grid-area: nav;
-    background: #013e37;
-    color: #ffefb3;
+    background: $bc-primary;
+    color: $bc-secondary;
     z-index: 1;
 
     @include respond(m) {
-      background-color: #013e37;
+      background-color: $bc-primary;
     }
   }
   &__main {
     grid-area: main;
-    background: #ffefb3;
+    background: $bc-secondary;
     border-radius: 20px 40px 20px 20px;
     z-index: 2;
   }

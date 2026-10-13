@@ -6,9 +6,7 @@
   &__group {
     @include dFlex($ai: flex-start, $g: 8px);
     @include size($w: 100%);
-    &--edit {
-      @include dFlex($ai: baseline, $g: 8px);
-    }
+
     &--doc {
       @include dFlex($fd: column, $g: 8px);
     }
@@ -74,8 +72,9 @@
 
 input,
 textarea {
+  background-color: $bc-secondary;
   &:focus {
-    background-color: #ffefb3;
+    background-color: $bc-tertiary;
     outline: 3px outset #013e37;
   }
   &:-webkit-autofill {

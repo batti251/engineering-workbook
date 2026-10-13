@@ -1,7 +1,7 @@
 <section>
-  <h2 class="text__primary text__primary--h2">Login</h2>
+  <h2 class="text__primary">Login</h2>
 
-  <p class="authentication text__primary--basic">
+  <p class="signup__text text__tertiary">
     No account, yet? Create your personal Account here:
     <a class="btn btn__signup" [routerLink]="['/signup']">Signup</a>
   </p>
@@ -9,32 +9,34 @@
   @if (!auth.isActiveSession()) {
     <form class="form" [formGroup]="form.signInForm" (submit)="sendCredentials(email, password)">
       <div class="login__input">
-        <label for="email_input" class="text__primary">Email</label>
+        <label for="email" class="text__primary">Email</label>
         <input
           (focus)="isError.set(false)"
-          class="form__input text__regular"
+          class="form__input text__primary"
           [class.error__border]="isError()"
-          id="email_input"
+          id="email"
           type="email"
+          autocomplete="email"
           formControlName="email"
         />
       </div>
       <div class="login__input">
-        <label for="password_input" class="text__primary">Passwort</label>
+        <label for="password" class="text__primary">Passwort</label>
         <input
           (focus)="isError.set(false)"
-          class="form__input text__regular"
+          class="form__input text__primary"
           [class.error__border]="isError()"
-          id="password_input"
+          id="password"
           type="password"
           autocomplete="off"
           formControlName="password"
         />
       </div>
 
-      <div class="message--error">
+      <div class="error"
+      [class.show]="isError()">
         @if (isError()) {
-          <span class="text__regular" [class.error__text]="isError()">{{
+          <span class="text__primary" [class.error__message]="isError()">{{
             this.auth.errorMessage()
           }}</span>
         }

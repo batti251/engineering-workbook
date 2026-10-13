@@ -1,63 +1,19 @@
 @use '../../scss/abstracts/' as *;
 
 .text {
+  text-decoration: none;
   &__primary {
-    @include font($fw: 800, $fs: clamp(1rem, 1.5rem, 2rem));
-    color: #013e37;
-    text-decoration: none;
-    &--h2 {
-      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
-    }
-    &--h3 {
-      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 2rem));
-    }
-    &--input {
-      @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1.375rem));
-    }
-    &--basic{
-      font-weight: 500;
-    }
+    @include font($fw: 500, $fs: clamp(1rem, 1.5rem, 2rem));
+    color: $text-primary;
   }
+
   &__secondary {
-    @include font($fw: 800, $fs: clamp(1rem, 1.5rem, 2rem));
-    color: #ffefb3;
-    text-decoration: none;
-    &--h2 {
-      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
-    }
-    &--h3 {
-      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 2rem));
-    }
+    @include font($fw: 500, $fs: clamp(1rem, 1.5rem, 2rem));
+    color: $text-secondary;
   }
   &__tertiary {
-    @include font($fw: 800, $fs: clamp(1rem, 1.5rem, 2rem));
-    color: #d19914bf;
-    text-decoration: none;
-    &--h2 {
-      @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
-      color: #b7b7a7;
-    }
-    &--h3 {
-      @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 2rem));
-    }
-    &--basic{
-      color: #a9a87d;
-      font-weight: 500;
-    }
-  }
-  &__regular {
-    @include font($fw: 400, $fs: clamp(1rem, 1.5rem, 2rem));
-    color: #013e37;
-    text-decoration: none;
-  }
-  &__sidebar {
-    @include font($fw: 800, $fs: clamp(1rem, 1rem, 1vw));
-    color: #ffefb3;
-    text-decoration: none;
-    &:visited {
-      color: #ffefb3;
-      text-decoration: none;
-    }
+    @include font($fw: 400, $fs: clamp(1rem, 1.25rem, 1.5rem));
+    color: $text-tertiary;
   }
 }
 
@@ -71,8 +27,33 @@
   hyphens: auto;
   width: min(800px, 80%);
 
-  @include respond(m){
+  @include respond(m) {
     width: 100%;
     padding: 0 8px;
   }
+}
+
+h2.text__primary,
+h2.text__secondary,
+h2.text__tertiary {
+  @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
+  color: $text-secondary;
+}
+
+h3.text__primary,
+h3.text__secondary,
+h3.text__tertiary {
+  @include font($fw: 800, $fs: clamp(1.375rem, 1.75rem, 2rem));
+  color: $text-primary;
+}
+
+h4.text__primary,
+h4.text__secondary,
+h4.text__tertiary {
+  @include font($fw: 700, $fs: clamp(1.275rem, 1.675rem, 1.875rem));
+  color: $text-primary;
+}
+
+input.text__primary {
+  @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1.375rem));
 }
