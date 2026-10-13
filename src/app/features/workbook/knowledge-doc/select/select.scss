@@ -10,10 +10,10 @@
   display: flex;
   position: relative;
   align-items: center;
-  color: whitesmoke;
-  background-color: #013e37;
+  color: $bc-light;
+  background-color: $bc-secondary;
   border-radius: 0.5rem;
-  border: 1px solid #013e37;
+  border: 1px solid $bc-quaternary;
   /* Modernized additions for div-trigger Select: */
   height: 2.5rem;
   padding: 0 2rem;
@@ -32,7 +32,7 @@
   -webkit-user-select: none;
 }
 .select:hover {
-  background-color: #013e3762;
+  background-color: $bc-tertiary;
 }
 .select[aria-disabled='true'] {
   opacity: 0.6;
@@ -40,7 +40,7 @@
 }
 .select:focus,
 .select:focus-within {
-  outline: 2px outset #013e37;
+  outline: 2px outset $bc-secondary;
 }
 .combobox-label {
   gap: 1rem;
@@ -64,7 +64,8 @@
   padding: 0.5rem;
   margin-top: 8px;
   border-radius: 0.5rem;
-  background-color: #d5d68d;
+  border: 1px solid $green;
+  background-color: $bc-secondary;
   font-size: 0.9rem;
   max-height: 11rem;
   box-sizing: border-box;
@@ -79,8 +80,8 @@
 }
 
 .invalid {
-  border: 2px solid red !important;
-  color: red;
+  border: 2px solid $text-error !important;
+  color: $text-error;
 }
 
 
@@ -123,6 +124,7 @@
   display: flex;
   cursor: pointer;
   align-items: center;
+  color: $bc-light;
   margin: 1px;
   padding: 0 1rem;
   min-height: 2.25rem;
@@ -130,16 +132,16 @@
   outline: none;
 }
 [ngOption]:hover {
-  background-color: #ffefb3;
+  background-color: $bc-primary;
 }
 [ngOption][data-active='true'] {
   outline-offset: -2px;
-  outline: 2px solid #013e37;
+  outline: 2px solid $bc-tertiary;
 }
 [ngOption][aria-selected='true'] {
-  color: #013e37;
+  color: $text-tertiary;
   font-weight: 800;
-  background-color: #013e375b;
+  background-color: $bc-tertiary;
 }
 
 [ngOption]:not([aria-selected='true']) .example-option-check {

@@ -58,8 +58,8 @@
               @if (subEntry.externalLinks?.length) {
                 <section class="sub-entry__accordion" id="links">
                   <details>
-                    <summary class="text__tertiary--h3 link__title">Links</summary>
-                    <ul class="list--link">
+                    <summary class="link__title">Links</summary>
+                    <ul class="list__link">
                       @for (link of subEntry.externalLinks; track $index) {
                         <li class="">
                           <a class="link" [href]="link">{{ link }}</a>
