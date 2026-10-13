@@ -17,7 +17,7 @@ import { InfoDialog } from './info-dialog/info-dialog';
 import { Auth } from '../../../core/auth';
 import { LocalStorage } from '../../../core/local-storage';
 import { Storage } from '../../../core/storage';
-
+import { OverflowMenu } from './overflow-menu/overflow-menu';
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
   route: ActivatedRouteSnapshot,
@@ -31,7 +31,7 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot, ConfirmDialog, InfoDialog, RouterLink],
+  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot, OverflowMenu, ConfirmDialog, InfoDialog, RouterLink],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
   providers: [Forms, Select]
@@ -233,15 +233,19 @@ export class KnowledgeForm {
     }, 2000);
   }
 
+
   @ViewChild('menu')
   menu!: ElementRef<HTMLElement>
 
-  @ViewChild('menuBtn')
-  menuBtn!: ElementRef<HTMLElement>
+  @ViewChild('btnOverflow')
+  btnOverflow!: ElementRef<HTMLButtonElement>
+  menuOpen = false
 
-  toggleMenu(event: PointerEvent): void {
+ openBtn(event: PointerEvent) {
     let clickTarget = event.target
-    let menuBtn = this.menuBtn.nativeElement
-    clickTarget == menuBtn ? this.menu.nativeElement.classList.toggle('open') : this.menu.nativeElement.classList.remove('open')
+    let btnOverflow = this.btnOverflow.nativeElement
+    clickTarget == btnOverflow ? this.menuOpen = true : this.menuOpen = false
   }
+
+
 }

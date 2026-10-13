@@ -5,33 +5,9 @@
   (ngSubmit)="sendDataToDB()"
   [formGroup]="forms.entryForm"
   class="form"
-  (click)="toggleMenu($event)"
+  (click)="openBtn($event)"
 >
   <header class="form__header" #sticky>
-    <h2 class="text__primary">Knowledge Entry</h2>
-    <button class="btn menu__btn" type="button" #menuBtn>
-      <div class="menu" #menu>
-        <a class="btn menu__element" [routerLink]="['/knowledge/doc']">
-          <img src="/img/close_red.svg" alt="a red cross icon" class="menu__icon" />
-          <span class="menu__text">Zurück</span>
-        </a>
-        <button class="btn menu__element" type="submit">
-          <img src="/img/submit_alt.svg" alt="a floppy disk icon" class="menu__icon" />
-          <span class="menu__text">Speichern</span>
-        </button>
-        <button
-          class="btn menu__element"
-          type="button"
-          (click)="deleteEntry()"
-          [class.hide]="!isEditForm()"
-        >
-          <img src="/img/delete.svg" alt="a trash bin icon" class="menu__icon" />
-          <span class="menu__text">Löschen</span>
-        </button>
-      </div>
-    </button>
-  </header>
-  <section class="form__group g-1">
     <div>
       <label for="title" class="text__primary">Title: </label>
       <input
@@ -40,23 +16,18 @@
         formControlName="title"
         placeholder="Enter your topic"
         class="text__primary form__input form--title"
-        [class.invalid]="(formSubmit() || forms.title?.touched) && forms.title?.invalid"
+        [class.invalid]="(formSubmit() || forms.title?.dirty) && forms.title?.invalid"
       />
     </div>
 
-    <div class="form__group">
-      <label for="description" class="text__primary">Description: </label>
-      <textarea
-        id="description"
-        type="text"
-        formControlName="description"
-        placeholder="enter the main description. sub-categories can be written in Sub Entry - section below"
-        class="text__secondary form__input form--description"
-      ></textarea>
-    </div>
+    <button class="btn menu__btn" type="button" #btnOverflow>
+      <app-overflow-menu (toDelete)="deleteEntry()" [showMenu]="menuOpen"></app-overflow-menu>
+    </button>
+  </header>
 
-    <div formArrayName="tags" class="form__group">
-      <div class="form__group">
+  <section>
+    <div formArrayName="tags" class="pb-16">
+      <div>
         <div class="header__nav">
           <h4 class="text__primary">Tags:</h4>
           <div class="tag--wrap">
@@ -68,7 +39,19 @@
       </div>
       <app-select selectArea="tags" (newTag)="forms.addTags($event)"></app-select>
     </div>
+
+    <div class="pb-16">
+      <label for="description" class="text__primary">Description: </label>
+      <textarea
+        id="description"
+        type="text"
+        formControlName="description"
+        placeholder="enter the main description. sub-categories can be written in Sub Entry - section below"
+        class="text__secondary form__input form--description"
+      ></textarea>
+    </div>
   </section>
+  
   <section>
     <div class="header__nav">
       <h2 class="text__primary">Sub Entry:</h2>

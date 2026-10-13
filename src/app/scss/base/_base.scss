@@ -43,6 +43,12 @@ $base-unit: 8px;
   }
 }
 
+@for $i from 0 through 4{
+  .pb-#{$i*8} {
+    padding-bottom: $i*$base-unit !important;
+  }
+}
+
 @for $i from 0 through 100{
   $value : $i * 20;
   .w-#{$value} {
