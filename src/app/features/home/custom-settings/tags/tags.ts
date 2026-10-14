@@ -49,7 +49,6 @@ db = inject(Supabase)
   constructor() {
     effect(async () => {
       this.storage.reloadToken()
-      console.log();
       if (this.db.crudSuccess()) {
         await this.getTags()
       }

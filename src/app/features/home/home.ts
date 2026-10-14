@@ -14,7 +14,5 @@ import { CustomSettings } from './custom-settings/custom-settings';
 export class Home {
   auth = inject(Auth)
   ngOnInit(){
-    console.log(this.auth.isActiveSession());
-    
   }
 }

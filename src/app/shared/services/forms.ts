@@ -74,8 +74,6 @@ export class Forms {
     }
 
     getCodeState(indexSubEntry:number) {
-        console.log(indexSubEntry);
-        
         return this.subEntries.at(indexSubEntry).get('code')?.get('isCode') as FormControl
     }
 
