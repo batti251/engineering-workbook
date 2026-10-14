@@ -5,6 +5,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { Supabase } from '../../../../core/db';
 import { tags } from '../../../../shared/interfaces/knowledge-entry-data';
 import { LocalStorage } from '../../../../core/local-storage';
+import { Auth } from '../../../../core/auth';
 
 @Component({
   selector: 'app-select',

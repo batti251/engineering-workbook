@@ -15,7 +15,7 @@
     </a>
   </div>
 
-  <div class="link"(click)="toggleState(1)" #link>
+  <div class="link" [class.d-none]="!auth.isActiveSession()" (click)="toggleState(1)" #link>
     <a class="icon__wrap" [routerLink]="['/knowledge/doc']">
       <img class="icon" src="/img/workbook.svg" alt="" />
       <span class="text__secondary--regular icon__text">Workbook</span>

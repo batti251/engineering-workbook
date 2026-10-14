@@ -22,11 +22,13 @@ export const routes: Routes = [
     },
     {
         path: 'knowledge/doc',
-        component: KnowledgeDoc
+        component: KnowledgeDoc,
+        canActivate: [userGuard]
     },
     {
         path: 'knowledge/:state',
         component: KnowledgeForm,
+        canActivate: [userGuard],
         resolve: {
             entry: entryResolver,
         }
@@ -34,6 +36,7 @@ export const routes: Routes = [
     {
         path: 'knowledge/:state/:id',
         component: KnowledgeForm,
+        canActivate: [userGuard],
         resolve: {
             entry: entryResolver,
         }
