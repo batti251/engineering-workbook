@@ -29,9 +29,7 @@ export const routes: Routes = [
         path: 'knowledge/:state',
         component: KnowledgeForm,
         canActivate: [userGuard],
-        resolve: {
-            entry: entryResolver,
-        }
+       
     },
     {
         path: 'knowledge/:state/:id',

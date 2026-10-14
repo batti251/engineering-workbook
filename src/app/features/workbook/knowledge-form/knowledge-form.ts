@@ -34,7 +34,10 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
   imports: [ReactiveFormsModule, Select, Links, Screenshot, OverflowMenu, ConfirmDialog, InfoDialog, PreviewCard],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
-  providers: [Forms, Select]
+  providers: [Forms, Select],
+  host: {
+    '(window:scroll)': 'onScroll()'
+  }
 })
 export class KnowledgeForm {
   db = inject(Supabase)
@@ -67,18 +70,18 @@ export class KnowledgeForm {
   @ViewChild('sticky')
   sticky!: ElementRef<HTMLElement>
 
-  @HostListener('window:scroll')
   onScroll(): void {
     this.checkSticky();
   }
 
   checkSticky(): void {
-    const element = this.sticky.nativeElement;
-    const rect = element.getBoundingClientRect();
+    const element = this.sticky;
+    if (!element) return
+    const rect = element.nativeElement.getBoundingClientRect();
     this.isSticky = rect.top <= 0;
     if (this.isSticky) {
-      element.classList.add('sticky')
-    } else element.classList.remove('sticky')
+      element.nativeElement.classList.add('sticky')
+    } else element.nativeElement.classList.remove('sticky')
   }
 
   ngOnInit() {
