@@ -1,0 +1,17 @@
+@use '../../../scss/abstracts/' as *;
+
+.settings {
+  @include dFlex();
+  @include size($h: 100%, $w: 100%);
+  padding: 24px 0 0 0;
+}
+
+.list {
+  @include dFlex($ai: unset);
+  margin: 8px 0;
+  list-style-type: disc;
+}
+
+.sublist {
+  list-style-type: circle;
+}

@@ -23,12 +23,6 @@
     }
     &--edit {
       @include backgroundImg($w: 40px, $h: 40px, $bi: url('/img/edit_white.svg'));
-      &:hover {
-        cursor: pointer;
-        transform: scale(1.1);
-        @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
-        box-shadow: 0px 0px 6px #e9da92;
-      }
     }
   }
 
@@ -66,7 +60,7 @@
     background-color: rgb(122, 32, 32);
     color: #ffefb3;
   }
-  &__preview{
+  &__preview {
     @include size($w: min(420px, 80%));
     border: unset;
     position: relative;
@@ -86,12 +80,18 @@
     }
   }
 
-  &:hover {
-    cursor: pointer;
-  }
   &:disabled {
     opacity: 0;
     cursor: default;
+  }
+  &:hover {
+    cursor: pointer;
+    transform: scale(1.05);
+    @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
+    box-shadow: 0px 0px 6px #e9da92;
+  }
+  &:active {
+    transform: scale(0.98);
   }
 }
 

@@ -1,0 +1,91 @@
+@use '../../../../scss/abstracts/' as *;
+
+.option {
+  @include dFlex($fd: row, $jc: space-between);
+  > button {
+    @include size($w: 24px, $h: 24px);
+  }
+}
+
+.tags {
+  @include dFlex($fd: row, $jc: space-between, $g: 16px);
+  @include size($w: 100%);
+  &__group {
+    @include dFlex($g: 16px);
+  }
+  &__section {
+    @include dFlex($ai: center, $g: 16px);
+    margin: 16px 0;
+    @include respond(s) {
+    align-items: unset;
+    padding: 0 8px;
+  }
+  }
+
+  @include respond(s) {
+    flex-direction: column;
+  }
+}
+
+select,
+::picker(select) {
+  appearance: base-select;
+  width: 200px;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  background-color: $bc-secondary;
+  border: 1px solid $bc-quaternary;
+  border-radius: 12px;
+  color: $bc-light;
+  font-size: 1rem;
+  max-height: 11rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  transform-origin: top;
+  &:hover {
+    cursor: pointer;
+  }
+  @include respond(s) {
+    width: 90%;
+  }
+}
+select:hover {
+  background-color: $bc-tertiary;
+}
+
+option {
+  &:hover,
+  &:focus {
+    border-radius: 6px;
+    background-color: $bc-primary;
+  }
+  &:checked {
+    border-radius: 6px;
+    background-color: $bc-tertiary;
+  }
+}
+
+.new-tag {
+  @include dFlex($jc: space-between);
+  width: 100%;
+  &__form {
+    @include dFlex($fd: row, $jc: space-between, $ai: unset, $g: 16px);
+    @include respond(s) {
+      flex-direction: column;
+      align-items: center;
+      > .btn {
+        width: 90%;
+        background-color: $lime;
+      }
+    }
+  }
+  &__input {
+    @include border($br: 10px, $bs: solid, $bw: 2px, $bc: $bc-light);
+    padding: 8px;
+    @include size($h: 40px, $w: 300px);
+
+    @include respond(s){
+        width: 90%;
+    }
+  }
+}

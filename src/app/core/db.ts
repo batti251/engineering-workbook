@@ -7,7 +7,7 @@ import { KnowledgeEntryData, tags } from '../shared/interfaces/knowledge-entry-d
 export class Supabase {
     private key = inject(Keys)
     db = createClient(this.key.dbURL, this.key.dbKey)
-
+    crudSuccess = signal<boolean>(false)
     channelAll!: RealtimeChannel
     realtimeEventType = signal('')
 
@@ -95,13 +95,13 @@ export class Supabase {
         return data as (KnowledgeEntryData | tags | string)[]
     }
 
-        /**
-     * Creates a new Knowledge Entry to the db
-     * @param userData - the filled KnowledgeEntryData from the form-component  
-     * @returns 
-     */
+    /**
+ * Creates a new Knowledge Entry to the db
+ * @param userData - the filled KnowledgeEntryData from the form-component  
+ * @returns 
+ */
     async addCustomTag(table: string, userTag: string, userId: string): Promise<void> {
-        
+        this.crudSuccess.update(() => false)
         const { data, error } = await this.db
             .from(table)
             .insert([
@@ -115,8 +115,19 @@ export class Supabase {
         if (error) {
             throw new Error(error.code)
         }
+        this.crudSuccess.update(() => true)
+        console.log(true);
     }
 
+    async deleteCustomTag(tagId: number) {
+                this.crudSuccess.update(() => false)
+        const { data, error } = await this.db
+            .from('tags')
+            .delete()
+            .eq('id', tagId)
+        console.log(data);
+                this.crudSuccess.update(() => true)
+    }
     /**
      * Updates the existing equivalent row in the db, with the users @param editedData
      * @param editedData - the edited KnowledgeEntryData from the form-component

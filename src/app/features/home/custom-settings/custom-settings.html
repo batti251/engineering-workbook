@@ -1,57 +1,35 @@
-<h2>CustomSettings-component</h2>
+<section class="settings">
+  <h2 class="text__primary">Settings</h2>
 
-<p>This Section's purpose is to allow the User to change the UI.</p>
-<ul>
-  <h3>Possible Changes</h3>
-  <li>create own Tags</li>
-  <li>Create own modules?</li>
-  <li>Change Main-colors ( Dark Theme)</li>
-  <li>Customize knowledge-entry card / default card</li>
-  <li>Edit Account Settings</li>
-  <ul>
-    <li>proper sign in mandotary before</li>
+  <p class="paragraph text__primary">
+    Welcome to your personal settings <br />
+    In this section you are able to customize your Workbook-experience:
+  </p>
+
+  <ul class="list">
+    <li class="text__tertiary">create own Tags</li>
   </ul>
-  <li>Add Favorites to Sidebar</li>
-  <li></li>
-</ul>
 
-<section>
-  <h2 class="text__primary text__primary--h3">Tags</h2>
+<app-tags class="w-100"></app-tags>
 
-<div>
-  <label for="global-tags">globale Tags:</label>
-  <select name="global-tags" id="global-tags">
-    @if (currentTags()) {
-      @for (item of currentTags(); track item) {
-        @if(item.userId == 'global'){
-          <option [value]="item.tag">{{item.tag}}</option>
-        }
-      }
-    }
-  </select>
-</div>
+  <p class="paragraph text__primary">
+    Apologize, not all features are currently available. <br />
+    There is a consideration to implement new features:
+  </p>
 
-<div>
-  <label for="personal-tags">eigene Tags:</label>
-  <select name="personal-tags" id="personal-tags">
-     @if (personalTags()) {
-      @for (item of currentTags(); track item) {
-        @if(item.userId == userId()){
-          <option [value]="item.tag">{{item.tag}}</option>
-        }
-      }
-    }
-  </select>
-</div>
 
-<div>
-  <form [formGroup]="newTagForm" (submit)="submitNewTag()">
 
-    <label for="new-tag"></label>
-    <input name="new-tag" id="new-tag" type="text" formControlName="tagName"/>
-    <button type="submit" class="btn btn__submit">add new Tag</button>
-  </form>
-</div>
-
+  <ul class="list">
+    <li class="text__tertiary">Selection of different color schemes</li>
+    <li class="text__tertiary">Customize default knowledgentry card</li>
+    <li class="text__tertiary">Create own modules?</li>
+    <li class="text__tertiary">Edit Account Settings</li>
+    <ul class="sublist">
+      <li class="text__tertiary">View personal data</li>
+      <li class="text__tertiary">Change password</li>
+      <li class="text__tertiary">Change Name</li>
+    </ul>
+    <li class="text__tertiary">Add Favorites to Sidebar</li>
+    <li class="text__tertiary"></li>
+  </ul>
 </section>
-  

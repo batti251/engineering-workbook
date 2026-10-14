@@ -3,11 +3,16 @@ import { KnowledgeDoc } from './features/workbook/knowledge-doc/knowledge-doc';
 import { KnowledgeForm, entryResolver } from './features/workbook/knowledge-form/knowledge-form';
 import { Home } from './features/home/home';
 import { UserSignup } from './features/user-signup/user-signup';
+import { CustomSettings } from './features/home/custom-settings/custom-settings';
 
 export const routes: Routes = [
     {
         path: 'home',
         component: Home
+    },
+    {
+        path: 'home/settings',
+        component: CustomSettings
     },
     {
         path: 'signup',
@@ -31,6 +36,6 @@ export const routes: Routes = [
             entry: entryResolver,
         }
     },
-    
+
 
 ];

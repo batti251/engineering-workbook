@@ -15,7 +15,7 @@
       background: $bc-primary;
       z-index: 1;
       padding: 16px 0;
-      transition: .25s ease-out
+      transition: 0.25s ease-out;
     }
     @include respond(m) {
       flex-direction: column-reverse;
@@ -36,7 +36,7 @@
 
   &--title {
     width: 440px;
-    @include respond(m){
+    @include respond(m) {
       width: 100%;
     }
   }
@@ -62,9 +62,9 @@
     @include respond(s) {
       width: 100%;
     }
-    @include respond(m){
-    width: 90%;
-  }
+    @include respond(m) {
+      width: 90%;
+    }
   }
   &__header {
     @include dFlex($fd: row, $jc: space-between);
@@ -74,7 +74,7 @@
   &__footer {
     @include dFlex($fd: row, $g: 16px);
   }
-  @include respond(m){
+  @include respond(m) {
     justify-content: center;
   }
 }
@@ -141,8 +141,15 @@ select,
   transform-origin: top;
   &:hover {
     cursor: pointer;
-    background-color: $bc-tertiary;
   }
+}
+
+select:hover {
+  background-color: $bc-tertiary;
+}
+
+option:hover {
+  border-radius: 6px;
 }
 
 .checkbox {
