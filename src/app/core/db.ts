@@ -116,17 +116,15 @@ export class Supabase {
             throw new Error(error.code)
         }
         this.crudSuccess.update(() => true)
-        console.log(true);
     }
 
     async deleteCustomTag(tagId: number) {
-                this.crudSuccess.update(() => false)
+        this.crudSuccess.update(() => false)
         const { data, error } = await this.db
             .from('tags')
             .delete()
             .eq('id', tagId)
-        console.log(data);
-                this.crudSuccess.update(() => true)
+        this.crudSuccess.update(() => true)
     }
     /**
      * Updates the existing equivalent row in the db, with the users @param editedData

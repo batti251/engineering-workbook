@@ -124,30 +124,37 @@ export class Auth {
     }
   }
 
+  async getUserId(): Promise<string | null> {
+    const { data: { user } } = await this.db.auth.getUser()
+    if (user) {
+      return user.id
+    } else return null
+  }
+
   async isValidUser() {
     let isUser = await this.db.auth.getUser()
     if (isUser.error) {
       this.isActiveSession.update(() => false)
       return false
     }
-          this.isActiveSession.update(() => true)
+    this.isActiveSession.update(() => true)
     return true
   }
 
 
   async signUpUser(mail: string, password: string) {
-  const { data, error } = await this.db.auth.signUp({
-    email: mail,
-    password: password,
-  })
-}
+    const { data, error } = await this.db.auth.signUp({
+      email: mail,
+      password: password,
+    })
+  }
 
   async logoutUser() {
-  const { error } = await this.db.auth.signOut()
-  if (!error) {
-    return null
-  } else return error
-}
+    const { error } = await this.db.auth.signOut()
+    if (!error) {
+      return null
+    } else return error
+  }
 
 
 }

@@ -17,6 +17,7 @@ import { Auth } from '../../../../core/auth';
 export class Select {
   private db = inject(Supabase)
   private local = inject(LocalStorage)
+  private auth = inject(Auth)
   readonly selectedValue = output<string[]>()
   readonly listbox = viewChild(Listbox);
   readonly selectedValues = signal<string[]>(this.local.getActiveTag());
@@ -39,7 +40,8 @@ export class Select {
 
   async getAllTagsFromDB() {
     let getTags = await this.db.readDbTable('tags') as tags[];
-    let userId = this.local.parseJSON(this.local.token).user.id
+    let userId = await this.auth.getUserId()
+    
     let filteredTags = getTags.filter(item => item.userId === 'global' || item.userId === userId)
     filteredTags.forEach((tag) => {
       this.labels.push(tag.tag)

@@ -8,6 +8,7 @@ import { LowerCasePipe } from '@angular/common';
 import * as Prism from 'prismjs';
 import 'prismjs/components/prism-sql';
 import { LocalStorage } from '../../../core/local-storage';
+import { Auth } from '../../../core/auth';
 
 @Component({
   selector: 'app-coding-doc',
@@ -27,6 +28,7 @@ export class KnowledgeDoc {
 
   private db = inject(Supabase)
   private local = inject(LocalStorage)
+  private auth = inject(Auth)
   selectedValue: string = ''
   private key = inject(Keys)
   readonly storageImgPath = this.key.dbURL + '/' + this.key.dbStorage + '/' + this.key.ImgStore
@@ -43,7 +45,7 @@ export class KnowledgeDoc {
 
   async ngOnInit() {
     await this.readKnowledgeEntries()
-    this.filterDatas(this.local.getActiveTag())
+    await this.filterDatas(this.local.getActiveTag())
   }
 
   /**
@@ -64,10 +66,10 @@ export class KnowledgeDoc {
    * Updates the displayed entries, by updating the according filteredItems() Signal
    * @param selectedTag - the selected Tag, the user wants to filter for
    */
-  filterDatas(selectedTag: string[]) {
+  async filterDatas(selectedTag: string[]) {
     selectedTag[0]
     let tempFilteredTags = []
-    let userId = this.local.parseJSON(this.local.token).user.id
+    let userId = await this.auth.getUserId()
     this.entryDatas().forEach(entry => {
       if (this.tagIsIncluded(entry, selectedTag[0]) && entry.userId === userId) {
         tempFilteredTags.push(entry)
