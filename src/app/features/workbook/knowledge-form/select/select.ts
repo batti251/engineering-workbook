@@ -6,6 +6,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { tags } from '../../../../shared/interfaces/knowledge-entry-data';
 import { KnowledgeForm } from '../knowledge-form';
 import { Forms } from '../../../../shared/services/forms';
+import { Auth } from '../../../../core/auth';
 
 @Component({
   selector: 'app-select',
@@ -17,6 +18,7 @@ export class Select {
   db = inject(Supabase)
   form = inject(KnowledgeForm)
   forms = inject(Forms)
+  private auth = inject(Auth)
 
   @Output() newTag = new EventEmitter<string[]>()
   @Input() renderedTags: string[] = [];
@@ -27,7 +29,7 @@ export class Select {
   /** The labels that are available for selection. */
   labels = signal<tags[]>([]);
 
-/** The combobox listbox popup. */
+  /** The combobox listbox popup. */
   readonly listbox = viewChild(Listbox);
 
   /** The string that is displayed in the combobox. */
@@ -68,10 +70,10 @@ export class Select {
    * preselect tags, when entering edit-form
    */
   async setTagsFromDb() {
-    let tagsTable = await this.db.readDbTable('tags') as tags[]
-    if (tagsTable) {
-      this.labels.set(tagsTable)
-    }
+    let getTags = await this.db.readDbTable('tags') as tags[]
+    let userId = await this.auth.getUserId()
+    let filteredTags = getTags.filter(item => item.userId === 'global' || item.userId === userId)
+    this.labels.set(filteredTags)
     this.selectedValues.set(this.renderedTags);
   }
 

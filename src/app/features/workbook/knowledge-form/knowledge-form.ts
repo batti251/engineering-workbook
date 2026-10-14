@@ -140,9 +140,12 @@ export class KnowledgeForm {
     if (!this.formIsValid()) return;
     await this.forms.sendScreenshotsToDB()
     let data = new KnowledgeEntry(this.forms.entryForm.value as Partial<KnowledgeEntryData>)
-    let userId = this.local.parseJSON(this.local.token).user.id
-      data.userId = userId
-      this.isEditForm() ? this.tryUpdateData(data) : this.tryAddNewData(data);
+    let userId = await this.auth.getUserId()
+    if (!userId) {
+      return
+    }
+    data.userId = userId
+    this.isEditForm() ? this.tryUpdateData(data) : this.tryAddNewData(data);
   }
 
   /**
@@ -241,7 +244,7 @@ export class KnowledgeForm {
   btnOverflow!: ElementRef<HTMLButtonElement>
   menuOpen = false
 
- openBtn(event: PointerEvent) {
+  openBtn(event: PointerEvent) {
     let clickTarget = event.target
     let btnOverflow = this.btnOverflow.nativeElement
     clickTarget == btnOverflow ? this.menuOpen = true : this.menuOpen = false
