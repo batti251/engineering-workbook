@@ -8,12 +8,12 @@
     @include size();
     margin: unset;
     position: sticky;
+    z-index: 1;
     top: 0;
     height: 100px;
 
     &.sticky {
       background: $bc-secondary;
-      z-index: 1;
       padding: 16px 0;
       transition: 0.25s ease-out;
     }

@@ -19,19 +19,29 @@
       background-color: #013e375b;
       border-radius: 10px;
     }
+    @include respond(m) {
+      justify-content: space-around;
+    }
   }
   &__text {
     @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1.375rem));
     color: #013e37;
+    @include respond(m) {
+      width: 80px;
+    }
   }
   &__icon {
     @include size($h: 40px, $w: 40px);
   }
+  @include respond(m) {
+    top: 40px;
+    width: min(280px, 80%);
+  }
 }
 
 .open {
-    display: flex;
-  }
+  display: flex;
+}
 .hide {
   display: none !important;
 }
