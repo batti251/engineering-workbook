@@ -4,6 +4,7 @@ import { KnowledgeForm, entryResolver } from './features/workbook/knowledge-form
 import { Home } from './features/home/home';
 import { UserSignup } from './features/user-signup/user-signup';
 import { CustomSettings } from './features/home/custom-settings/custom-settings';
+import { userGuard } from './core/user-guard';
 
 export const routes: Routes = [
     {
@@ -12,7 +13,8 @@ export const routes: Routes = [
     },
     {
         path: 'home/settings',
-        component: CustomSettings
+        component: CustomSettings,
+        canActivate: [userGuard]
     },
     {
         path: 'signup',

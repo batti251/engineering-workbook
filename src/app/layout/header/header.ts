@@ -16,6 +16,7 @@ export class Header {
   constructor() {
     effect(() => {
       this.listenToActiveSession()
+      this.auth.isActiveSession()
     }
     )
   }
@@ -28,9 +29,9 @@ export class Header {
   }
 
 
- async triggerLogout(){
-  if (await this.auth.logoutUser() === null) {
-    window.location.replace('home')
-  }    
-}
+  async triggerLogout() {
+    if (await this.auth.logoutUser() === null) {
+      window.location.replace('home')
+    }
+  }
 }

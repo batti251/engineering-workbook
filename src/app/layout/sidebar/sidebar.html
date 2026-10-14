@@ -1,8 +1,11 @@
 <nav class="sidebar">
-
-
-  <div class="link" >
-    <button type="button" class="btn--sticky" [class.active]="dockSidebar" (click)="toggleSticky()"></button>
+  <div class="link">
+    <button
+      type="button"
+      class="btn--sticky"
+      [class.active]="dockSidebar"
+      (click)="toggleSticky()"
+    ></button>
   </div>
 
   <div class="link" (click)="toggleState(0)" #link>
@@ -12,17 +15,17 @@
     </a>
   </div>
 
-  <div class="link" (click)="toggleState(1)" #link>
+  <div class="link"(click)="toggleState(1)" #link>
     <a class="icon__wrap" [routerLink]="['/knowledge/doc']">
       <img class="icon" src="/img/workbook.svg" alt="" />
       <span class="text__secondary--regular icon__text">Workbook</span>
     </a>
   </div>
 
-  <div class="link" (click)="toggleState(1)" #link>
-    <a class="icon__wrap" [routerLink]="['/home/settings']">
-      <img class="icon" src="/img/settings.svg" alt="" />
-      <span class="text__secondary--regular icon__text">Settings</span>
-    </a>
-  </div>
+    <div class="link" [class.d-none]="!auth.isActiveSession()" (click)="toggleState(1)" #link>
+      <a class="icon__wrap" [routerLink]="['/home/settings']">
+        <img class="icon" src="/img/settings.svg" alt="" />
+        <span class="text__secondary--regular icon__text">Settings</span>
+      </a>
+    </div>
 </nav>

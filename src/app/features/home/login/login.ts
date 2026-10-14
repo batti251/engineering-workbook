@@ -17,6 +17,7 @@ export class Login {
   auth = inject(Auth)
   key = inject(Keys)
   local = inject(LocalStorage)
+
   hideMessage = signal(false)
   isError = signal(false)
 
@@ -27,13 +28,13 @@ export class Login {
     }
   }
 
-constructor(){
-  effect(async () => {
-    if (this.auth.errorMessage()) {
-      this.isError.update(() => true);
-    } 
-  });
-}
+  constructor() {
+    effect(async () => {
+      if (this.auth.errorMessage()) {
+        this.isError.update(() => true);
+      }
+    });
+  }
 
   ngOnInit() {
     this.auth.readAccesToken()

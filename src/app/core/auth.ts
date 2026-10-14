@@ -24,11 +24,15 @@ export class Auth {
    * @param password - the users password input
    */
   async signInWithEmail(email: AbstractControl<string | null, string | null, any> | null, password: AbstractControl<string | null, string | null, any> | null) {
+    this.isActiveSession.update(() => false)
     const { data, error } = await this.db.auth.signInWithPassword({
       email: email?.value ?? '',
       password: password?.value ?? '',
     })
-    error ? this.updateErrorMessage(error) : this.updateActiveSession(data.session?.access_token)
+    if (error) {
+      return this.updateErrorMessage(error)
+    }
+    return this.isActiveSession.update(() => true)
   }
 
   /**
@@ -58,21 +62,6 @@ export class Auth {
       user_banned: "Der Benutzer ist gesperrt"
     }
     return errorMessage[error.code ?? ""] ?? "Ein unbekannter Fehler ist aufgetreten"
-  }
-
-  /**
-   * Updates the ActiveSession Signal either to true or false
-   * @param token - the access token as string
-   * @returns - true or false, depending if {@link signInWithEmail} was successful, or not
-   */
-  updateActiveSession(token: string | undefined): boolean {
-    if (token) {
-      this.isActiveSession.update(() => true)
-      return true
-    } else {
-      this.isActiveSession.update(() => false)
-      return false
-    }
   }
 
   /**
@@ -135,20 +124,30 @@ export class Auth {
     }
   }
 
+  async isValidUser() {
+    let isUser = await this.db.auth.getUser()
+    if (isUser.error) {
+      this.isActiveSession.update(() => false)
+      return false
+    }
+          this.isActiveSession.update(() => true)
+    return true
+  }
+
 
   async signUpUser(mail: string, password: string) {
-    const { data, error } = await this.db.auth.signUp({
-      email: mail,
-      password: password,
-    })
-  }
+  const { data, error } = await this.db.auth.signUp({
+    email: mail,
+    password: password,
+  })
+}
 
   async logoutUser() {
-    const { error } = await this.db.auth.signOut()
-    if (!error) {
-      return null
-    } else return error
-  }
+  const { error } = await this.db.auth.signOut()
+  if (!error) {
+    return null
+  } else return error
+}
 
 
 }
