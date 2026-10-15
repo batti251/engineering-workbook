@@ -5,8 +5,9 @@ import { Select } from './select/select';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../../shared/services/key';
 import { LowerCasePipe } from '@angular/common';
-import * as Prism from 'prismjs';
+import Prism from 'prismjs';
 import 'prismjs/components/prism-sql';
+import 'prismjs/components/prism-python';
 import { LocalStorage } from '../../../core/local-storage';
 import { Auth } from '../../../core/auth';
 
@@ -17,14 +18,6 @@ import { Auth } from '../../../core/auth';
   styleUrl: './knowledge-doc.scss',
 })
 export class KnowledgeDoc {
-
-  highlightSql(code: string): string {
-    return Prism.highlight(
-      code,
-      Prism.languages['sql'],
-      'sql'
-    );
-  }
 
   private db = inject(Supabase)
   private local = inject(LocalStorage)

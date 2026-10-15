@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'app/scss/main.scss' as *;
 
-.language-sql {
+.code--box {
   display: block;
   font-weight: 600;
   font-size: clamp(1rem, 1.25rem, 1vw);
@@ -12,16 +12,52 @@
   font-size: clamp(1rem, 1.25rem, 1vw);
 }
 
-.keyword, .boolean  {
-  color: #00807b !important;
+.language-python {
+  > .keyword {
+    color: #9b52aa;
+  }
+  > .boolean {
+    color: #18559b !important ;
+  }
+  > .operator {
+    color: #d4d0d0 !important;
+  }
+  > .builtin {
+    color: #d38c08 !important;
+  }
+  > .punctuation {
+    color: #e0d312 !important ;
+  }
+  > .string {
+    color: #32a9be !important;
+  }
+  > .number {
+    color: rgb(68, 185, 68) !important;
+  }
+  > .comment {
+    color: #7e8086 !important;
+  }
 }
 
-.comment {
-  color: #53735a !important;
-  font-style: italic;
+.language-sql {
+  > .keyword {
+    color: #d38c08 !important;
+  }
+  > .comment {
+    color: #53735a !important;
+    font-style: italic;
+  }
+  > .operator,
+  .boolean {
+    color: #b6313c !important;
+  }
+  > .punctuation {
+    color: #a2e012 !important ;
+  }
+  > .string {
+    color: #32a9be !important;
+  }
+  > .number {
+    color: #44a2b9 !important;
+  }
 }
-
-.operator {
-  color: #00807b !important;
-}
-
