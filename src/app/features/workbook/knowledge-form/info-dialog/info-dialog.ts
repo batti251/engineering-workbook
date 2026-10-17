@@ -1,4 +1,4 @@
-import { afterRenderEffect, Component, ElementRef, Input, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-info-dialog',

@@ -1,10 +1,7 @@
 import { Component, ElementRef, ViewChild, inject, signal } from '@angular/core';
-import { Login } from '../../../home/login/login';
 import { Supabase } from '../../../../core/db';
 import { Forms } from '../../../../shared/services/forms';
-import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { routes } from '../../../../app.routes';
-import { PostgrestError } from '@supabase/supabase-js';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-confirm-dialog',

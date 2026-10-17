@@ -1,10 +1,9 @@
-import { afterRenderEffect, Component, computed, ElementRef, EventEmitter, HostListener, inject, Output, signal, ViewChild } from '@angular/core';
+import { afterRenderEffect, Component, inject, signal } from '@angular/core';
 import { Supabase } from '../../../core/db';
 import { KnowledgeEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { Select } from './select/select';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../../shared/services/key';
-import { LowerCasePipe } from '@angular/common';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-sql';
 import 'prismjs/components/prism-python';
@@ -14,7 +13,7 @@ import { StickyHeader } from '../../../shared/directives/sticky-header';
 
 @Component({
   selector: 'app-coding-doc',
-  imports: [RouterLink, Select, LowerCasePipe, StickyHeader],
+  imports: [RouterLink, Select, StickyHeader],
   templateUrl: './knowledge-doc.html',
   styleUrl: './knowledge-doc.scss',
 })

@@ -1,4 +1,4 @@
-import { Component, effect, EventEmitter, inject, makeEnvironmentProviders, Output, signal } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { Auth } from '../../../core/auth';
 import { Forms } from '../../../shared/services/forms';
 import { AbstractControl, ReactiveFormsModule } from '@angular/forms';

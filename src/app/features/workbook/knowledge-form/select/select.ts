@@ -1,6 +1,6 @@
 import { Combobox, ComboboxPopup, ComboboxWidget } from '@angular/aria/combobox';
 import { Listbox, Option } from '@angular/aria/listbox';
-import { afterRenderEffect, Component, computed, effect, EventEmitter, inject, Input, Output, signal, viewChild } from '@angular/core';
+import { afterRenderEffect, Component, computed, EventEmitter, inject, Input, Output, signal, viewChild } from '@angular/core';
 import { Supabase } from '../../../../core/db';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { tags } from '../../../../shared/interfaces/knowledge-entry-data';

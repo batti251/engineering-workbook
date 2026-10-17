@@ -1,5 +1,5 @@
 import { Component, effect, inject, signal } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule, FormGroup, AbstractControl } from '@angular/forms';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Supabase } from '../../../../core/db';
 import { LocalStorage } from '../../../../core/local-storage';
 import { tags } from '../../../../shared/interfaces/knowledge-entry-data';

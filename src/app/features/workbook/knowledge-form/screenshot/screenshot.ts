@@ -1,6 +1,6 @@
 import { Component, HostListener, inject, Input, signal } from '@angular/core';
 import { Forms } from '../../../../shared/services/forms';
-import { FormArray, FormArrayName, FormControl, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Clipboard } from '../../../../core/clipboard';
 import { ActiveScreenshot } from './active-screenshot';
 
