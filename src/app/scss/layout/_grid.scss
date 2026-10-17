@@ -2,14 +2,14 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 60px auto;
+  grid-template-columns: 60px minmax(0, 1fr);
   min-height: 100dvh;
   grid-template-rows: 120px 1fr;
   grid-template-areas:
     'header header'
     'nav main';
   background-color: $bc-dark;
-  transition: 0.5s ease;
+  transition: grid-template-columns 1s ease;
 
   &__header {
     grid-area: header;
@@ -22,9 +22,15 @@
     background: $bc-dark;
     color: $bc-secondary;
     z-index: 1;
+    position: fixed;
+    top: 112px;
 
     @include respond(m) {
+      position: sticky;
+      top: 0;
       background-color: $bc-secondary;
+      transition: transform 1s ease;
+      z-index: 99;
     }
   }
   &__main {
@@ -44,13 +50,17 @@
   }
 
   @include respond(null, m) {
-    &:has(&__nav:hover) {
-      transition: 0.5s ease-in-out;
-      grid-template-columns: 200px auto;
+    &:has(.grid__nav:hover),
+    &:has(.grid__nav.sticky) {
+      grid-template-columns: 200px minmax(0, 1fr);
     }
-    &:has(&__nav.sticky) {
-      transition: 0.5s ease-in-out;
-      grid-template-columns: 200px auto;
-    }
+  }
+
+  .sticky-scroll {
+    transform: translateY(0);
+  }
+
+  .scroll-down {
+    transform: translateY((-100%));
   }
 }

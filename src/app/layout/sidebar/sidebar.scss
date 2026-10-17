@@ -2,12 +2,11 @@
 
 .sidebar {
   @include dFlex($ai: flex-start, $g: 8px);
-  position: fixed;
+  position: sticky;
   padding: 10px;
 
   @include respond(m) {
     flex-direction: row;
-    position: unset;
     justify-content: flex-start;
     gap: 16px;
   }

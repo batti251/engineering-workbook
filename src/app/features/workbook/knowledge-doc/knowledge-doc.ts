@@ -1,6 +1,6 @@
 import { afterRenderEffect, Component, computed, ElementRef, EventEmitter, HostListener, inject, Output, signal, ViewChild } from '@angular/core';
 import { Supabase } from '../../../core/db';
-import { KnowledgeEntryData, KnowledgeSubEntryData } from '../../../shared/interfaces/knowledge-entry-data';
+import { KnowledgeEntryData } from '../../../shared/interfaces/knowledge-entry-data';
 import { Select } from './select/select';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../../shared/services/key';
@@ -10,15 +10,13 @@ import 'prismjs/components/prism-sql';
 import 'prismjs/components/prism-python';
 import { LocalStorage } from '../../../core/local-storage';
 import { Auth } from '../../../core/auth';
+import { StickyHeader } from '../../../shared/directives/sticky-header';
 
 @Component({
   selector: 'app-coding-doc',
-  imports: [RouterLink, Select, LowerCasePipe],
+  imports: [RouterLink, Select, LowerCasePipe, StickyHeader],
   templateUrl: './knowledge-doc.html',
   styleUrl: './knowledge-doc.scss',
-  host: {
-    '(window:scroll)': 'onScroll()'
-  }
 })
 export class KnowledgeDoc {
 
@@ -88,22 +86,4 @@ export class KnowledgeDoc {
     )
   }
 
-  isSticky = false;
-
-  @ViewChild('sticky')
-  sticky!: ElementRef<HTMLElement>
-
-  onScroll(): void {
-    this.checkSticky();
-  }
-
-  checkSticky(): void {
-    const element = this.sticky;
-    if (!element) return
-    const rect = element.nativeElement.getBoundingClientRect();
-    this.isSticky = rect.top <= 0;
-    if (this.isSticky) {
-      element.nativeElement.classList.add('sticky')
-    } else element.nativeElement.classList.remove('sticky')
-  }
 }

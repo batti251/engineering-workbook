@@ -2,10 +2,11 @@ import { Component, inject, signal, ChangeDetectionStrategy } from '@angular/cor
 import { RouterOutlet } from '@angular/router';
 import { Header } from './layout/header/header';
 import { Sidebar } from './layout/sidebar/sidebar';
+import { StickyNavbar } from './shared/directives/sticky-navbar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Sidebar, Header],
+  imports: [RouterOutlet, Sidebar, Header, StickyNavbar],
   templateUrl: './app.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.scss',

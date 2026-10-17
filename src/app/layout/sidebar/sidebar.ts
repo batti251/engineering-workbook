@@ -1,10 +1,11 @@
 import { Component, effect, ElementRef, EventEmitter, inject, Output, QueryList, signal, ViewChildren } from '@angular/core';
 import { RouterLink } from "@angular/router";
 import { Auth } from '../../core/auth';
+import { StickyNavbar } from '../../shared/directives/sticky-navbar';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [RouterLink],
+  imports: [RouterLink, StickyNavbar],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
 })

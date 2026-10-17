@@ -1,5 +1,5 @@
 <div class="content__wrap">
-  <div class="sub-header" #sticky>
+  <div class="sub-header" appStickyHeader>
     <app-select (selectedValue)="filterDatas($event)"></app-select>
     <div class="side-nav">
       <a class="btn__wrap" [routerLink]="['/knowledge/new-entry']">

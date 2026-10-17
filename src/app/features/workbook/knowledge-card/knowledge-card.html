@@ -2,7 +2,7 @@
   <article class="knowledge-entry__content">
     
     <section class="knowledge-entry knowledge-entry__main">
-      <div class="headline" #sticky>
+      <div class="headline" appStickyHeader>
         <div></div>
         <h2 class="text__tertiary">{{ data()?.title }}</h2>
         <a class="btn btn__icon--edit" [routerLink]="[`/knowledge/edit-entry/${data()?.id}`]"></a>
