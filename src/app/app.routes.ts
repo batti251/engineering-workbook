@@ -5,6 +5,7 @@ import { Home } from './features/home/home';
 import { UserSignup } from './features/user-signup/user-signup';
 import { CustomSettings } from './features/home/custom-settings/custom-settings';
 import { userGuard } from './core/user-guard';
+import { KnowledgeCard } from './features/workbook/knowledge-card/knowledge-card';
 
 export const routes: Routes = [
     {
@@ -32,8 +33,16 @@ export const routes: Routes = [
        
     },
     {
-        path: 'knowledge/:state/:id',
+        path: 'knowledge/edit-entry/:id',
         component: KnowledgeForm,
+        canActivate: [userGuard],
+        resolve: {
+            entry: entryResolver,
+        }
+    },
+    {
+        path: 'knowledge/entry/:id',
+        component: KnowledgeCard,
         canActivate: [userGuard],
         resolve: {
             entry: entryResolver,

@@ -1,0 +1,75 @@
+@use '../../../scss/abstracts/' as *;
+
+.knowledge-entry {
+  background-color: $bc-primary;
+  padding: 8px;
+  border-radius: 24px;
+  &__content {
+    @include dFlex($ai: unset, $g: 16px);
+  }
+  &__main {
+    @include dFlex($ai: center, $jc: unset, $g: 16px);
+  }
+}
+
+.headline {
+  @include dFlex($fd: row, $jc: space-between);
+  padding: 0 16px;
+  @include size($w: 100%);
+  position: sticky;
+  top: 0;
+  margin: 0 0 32px 0;
+  background: $bc-primary;
+}
+
+.sub-entry {
+  @include dFlex($ai: center, $g: 16px);
+  margin-top: 8px;
+  word-break: break-word;
+  text-overflow: ellipsis;
+  &__accordion {
+    @include dFlex($fd: unset, $g: 8px);
+  }
+}
+
+.list {
+  list-style-image: url('/img/arrow_white_16.svg');
+  &__link {
+    list-style-image: url('/img/arrow_white_24.svg');
+    list-style-position: inside;
+  }
+}
+
+.link {
+  @include font($fs: clamp(1rem, 1.5rem, 2vw));
+  color: $bc-tertiary;
+  &__title {
+    @include font($fw: 400, $fs: clamp(1rem, 1.25rem, 1.5rem));
+    color: $text-primary;
+  }
+}
+
+.code {
+  &--wrap {
+    @include dFlex($fd: unset);
+    padding: 4px;
+    border-radius: 16px;
+    max-width: 100%;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+  &--box {
+    background-color: $bc-dark;
+    box-shadow: inset 0px 0px 16px $bc-quaternary;
+    color: $bc-light;
+    padding: 8px;
+    border-radius: 8px;
+    margin: 4px;
+  }
+}
+
+
+
+.sticky {
+  padding: 16px 0px 24px 0px;
+}

@@ -20,13 +20,13 @@
 .paragraph {
   text-overflow: ellipsis;
   text-align: justify;
-  line-height: 130%;
+  line-height: 120%;
   word-break: break-word;
   padding: unset;
   margin: unset;
   hyphens: auto;
   width: min(800px, 80%);
-
+  @include font($fw: 500, $fs: clamp(1.25rem, 1.5rem, 1.75rem));
   @include respond(m) {
     width: 100%;
     padding: 0 8px;

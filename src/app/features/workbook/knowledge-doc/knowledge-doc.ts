@@ -16,6 +16,9 @@ import { Auth } from '../../../core/auth';
   imports: [RouterLink, Select, LowerCasePipe],
   templateUrl: './knowledge-doc.html',
   styleUrl: './knowledge-doc.scss',
+  host: {
+    '(window:scroll)': 'onScroll()'
+  }
 })
 export class KnowledgeDoc {
 
@@ -90,17 +93,17 @@ export class KnowledgeDoc {
   @ViewChild('sticky')
   sticky!: ElementRef<HTMLElement>
 
-  @HostListener('window:scroll')
-  onScroll() {
+  onScroll(): void {
     this.checkSticky();
   }
 
   checkSticky(): void {
-    const element = this.sticky.nativeElement;
-    const rect = element.getBoundingClientRect();
+    const element = this.sticky;
+    if (!element) return
+    const rect = element.nativeElement.getBoundingClientRect();
     this.isSticky = rect.top <= 0;
     if (this.isSticky) {
-      element.classList.add('sticky')
-    } else element.classList.remove('sticky')
+      element.nativeElement.classList.add('sticky')
+    } else element.nativeElement.classList.remove('sticky')
   }
 }

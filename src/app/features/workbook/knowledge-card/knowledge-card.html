@@ -1,0 +1,74 @@
+@if (data()) {
+  <article class="knowledge-entry__content">
+    
+    <section class="knowledge-entry knowledge-entry__main">
+      <div class="headline" #sticky>
+        <div></div>
+        <h2 class="text__tertiary">{{ data()?.title }}</h2>
+        <a class="btn btn__icon--edit" [routerLink]="[`/knowledge/edit-entry/${data()?.id}`]"></a>
+      </div>
+
+      @if (data()?.description) {
+        <p class="text__tertiary paragraph">{{ data()?.description }}</p>
+      }
+
+      <section class="knowledge-entry knowledge-entry__sub-entry">
+        @for (subEntry of data()?.subEntries; track $index) {
+          <article class="sub-entry">
+            <h3 class="text__tertiary">{{ subEntry.subTitle }}</h3>
+
+            @if (subEntry?.description) {
+              @switch (subEntry?.code?.isCode) {
+                @case (false) {
+                  <div class="text__tertiary text__ paragraph">
+                    {{ subEntry.description }}
+                  </div>
+                }
+                @default {
+                  <pre class="code--wrap">
+                      <code class="code--box language-{{subEntry.code?.language | lowercase}}">{{ subEntry.description }}</code>
+                    </pre>
+                }
+              }
+            }
+
+            @if (subEntry.externalLinks?.length) {
+              <section class="sub-entry__accordion" id="links">
+                <details>
+                  <summary class="link__title">Links</summary>
+                  <ul class="list__link">
+                    @for (link of subEntry.externalLinks; track $index) {
+                      <li class="">
+                        <a class="link" [href]="link">{{ link }}</a>
+                      </li>
+                    } @empty {}
+                  </ul>
+                </details>
+              </section>
+            }
+
+            @if (subEntry.details?.length) {
+              <section class="sub-entry__accordion" id="details">
+                <ul class="list">
+                  @for (detail of subEntry.details; track $index) {
+                    <li>
+                      <span class="list__element text__tertiary text__">{{ detail }}</span>
+                    </li>
+                  } @empty {}
+                </ul>
+              </section>
+            }
+
+            <div class="sub-entry__accordion" id="imgs">
+              @for (item of subEntry.screenshots; track item; let index = $index) {
+                <div class="img__wrap">
+                  <img class="img" [src]="this.storageImgPath + '/' + item" alt="" />
+                </div>
+              } @empty {}
+            </div>
+          </article>
+        }
+      </section>
+    </section>
+  </article>
+}

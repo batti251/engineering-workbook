@@ -9,92 +9,18 @@
     </div>
   </div>
 
-  <main class="knowledge-entry__content">
+  <main class="knowledge__list">
     @for (knowledgeEntry of filteredItems(); track $index; let itemIndex = $index) {
-      <article class="knowledge-entry">
-        <a
-          class="btn btn__icon--edit"
-          [routerLink]="[`/knowledge/edit-entry/${knowledgeEntry.id}`]"
-        ></a>
-
-        <section class="knowledge-entry knowledge-entry__main">
-          <h2 class="text__tertiary text__tertiary--h2">{{ knowledgeEntry.title }}</h2>
-
-          @if (knowledgeEntry.tags?.length) {
-            <div class="tag--wrap">
-              @for (item of knowledgeEntry.tags; track $index) {
-                <span class="tag">{{ item }}</span>
-              }
-            </div>
-          }
-
-          @if (knowledgeEntry.description) {
-            <div class="text__tertiary paragraph">{{ knowledgeEntry.description }}</div>
-          }
-
-       
-        </section>
-
-        <section class="knowledge-entry knowledge-entry__sub-entry">
-          @for (subEntry of knowledgeEntry.subEntries; track $index) {
-            <article class="sub-entry">
-              <h3 class="text__tertiary text__tertiary--h3">{{ subEntry.subTitle }}</h3>
-
-              @if (subEntry?.description) {
-                @switch (subEntry?.code?.isCode) {
-                  @case (false) {
-                    <div class="text__tertiary text__ paragraph">
-                      {{ subEntry.description }}
-                    </div>
-                  }
-                  @default {
-                    <pre class="code--wrap">
-                      <code class="code--box language-{{subEntry.code?.language | lowercase}}">{{ subEntry.description }}</code>
-                    </pre>
-                  }
-                }
-              }
-
-              @if (subEntry.externalLinks?.length) {
-                <section class="sub-entry__accordion" id="links">
-                  <details>
-                    <summary class="link__title">Links</summary>
-                    <ul class="list__link">
-                      @for (link of subEntry.externalLinks; track $index) {
-                        <li class="">
-                          <a class="link" [href]="link">{{ link }}</a>
-                        </li>
-                      } @empty {}
-                    </ul>
-                  </details>
-                </section>
-              }
-
-              @if (subEntry.details?.length) {
-                <section class="sub-entry__accordion" id="details">
-                  <ul class="list">
-                    @for (detail of subEntry.details; track $index) {
-                      <li>
-                        <span class="list__element text__tertiary text__">{{
-                          detail
-                        }}</span>
-                      </li>
-                    } @empty {}
-                  </ul>
-                </section>
-              }
-
-              <div class="sub-entry__accordion" id="imgs">
-                @for (item of subEntry.screenshots; track item; let index = $index) {
-                  <div class="img__wrap">
-                    <img class="img" [src]="this.storageImgPath + '/' + item" alt="" />
-                  </div>
-                } @empty {}
-              </div>
-            </article>
-          }
-        </section>
-      </article>
+      <a class="knowledge-element" [routerLink]="`/knowledge/entry/${knowledgeEntry.id}`">
+        <h3 class="text__tertiary">{{ knowledgeEntry.title }}</h3>
+        @if (knowledgeEntry.tags?.length) {
+          <div class="tag--wrap">
+            @for (item of knowledgeEntry.tags; track $index) {
+              <span class="tag">{{ item }}</span>
+            }
+          </div>
+        }
+      </a>
     }
   </main>
 </div>

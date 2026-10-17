@@ -7,64 +7,26 @@
   }
 }
 
-.knowledge-entry {
-  background-color: $bc-primary;
+.knowledge__list {
+  @include dFlex($ai: unset, $jc: unset, $fd: row, $g: 16px);
+  flex-wrap: wrap;
+
+  @include respond(m) {
+    justify-content: center;
+  }
+}
+
+.knowledge-element {
+  @include dFlex($ai: flex-start, $g: 16px);
+  @include size($h: 160px, $w: 500px);
+  @include border($bw: 3px);
   padding: 8px;
-  border-radius: 24px;
-  &__content {
-    @include dFlex($ai: unset, $g: 16px);
-  }
-  &__main {
-    @include dFlex($ai: unset, $jc: unset, $g: 16px);
+  &:hover {
+    box-shadow:
+      0px 0px 4px 3px var(--color--bright),
+      inset 0px 0px 8px 1px var(--color--bright);
   }
 }
-
-.sub-entry {
-  @include dFlex($ai: flex-start);
-  margin-top: 8px;
-  word-break: break-word;
-  text-overflow: ellipsis;
-  &__accordion {
-    @include dFlex($ai: flex-start, $g: 8px);
-  }
-}
-
-.list {
-  list-style-image: url('/img/arrow_white_16.svg');
-  &__link {
-    list-style-image: url('/img/arrow_white_24.svg');
-    list-style-position: inside;
-  }
-}
-
-.link {
-  @include font($fs: clamp(1rem, 1.5rem, 2vw));
-  color: $bc-tertiary;
-  &__title {
-    @include font($fw: 400, $fs: clamp(1rem, 1.25rem, 1.5rem));
-    color: $text-primary;
-  }
-}
-
-.code {
-  &--wrap {
-    @include dFlex($fd: unset);
-    padding: 4px;
-    border-radius: 16px;
-    max-width: 100%;
-    white-space: pre-wrap;
-    overflow-wrap: anywhere;
-  }
-  &--box {
-    background-color: $bc-dark;
-    box-shadow: inset 0px 0px 16px $bc-quaternary;
-    color: $bc-light;
-    padding: 8px;
-    border-radius: 8px;
-    margin: 4px;
-  }
-}
-
 
 .btn {
   &__wrap {
@@ -75,9 +37,11 @@
     padding: 0 8px;
     margin: unset;
     &:hover {
-      box-shadow: 0px 0px 4px 3px var(--color--bright), inset 0px 0px 8px 1px var(--color--bright);
+      box-shadow:
+        0px 0px 4px 3px var(--color--bright),
+        inset 0px 0px 8px 1px var(--color--bright);
     }
-    @include respond(m){
+    @include respond(m) {
       padding: unset;
     }
   }
@@ -87,13 +51,13 @@
   &__text {
     @include font($fw: 600, $fs: clamp(1rem, 1.25rem, 1.375rem));
     color: $text-tertiary;
-    @include respond(m){
+    @include respond(m) {
       display: none;
     }
   }
 }
 
-.side-nav{
+.side-nav {
   @include dFlex();
   @include size($h: 100%);
 }
@@ -111,6 +75,6 @@
   }
 }
 
-.sticky{
-    padding: 16px 0px 24px 0px;
+.sticky {
+  padding: 16px 0px 24px 0px;
 }
