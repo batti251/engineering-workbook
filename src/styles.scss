@@ -61,3 +61,35 @@
     color: #44a2b9 !important;
   }
 }
+
+.language-javascript {
+  > .keyword,
+  .function {
+    color: #ba49d6 !important;
+  }
+  > .comment {
+    color: #53735a !important;
+    font-style: italic;
+  }
+  > .boolean {
+    color: #4677c0 !important;
+  }
+  > .punctuation {
+    color: #d6d455 !important ;
+  }
+  > .string {
+    color: #7bc1dd !important;
+  }
+  > .number {
+    color: #6ed361 !important;
+  }
+  > .class-name {
+    color: #4ecc35 !important;
+  }
+  > .template-string {
+    color: #4677c0;
+  }
+  > .operator {
+    color: #d3c7c8 !important;
+  }
+}

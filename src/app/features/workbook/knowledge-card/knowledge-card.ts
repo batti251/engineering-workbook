@@ -7,6 +7,7 @@ import { LowerCasePipe } from '@angular/common';
 import Prism from 'prismjs';
 import 'prismjs/components/prism-sql';
 import 'prismjs/components/prism-python';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-knowledge-card',
