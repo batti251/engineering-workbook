@@ -33,11 +33,16 @@
   }
 }
 
+h1.text__primary,
+h1.text__secondary,
+h1.text__tertiary {
+  @include font($fw: 800, $fs: clamp(1.75rem, 2rem, 2.5rem));
+}
+
 h2.text__primary,
 h2.text__secondary,
 h2.text__tertiary {
   @include font($fw: 800, $fs: clamp(1.5rem, 2rem, 2.5rem));
-  color: $text-secondary;
 }
 
 h3.text__primary,
