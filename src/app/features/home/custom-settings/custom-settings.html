@@ -1,6 +1,10 @@
 <section class="settings">
   <h2 class="text__primary">Settings</h2>
 
+      @if (auth.isActiveSession()) {
+        <button class="btn btn__logout" (click)="triggerLogout()">Logout</button>
+      }
+
   <p class="paragraph text__primary">
     Welcome to your personal settings <br />
     In this section you are able to customize your Workbook-experience:

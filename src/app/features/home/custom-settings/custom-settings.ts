@@ -12,5 +12,28 @@ import { Tags } from './tags/tags';
   styleUrl: './custom-settings.scss',
 })
 export class CustomSettings {
-  
+  auth = inject(Auth)
+  signInStatus = signal<'logged in' | 'logged out'>('logged out');
+
+  constructor() {
+    effect(() => {
+      this.listenToActiveSession()
+      this.auth.isActiveSession()
+    }
+    )
+  }
+
+
+  listenToActiveSession() {
+    if (this.auth.isActiveSession()) {
+      this.signInStatus.update(() => 'logged in')
+    } else this.signInStatus.update(() => 'logged out')
+  }
+
+
+  async triggerLogout() {
+    if (await this.auth.logoutUser() === null) {
+      window.location.replace('home')
+    }
+  }
 }
