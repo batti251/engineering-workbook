@@ -1,6 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
-import { Auth } from '../../core/auth';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-header',
