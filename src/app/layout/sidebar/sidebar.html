@@ -22,7 +22,7 @@
     </a>
   </div>
 
-    <div class="link" [class.d-none]="!auth.isActiveSession()" (click)="toggleState(1)" #link>
+    <div class="link" [class.d-none]="!auth.isActiveSession()" (click)="toggleState(2)" #link>
       <a class="icon__wrap" [routerLink]="['/home/settings']">
         <img class="icon" src="/img/settings.svg" alt="" />
         <span class="text__secondary--regular icon__text">Settings</span>
