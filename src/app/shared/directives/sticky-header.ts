@@ -4,34 +4,55 @@ import { Directive, ElementRef, inject } from '@angular/core';
   selector: '[appStickyHeader]',
   host: {
     '(window:scroll)': 'onScroll()',
+    '(window:resize)': 'resetUI()',
   }
 })
 export class StickyHeader {
-
-  isSticky = false;
-
   private sticky = inject(ElementRef)
   private lastScroll = window.scrollY
   private scrollsTop = false
   private mobileBreakpoint = 768
+  private isMobileScreen = false
+
+  resetUI() {
+    this.scanDeviceScreen()
+    if (!this.isMobileScreen) {
+      this.sticky.nativeElement.classList.remove('sticky')
+      this.sticky.nativeElement.classList.remove('sub-header--move')
+    }
+  }
+
 
   onScroll(): void {
+    this.scanScrollTop()
+    this.scanDeviceScreen()
+    this.toggleSticky()
+    this.moveSubHeader()
+  }
+
+  scanScrollTop() {
     const currentScroll = window.scrollY
     this.scrollsTop = currentScroll < this.lastScroll
     this.lastScroll = currentScroll
+  }
 
-    let screenSize = window.innerWidth
-    if (screenSize < this.mobileBreakpoint) {
+  toggleSticky() {
+    if (window.innerWidth < this.mobileBreakpoint) {
       this.sticky.nativeElement.classList.add('sticky')
-    } else this.sticky.nativeElement.classList.remove('sticky')
-    this.addTop()
+    } else {
+      this.sticky.nativeElement.classList.remove('sticky')
+    }
   }
 
-  addTop() {
-    let screenSize = window.innerWidth
-    if (this.scrollsTop && screenSize < this.mobileBreakpoint) {
-      this.sticky.nativeElement.style.top = "50px"
-    } else this.sticky.nativeElement.style.top = "0"
+  moveSubHeader() {
+    if (this.scrollsTop && this.isMobileScreen) {
+      this.sticky.nativeElement.classList.add('sub-header--move')
+    } else this.sticky.nativeElement.classList.remove('sub-header--move')
   }
 
+  scanDeviceScreen() {
+    if (this.mobileBreakpoint < window.innerWidth) {
+      this.isMobileScreen = false
+    } else this.isMobileScreen = true
+  }
 }

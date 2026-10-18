@@ -24,13 +24,11 @@
     z-index: 1;
     position: fixed;
     top: 112px;
-
+    opacity: 1;
     @include respond(m) {
       position: sticky;
       top: 0;
       background-color: $bc-secondary;
-      transition: transform 1s ease;
-      z-index: 99;
     }
   }
   &__main {
@@ -57,10 +55,22 @@
   }
 
   .sticky-scroll {
-    transform: translateY(0);
+    transform: translateX(0) !important;
+    transition: .75s ease-out !important;
+    z-index: 3;
+    border-radius: 0 0 10px 10px;
   }
 
   .scroll-down {
-    transform: translateY((-100%));
+    transition: 1s ease;
+    transform: translateX((-100%));
+  }
+
+  .sticky {
+    padding: 16px 8px 24px 8px;
+  }
+
+  .sub-header--move {
+    top: 56px;
   }
 }
