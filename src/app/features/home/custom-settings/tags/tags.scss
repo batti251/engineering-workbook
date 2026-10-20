@@ -40,7 +40,7 @@ select,
   font-size: 1rem;
   max-height: 11rem;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: overlay;
   transform-origin: top;
   &:hover {
     cursor: pointer;

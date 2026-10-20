@@ -1,7 +1,7 @@
 import { KnowledgeEntryData, KnowledgeSubEntryData } from "../interfaces/knowledge-entry-data"
 
 export class KnowledgeEntry {
-    id?: number;
+    id: number;
     userId: string;
     title: string;
     description: string;

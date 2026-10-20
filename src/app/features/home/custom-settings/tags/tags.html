@@ -1,66 +1,78 @@
-    <section class="tags__section">
-    <h2 class="text__primary">Tags</h2>
+<section class="tags__section">
+  <h2 class="text__primary">Tags</h2>
 
-    <div class="tags__group">
-      <div class="tags">
-        <label for="global-tags" class="text__primary">globale Tags:</label>
-        <select name="global-tags" id="global-tags">
-          @if (currentTags()) {
-            @for (item of currentTags(); track item) {
-              @if (item.userId == 'global') {
-                <option [value]="item.tag">{{ item.tag }}</option>
-              }
+  <div class="tags__group">
+    <div class="tags">
+      <label for="global-tags" class="text__primary">globale Tags:</label>
+      <select name="global-tags" id="global-tags">
+        @if (currentTags()) {
+          @for (item of currentTags(); track item) {
+            @if (item.userId == 'global') {
+              <option [value]="item.tag">{{ item.tag }}</option>
             }
           }
-        </select>
-      </div>
+        }
+      </select>
+    </div>
 
-      <div class="tags">
-        <label for="personal-tags" class="text__primary">eigene Tags:</label>
-        <select name="personal-tags" id="personal-tags">
-          @if (personalTags()) {
-            @if (!hasPersonalTags()) {
-              <option>no private Tags, yet</option>
-            }
-            @for (item of currentTags(); track item) {
-              @if (item.userId == userId()) {
-                <div class="option">
+    <div class="tags">
+      <label for="personal-tags" class="text__primary">eigene Tags:</label>
+      <select name="personal-tags" id="personal-tags">
+        @if (personalTags()) {
+          @if (!hasPersonalTags()) {
+            <option>no private Tags, yet</option>
+          }
+          @for (item of currentTags(); track item; let tagIndex = $index) {
+            @if (item.userId == userId()) {
+              <div class="option" [id]="tagIndex">
+                @if (editTag() == tagIndex) {
+                  <form [formGroup]="newTagForm" (submit)="submitEditTag()">
+                    <label for="edit-tag"></label>
+                    <input type="text" name="edit-tag" id="edit-tag" formControlName="tagName" />
+                    <button class="btn btn__icon--submit"></button>
+                  </form>
+                } @else {
                   <option [value]="item.tag">{{ item.tag }}</option>
+                  <button
+                    class="btn btn__icon--edit"
+                    (click)="editCustomTag(item.tag,tagIndex)"
+                  ></button>
                   <button
                     class="btn btn__icon--delete"
                     (click)="db.deleteCustomTag(item.id)"
                   ></button>
-                </div>
-              }
+                }
+              </div>
             }
           }
-        </select>
-      </div>
-    </div>
-    <form [formGroup]="newTagForm" (submit)="submitNewTag()" class="new-tag__form">
-      <div class="new-tag">
-        <label for="new-tag"></label>
-        <input
-          name="new-tag"
-          id="new-tag"
-          type="text"
-          formControlName="tagName"
-          class="new-tag__input"
-          (focus)="resetError()"
-        />
-
-        @switch (true) {
-          @case (this.newTagForm.controls.tagName.value?.trim() == ''  && formSubmitted()) {
-            <span class="error show">Please enter a Tag name</span>
-          }
-          @case (tagDoesExist() && formSubmitted()) {
-            <span class="error show">Tag already exists</span>
-          }
-          @default {
-            <span class="error">Not a valid Tag</span>
-          }
         }
-      </div>
-      <button type="submit" class="btn btn__icon--add"></button>
-    </form>
-  </section>
+      </select>
+    </div>
+  </div>
+  <form [formGroup]="newTagForm" (submit)="submitNewTag()" class="new-tag__form">
+    <div class="new-tag">
+      <label for="new-tag"></label>
+      <input
+        name="new-tag"
+        id="new-tag"
+        type="text"
+        formControlName="tagName"
+        class="new-tag__input"
+        (focus)="resetError()"
+      />
+
+      @switch (true) {
+        @case (this.newTagForm.controls.tagName.value?.trim() == '' && formSubmitted()) {
+          <span class="error show">Please enter a Tag name</span>
+        }
+        @case (tagDoesExist() && formSubmitted()) {
+          <span class="error show">Tag already exists</span>
+        }
+        @default {
+          <span class="error">Not a valid Tag</span>
+        }
+      }
+    </div>
+    <button type="submit" class="btn btn__icon--add"></button>
+  </form>
+</section>

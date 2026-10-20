@@ -108,8 +108,8 @@ export class Supabase {
                 {
                     tag: userTag,
                     userId: userId
-                },
-            ])
+                }],
+            )
             .eq('userId', userId)
             .select()
         if (error) {
@@ -117,6 +117,50 @@ export class Supabase {
         }
         this.crudSuccess.update(() => true)
     }
+
+    /**
+     * updates the tagname entry
+     * @param id - id in database
+     * @param newTag - new tagname
+     */
+    async editCustomTag(id: number, newTag:string): Promise<void> {
+        this.crudSuccess.update(() => false)
+        const { data, error } = await this.db
+            .from('tags')
+            .update([
+                {
+                    tag: newTag,
+                },
+            ])
+            .eq('id', id)
+            .select()
+        if (error) {
+            throw new Error(error.code)
+        }
+        this.crudSuccess.update(() => true)
+    }
+
+
+    /**
+     * Updates the tags column from the single Entry in the database 
+     * @param entry - the updated entry-object
+     */
+    async updateTagKnowledgeEntry(entry: KnowledgeEntryData): Promise<void> {
+        const { data, error } = await this.db
+            .from('knowledge_entry')
+            .update({
+                tags: entry.tags,
+            })
+            .eq('id', entry.id)
+            .select()
+            console.log(data);
+            
+        if (error) {
+            throw new Error('Das hat nicht funktioniert!', error)
+        }
+    }
+
+
 
     async deleteCustomTag(tagId: number) {
         this.crudSuccess.update(() => false)
