@@ -119,7 +119,7 @@ export class Supabase {
     }
 
     /**
-     * updates the tagname entry
+     * Updates the tagname entry in the database
      * @param id - id in database
      * @param newTag - new tagname
      */

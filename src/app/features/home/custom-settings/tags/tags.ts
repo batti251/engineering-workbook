@@ -119,7 +119,7 @@ export class Tags {
 
 
   /**
-   * Updates the tag name in the database
+   * Calls the updatefunction for database update 
    * @param tags 
    * @param newTagName 
    */
@@ -164,7 +164,8 @@ export class Tags {
   }
 
   /**
-   * updates the edited tagname, for all affected entries
+   * Creates a copy of toUpdateEntries()
+   * Updates the copy edited tagname, for all affected entries
    * @param newTag 
    */
   changeTagName(newTag: Partial<{
