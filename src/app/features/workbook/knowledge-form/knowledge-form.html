@@ -60,6 +60,19 @@
         <section class="subentry">
           @for (subEntry of forms.subEntries.controls; track subEntry; let indexSubEntry = $index) {
             <div [formGroupName]="indexSubEntry" class="subentry__form">
+              @switch (true) {
+                @case ($first && !$last) {
+                  <button [id]="indexSubEntry" type="button" class="arrow--right" (click)="changePosition(indexSubEntry, 'shiftRight')">&gt;</button>
+                }
+                @case (!$first && $last) {
+                  <button [id]="indexSubEntry" type="button" class="arrow--left" (click)="changePosition(indexSubEntry, 'shiftLeft')">&lt;</button>
+                }
+                @default {
+                  <button [id]="indexSubEntry" type="button" class="arrow--right" (click)="changePosition(indexSubEntry, 'shiftRight')">&gt;</button>
+                  <button [id]="indexSubEntry" type="button" class="arrow--left" (click)="changePosition(indexSubEntry, 'shiftLeft')">&lt;</button>
+                }
+              }
+
               <div>
                 <label for="subTitle-{{ indexSubEntry }}"></label>
                 <h3 class="text__secondary">

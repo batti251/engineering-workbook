@@ -48,6 +48,15 @@
   }
 }
 
+.arrow{
+  &--right{
+    content: ">";
+  }
+  &--left{
+    content: "<";
+  }
+}
+
 .subentry {
   @include dFlex($fd: row, $jc: flex-start, $ai: flex-start, $g: 16px);
   @include size($w: 100%);

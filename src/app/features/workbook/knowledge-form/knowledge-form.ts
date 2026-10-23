@@ -106,6 +106,44 @@ export class KnowledgeForm {
     }
   }
 
+  changePosition(indexSubEntry: number, newPosition: ("shiftRight" | "shiftLeft")) {
+    let targetIndex
+    let toChangeElements
+    let originalSubEntries = this.forms.entryForm.controls.subEntries.controls
+
+    switch (newPosition) {
+      case "shiftRight":
+        targetIndex = indexSubEntry + 2
+        toChangeElements = this.forms.entryForm.controls.subEntries.controls.slice(indexSubEntry, targetIndex).reverse()
+        originalSubEntries.splice(indexSubEntry, 2, ...toChangeElements)
+        break;
+
+      case "shiftLeft":
+        targetIndex = indexSubEntry - 1
+        indexSubEntry += 1
+        toChangeElements = this.forms.entryForm.controls.subEntries.controls.slice(targetIndex, indexSubEntry).reverse()
+        originalSubEntries.splice(targetIndex, indexSubEntry, ...toChangeElements)
+        break;
+
+    }
+    console.log(this.forms.entryForm.value.subEntries);
+    this.forms.entryForm.patchValue({
+      subEntries: this.forms.entryForm.controls.subEntries.controls as Partial<{
+    subTitle: string | null;
+    description: string | null;
+    code: Partial<{
+        isCode: boolean | null;
+        language: string | null;
+    }>;
+    details: unknown[];
+    externalLinks: unknown[];
+    screenshots: unknown[];
+}>[]
+    });
+    console.log(this.forms.entryForm.value);
+    
+  }
+
   /**
    * initiates to build a edit-form
    * it will allow the user to edit the current @param data entry
@@ -148,6 +186,8 @@ export class KnowledgeForm {
       return
     }
     data.userId = userId
+    console.log(data);
+
     this.isEditForm() ? this.tryUpdateData(data) : this.tryAddNewData(data);
   }
 
