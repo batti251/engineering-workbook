@@ -49,11 +49,20 @@
 }
 
 .arrow{
-  &--right{
-    content: ">";
+  &__group {
+    @include dFlex($fd: row, $jc: space-between, $g: 1rem);
   }
-  &--left{
-    content: "<";
+  &__btn{
+    background-color: $bc-tertiary;
+    @include border($br: 0.5rem, $bc: $bc-secondary);
+    @include size($w: 2rem, $h: 2rem);
+    cursor: pointer;
+    &:hover{
+      filter: brightness(1.05);
+    }
+    &:active{
+      scale: 0.95;
+    }
   }
 }
 
