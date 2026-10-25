@@ -12,9 +12,9 @@ export interface KnowledgeSubEntryData {
     subTitle: string,
     description?: string,
     code?: Code,
-    details?: string[],
-    screenshots?: string[],
-    externalLinks?: string[]
+    details: string[],
+    screenshots: string[],
+    externalLinks: string[]
 }
 
 export interface Code {

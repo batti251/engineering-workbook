@@ -18,6 +18,7 @@ import { LocalStorage } from '../../../core/local-storage';
 import { Storage } from '../../../core/storage';
 import { OverflowMenu } from './overflow-menu/overflow-menu';
 import { PreviewCard } from './preview-card/preview-card';
+import { JsonPipe } from '@angular/common';
 
 export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
   route: ActivatedRouteSnapshot,
@@ -31,7 +32,7 @@ export const entryResolver: ResolveFn<KnowledgeEntryData[] | null> = async (
 
 @Component({
   selector: 'app-coding-add',
-  imports: [ReactiveFormsModule, Select, Links, Screenshot, OverflowMenu, ConfirmDialog, InfoDialog, PreviewCard],
+  imports: [ReactiveFormsModule, JsonPipe, Select, Links, Screenshot, OverflowMenu, ConfirmDialog, InfoDialog, PreviewCard],
   templateUrl: './knowledge-form.html',
   styleUrl: './knowledge-form.scss',
   providers: [Forms, Select],
@@ -86,6 +87,8 @@ export class KnowledgeForm {
 
   ngOnInit() {
     this.initFormBuild()
+    console.log(this.forms.entryForm.controls.subEntries.controls);
+
   }
 
   /**
@@ -126,22 +129,19 @@ export class KnowledgeForm {
         break;
 
     }
-    console.log(this.forms.entryForm.value.subEntries);
     this.forms.entryForm.patchValue({
       subEntries: this.forms.entryForm.controls.subEntries.controls as Partial<{
-    subTitle: string | null;
-    description: string | null;
-    code: Partial<{
-        isCode: boolean | null;
-        language: string | null;
-    }>;
-    details: unknown[];
-    externalLinks: unknown[];
-    screenshots: unknown[];
-}>[]
+        subTitle: string | null;
+        description: string | null;
+        code: Partial<{
+          isCode: boolean | null;
+          language: string | null;
+        }>;
+        details: (string|null)[];
+        externalLinks: (string|null)[];
+        screenshots: (string|null)[];
+      }>[]
     });
-    console.log(this.forms.entryForm.value);
-    
   }
 
   /**

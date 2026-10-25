@@ -50,33 +50,58 @@
       ></textarea>
     </div>
   </section>
-  
+
   <section>
-    <div class="header__nav">
-      <h2 class="text__primary">Sub Entry:</h2>
-    </div>
     <div formArrayName="subEntries">
       <div>
         <section class="subentry">
           @for (subEntry of forms.subEntries.controls; track subEntry; let indexSubEntry = $index) {
             <div [formGroupName]="indexSubEntry" class="subentry__form">
               <div class="arrow__group">
-              <span class="text__primary">{{indexSubEntry + 1}}</span>
-              <div class="arrow__group">
-              @switch (true) {
-                @case ($first && !$last) {
-                  <button [id]="indexSubEntry" type="button" class="arrow__btn" (click)="changePosition(indexSubEntry, 'shiftRight')">&gt;</button>
-                }
-                @case (!$first && $last) {
-                  <button [id]="indexSubEntry" type="button" class="arrow__btn" (click)="changePosition(indexSubEntry, 'shiftLeft')">&lt;</button>
-                }
-                @default {
-                  <button [id]="indexSubEntry" type="button" class="arrow__btn" (click)="changePosition(indexSubEntry, 'shiftLeft')">&lt;</button>
-                  <button [id]="indexSubEntry" type="button" class="arrow__btn" (click)="changePosition(indexSubEntry, 'shiftRight')">&gt;</button>
-                }
-              }
-</div>
-</div>
+                <span class="text__primary">{{ indexSubEntry + 1 }}</span>
+                <div class="arrow__group">
+                  @switch (true) {
+                    @case ($first && !$last) {
+                      <button
+                        [id]="indexSubEntry"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="changePosition(indexSubEntry, 'shiftRight')"
+                      >
+                        &gt;
+                      </button>
+                    }
+                    @case (!$first && $last) {
+                      <button
+                        [id]="indexSubEntry"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="changePosition(indexSubEntry, 'shiftLeft')"
+                      >
+                        &lt;
+                      </button>
+                    }
+                    @default {
+                      <button
+                        [id]="indexSubEntry"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="changePosition(indexSubEntry, 'shiftLeft')"
+                      >
+                        &lt;
+                      </button>
+                      <button
+                        [id]="indexSubEntry"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="changePosition(indexSubEntry, 'shiftRight')"
+                      >
+                        &gt;
+                      </button>
+                    }
+                  }
+                </div>
+              </div>
               <div>
                 <label for="subTitle-{{ indexSubEntry }}"></label>
                 <h3 class="text__secondary">
@@ -125,52 +150,79 @@
                       <option value="javascript" selected>Javascript</option>
                       <option value="python">Python</option>
                       <option value="sql">SQL</option>
-                      <option value="css">CSS</option>
-                      <option value="html">HTML</option>
                     </select>
                   }
                 </div>
               </section>
 
-              <section formArrayName="details" class="subentry form__border">
-                <header class="subentry__header w-100">
-                  <h4 class="text__secondary">Details</h4>
-                  <button
-                    type="button"
-                    (click)="forms.addSubEntryControls(indexSubEntry, 'details')"
-                    class="btn btn__icon--add"
-                  ></button>
-                </header>
-                <app-links
-                  [indexSubEntry]="indexSubEntry"
-                  [formArray]="forms.getSubEntryControls(indexSubEntry, 'details')"
-                  [target]="'details'"
-                ></app-links>
-              </section>
+              <article>
+                <div class="add-btn__group">
+                  @if (subEntry.controls.details.length == 0) {
+                    <div class="add-btn">
+                      <button
+                        type="button"
+                        (click)="forms.addSubEntryControls(indexSubEntry, 'details')"
+                        class="btn btn__icon--add"
+                      ></button>
+                      <span class="text__tertiary">Add Detail</span>
+                    </div>
+                  }
+                  @if (subEntry.controls.externalLinks.length == 0) {
+                    <div class="add-btn">
+                      <button
+                        type="button"
+                        (click)="forms.addSubEntryControls(indexSubEntry, 'externalLinks')"
+                        class="btn btn__icon--add"
+                      ></button>
+                      <span class="text__tertiary">Add Links</span>
+                    </div>
+                  }
+                </div>
 
-              <section formArrayName="externalLinks" class="subentry form__border">
-                <header class="subentry__header w-100">
-                  <h4 class="text__secondary">Links</h4>
-                  <button
-                    type="button"
-                    (click)="forms.addSubEntryControls(indexSubEntry, 'externalLinks')"
-                    class="btn btn__icon--add"
-                  ></button>
-                </header>
-                <app-links
-                  [indexSubEntry]="indexSubEntry"
-                  [formArray]="forms.getSubEntryControls(indexSubEntry, 'externalLinks')"
-                  [target]="'externalLinks'"
-                ></app-links>
-              </section>
+                @if (subEntry.controls.details.length > 0) {
+                  <section formArrayName="details" class="subentry form__border">
+                    <header class="subentry__header w-100">
+                      <h4 class="text__secondary">Details</h4>
+                      <button
+                        type="button"
+                        (click)="forms.addSubEntryControls(indexSubEntry, 'details')"
+                        class="btn btn__icon--add"
+                      ></button>
+                    </header>
+                    <app-links
+                      [indexSubEntry]="indexSubEntry"
+                      [formArray]="forms.getSubEntryControls(indexSubEntry, 'details')"
+                      [target]="'details'"
+                    ></app-links>
+                  </section>
+                }
 
-              <section formArrayName="screenshots">
-                <h4 class="text__secondary">Screenshots</h4>
-                <app-screenshot
-                  [indexSubEntry]="indexSubEntry"
-                  [formArray]="forms.getSubEntryControls(indexSubEntry, 'screenshots')"
-                ></app-screenshot>
-              </section>
+                @if (subEntry.controls.externalLinks.length > 0) {
+                  <section formArrayName="externalLinks" class="subentry form__border">
+                    <header class="subentry__header w-100">
+                      <h4 class="text__secondary">Links</h4>
+                      <button
+                        type="button"
+                        (click)="forms.addSubEntryControls(indexSubEntry, 'externalLinks')"
+                        class="btn btn__icon--add"
+                      ></button>
+                    </header>
+                    <app-links
+                      [indexSubEntry]="indexSubEntry"
+                      [formArray]="forms.getSubEntryControls(indexSubEntry, 'externalLinks')"
+                      [target]="'externalLinks'"
+                    ></app-links>
+                  </section>
+                }
+
+                <section formArrayName="screenshots">
+                  <h4 class="text__secondary">Screenshots</h4>
+                  <app-screenshot
+                    [indexSubEntry]="indexSubEntry"
+                    [formArray]="forms.getSubEntryControls(indexSubEntry, 'screenshots')"
+                  ></app-screenshot>
+                </section>
+              </article>
 
               <div class="subentry__footer">
                 <button
@@ -187,6 +239,10 @@
                 <app-preview-card></app-preview-card>
               </button>
             }
+          } @empty {
+            <button class="btn btn__preview" type="button" (click)="forms.addSubEntry()">
+              <app-preview-card></app-preview-card>
+            </button>
           }
         </section>
       </div>

@@ -1,5 +1,6 @@
 <ul
   class="list"
+  [style.height]="formArray.controls.length == 0 ? '54px' : null "
   [class.list--active]="state.activeScreenshot() === indexSubEntry"
   (paste)="forms.addScreenshots($event, indexSubEntry)"
 >

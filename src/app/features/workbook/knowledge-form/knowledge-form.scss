@@ -48,6 +48,14 @@
   }
 }
 
+.add-btn{
+@include dFlex($fd: row, $g: 8px);
+  &__group{
+    @include dFlex($fd: row, $jc: space-between, $g: 16px);
+    padding: 16px 0;
+  }
+}
+
 .arrow{
   &__group {
     @include dFlex($fd: row, $jc: space-between, $g: 1rem);

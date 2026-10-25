@@ -60,9 +60,9 @@ export class Forms {
                 isCode: [data?.code?.isCode ?? false],
                 language: [data?.code?.language ?? '', Validators.required],
             }),
-            details: this.formBuilder.array([]),
-            externalLinks: this.formBuilder.array([]),
-            screenshots: this.formBuilder.array([]),
+            details: this.formBuilder.array<FormControl<string|null>>([]),
+            externalLinks: this.formBuilder.array<FormControl<string|null>>([]),
+            screenshots: this.formBuilder.array<FormControl<string|null>>([]),
         })
     }
 
@@ -233,7 +233,7 @@ export class Forms {
     }
 
     get subEntries() {
-        return this.entryForm.get('subEntries') as FormArray;
+        return this.entryForm.controls.subEntries;
     }
 
     /**

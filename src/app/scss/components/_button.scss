@@ -86,8 +86,8 @@
   }
   &:hover {
     cursor: pointer;
-    transform: scale(1.05);
-    @include border($bw: 2px, $bs: outset, $bc: #f5e8b7);
+    transform: scale(1.02);
+    @include border($bw: 2px, $bs: unset, $bc: #f5e8b7);
     box-shadow: 0px 0px 6px #e9da92;
   }
   &:active {
