@@ -48,10 +48,8 @@ export class KnowledgeDoc {
    */
   async readKnowledgeEntries(): Promise<void> {
     let database = await this.db.readKnowledgeEntries() as KnowledgeEntryData[]
-    if (database.length > 0) {
       this.entryDatas.set(database)
       this.filteredItems.set(database)
-    }
   }
 
   /**
