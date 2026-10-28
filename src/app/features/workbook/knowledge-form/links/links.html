@@ -5,6 +5,47 @@
   let itemIndex = $index
 ) {
   <li class="item">
+    @switch (true) {
+                    @case ($first && !$last) {
+                      <button
+                        [id]="itemIndex"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="change(formArray.controls, itemIndex, 'moveDown')"
+                      >
+                        &gt;
+                      </button>
+                    }
+                    @case (!$first && $last) {
+                      <button
+                        [id]="itemIndex"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="changePosition(itemIndex, 'shiftLeft')"
+                      >
+                        &lt;
+                      </button>
+                    }
+                    @default {
+                      <button
+                        [id]="itemIndex"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="change(formArray.controls, itemIndex, 'moveUp')"
+                      >
+                        &lt;
+                      </button>
+                      <button
+                        [id]="itemIndex"
+                        type="button"
+                        class="arrow__btn"
+                        (click)="change(formArray.controls, itemIndex, 'moveDown')"
+                      >
+                        &gt;
+                      </button>
+                    }
+                  }
+
       <label for="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"></label>
       <input
         id="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"
