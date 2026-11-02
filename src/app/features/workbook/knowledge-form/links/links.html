@@ -1,64 +1,64 @@
 <ul class="list">
-@for (
-  item of formArray.controls;
-  track item;
-  let itemIndex = $index
-) {
-  <li class="item">
-    @switch (true) {
-                    @case ($first && !$last) {
-                      <button
-                        [id]="itemIndex"
-                        type="button"
-                        class="arrow__btn"
-                        (click)="change(formArray.controls, itemIndex, 'moveDown')"
-                      >
-                        &gt;
-                      </button>
-                    }
-                    @case (!$first && $last) {
-                      <button
-                        [id]="itemIndex"
-                        type="button"
-                        class="arrow__btn"
-                        (click)="changePosition(itemIndex, 'shiftLeft')"
-                      >
-                        &lt;
-                      </button>
-                    }
-                    @default {
-                      <button
-                        [id]="itemIndex"
-                        type="button"
-                        class="arrow__btn"
-                        (click)="change(formArray.controls, itemIndex, 'moveUp')"
-                      >
-                        &lt;
-                      </button>
-                      <button
-                        [id]="itemIndex"
-                        type="button"
-                        class="arrow__btn"
-                        (click)="change(formArray.controls, itemIndex, 'moveDown')"
-                      >
-                        &gt;
-                      </button>
-                    }
-                  }
+  @for (item of formArray.controls; track item; let itemIndex = $index) {
+    <li class="item">
+      @switch (true) {
+        @case ($first && !$last) {
+          <button
+            [id]="itemIndex"
+            type="button"
+            class="btn--rotate"
+            (click)="changeDetailPosition(formArray.controls, itemIndex, 'moveDown')"
+          >
+            &gt;
+          </button>
+        }
+        @case (!$first && $last) {
+          <button
+            [id]="itemIndex"
+            type="button"
+            class="btn--rotate"
+            (click)="changeDetailPosition(formArray.controls, itemIndex, 'moveUp')"
+          >
+            &lt;
+          </button>
+        }
+        @default {
+          <div class="entry-switch__group">
+            <button
+              [id]="itemIndex"
+              type="button"
+              class="btn--rotate"
+              [class.hide]="formArray.controls.length == 1"
+              (click)="changeDetailPosition(formArray.controls, itemIndex, 'moveUp')"
+            >
+              &lt;
+            </button>
+            <button
+              [id]="itemIndex"
+              type="button"
+              class="btn--rotate"
+              [class.hide]="formArray.controls.length == 1"
+              (click)="changeDetailPosition(formArray.controls, itemIndex, 'moveDown')"
+            >
+              &gt;
+            </button>
+          </div>
+        }
+      }
 
-      <label for="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"></label>
+      <label for="{{ target }}-{{ indexSubEntry }}.{{ itemIndex }}"></label>
       <input
-        id="{{target}}-{{ indexSubEntry }}.{{ itemIndex }}"
+        id="{{ target }}-{{ indexSubEntry }}.{{ itemIndex }}"
         type="text"
         [formControl]="item"
         class="text__tertiary form__input"
-        placeholder="add {{target}} here"
+        placeholder="add {{ target }} here"
       />
-    <button
-      type="button"
-      (click)="forms.removeSubEntryControl(indexSubEntry, itemIndex, target)"
-      class="btn btn__icon--delete"
-    ></button>
-  </li>
-}
-</ul>  
+      <button
+        type="button"
+        (click)="forms.removeSubEntryControl(indexSubEntry, itemIndex, target)"
+        class="btn btn__icon--delete"
+      ></button>
+    </li>
+  }
+</ul>

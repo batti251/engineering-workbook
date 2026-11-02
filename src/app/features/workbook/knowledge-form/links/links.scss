@@ -31,7 +31,6 @@
   .item {
     @include dFlex($fd: row, $ai: center, $jc: unset, $g: 8px);
     padding: 4px;
-
   }
 }
 
@@ -39,6 +38,28 @@
   @include border($br: 10px, $bs: solid, $bw: 2px, $bc: $bc-light);
   padding: 8px;
   @include size($h: 40px, $w: 90%);
-
 }
 
+.entry-switch {
+  &__group {
+    @include dFlex();
+  }
+}
+
+.btn--rotate {
+  border-radius: 6px;
+  rotate: 90deg;
+  @include size($w: 16px, $h: 24px);
+  @include dFlex($fd: unset);
+  cursor: pointer;
+  background-color: $bc-primary;
+  color: $bc-light;
+  &:active{
+    transform: scale(0.95);
+  }
+  &:hover{
+    filter: brightness(1.1);
+    box-shadow: 0 0 2px $bc-bright;
+    background-color: $bc-secondary;
+  }
+}

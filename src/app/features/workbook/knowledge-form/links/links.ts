@@ -21,12 +21,9 @@ export class Links {
     })
   }
 
-  change(item: FormControl<string>[], position: number, newPosition: ("moveUp" | "moveDown")) {
-    console.log(item);
-    console.log(position);
-    console.log(newPosition);
-    let toChangeElements
-
+  changeDetailPosition(item: FormControl<string | null>[], position: number, newPosition: ("moveUp" | "moveDown")) {
+    let toChangeElements: FormControl<string | null>[] = []
+    let list: (string | null)[] = []
     switch (newPosition) {
       case "moveUp":
         toChangeElements = item.slice(position - 1, position + 1).reverse();
@@ -34,12 +31,12 @@ export class Links {
         break;
       case "moveDown":
         toChangeElements = item.slice(position, position + 2).reverse();
-        item.splice(position, position + 2, ...toChangeElements)
+        item.splice(position, 2, ...toChangeElements)
         break
     }
-    console.log(item);
-    /* console.log(this.formArray.patchValue()); */
-    
+    item.forEach(e => list.push(e.value))
+    let detailsValues = this.forms.entryForm.controls.subEntries.at(this.indexSubEntry).controls.details
+    detailsValues.patchValue(list)
   }
 
   changePosition(indexSubEntry: number, newPosition: ("shiftRight" | "shiftLeft")) {

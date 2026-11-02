@@ -65,6 +65,7 @@
     @include border($br: 0.5rem, $bc: $bc-secondary);
     @include size($w: 2rem, $h: 2rem);
     cursor: pointer;
+    
     &:hover{
       filter: brightness(1.05);
     }
