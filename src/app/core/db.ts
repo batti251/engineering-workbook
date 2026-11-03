@@ -2,6 +2,7 @@ import { inject, Service, signal } from '@angular/core';
 import { createClient, PostgrestError, RealtimeChannel } from '@supabase/supabase-js'
 import { Keys } from '../shared/services/key';
 import { KnowledgeEntryData, tags } from '../shared/interfaces/knowledge-entry-data';
+import { throwError } from 'rxjs';
 
 @Service()
 export class Supabase {
@@ -72,6 +73,24 @@ export class Supabase {
     }
 
     /**
+     * Reads and returns the users EntryDatas
+     * its filtered to all entries from the userId and the activeTag
+     * @returns 
+     */
+    async readUserEntries(userId: string | null, activeTag: string): Promise<KnowledgeEntryData[]> {
+        let { data: knowledge_entry, error } = await this.db
+            .from('knowledge_entry')
+            .select('*')
+            .eq('userId', userId)
+            .contains('tags', [activeTag])
+
+        if (error) {
+            throw new Error(error.code)
+        }
+        return knowledge_entry as KnowledgeEntryData[]
+    }
+
+    /**
      * Reads and returns the database KnowledgeEntryData equivalent to @param id.
      * @param id - the entry Id
      * @returns 
@@ -123,7 +142,7 @@ export class Supabase {
      * @param id - id in database
      * @param newTag - new tagname
      */
-    async editCustomTag(id: number, newTag:string): Promise<void> {
+    async editCustomTag(id: number, newTag: string): Promise<void> {
         this.crudSuccess.update(() => false)
         const { data, error } = await this.db
             .from('tags')
@@ -153,8 +172,8 @@ export class Supabase {
             })
             .eq('id', entry.id)
             .select()
-            console.log(data);
-            
+        console.log(data);
+
         if (error) {
             throw new Error('Das hat nicht funktioniert!', error)
         }

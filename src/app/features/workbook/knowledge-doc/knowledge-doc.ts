@@ -4,9 +4,6 @@ import { KnowledgeEntryData } from '../../../shared/interfaces/knowledge-entry-d
 import { Select } from './select/select';
 import { RouterLink } from '@angular/router';
 import { Keys } from '../../../shared/services/key';
-import Prism from 'prismjs';
-import 'prismjs/components/prism-sql';
-import 'prismjs/components/prism-python';
 import { LocalStorage } from '../../../core/local-storage';
 import { Auth } from '../../../core/auth';
 import { StickyHeader } from '../../../shared/directives/sticky-header';
@@ -25,62 +22,26 @@ export class KnowledgeDoc {
   selectedValue: string = ''
   private key = inject(Keys)
   readonly storageImgPath = this.key.dbURL + '/' + this.key.dbStorage + '/' + this.key.ImgStore
-
-  private entryDatas = signal<KnowledgeEntryData[]>([])
-  filteredItems = signal<KnowledgeEntryData[]>([])
+  readonly filteredItems = signal<KnowledgeEntryData[]>([])
 
   constructor() {
     afterRenderEffect(() => {
       this.filteredItems();
-      Prism.highlightAll()
     });
   }
 
   async ngOnInit() {
-    await this.readKnowledgeEntries()
-    await this.filterDatas(this.local.getActiveTag())
+    await this.showFilteredEntries()
   }
 
   /**
-   * Reads the knoweledge_entry table from the database
-   * Sets the entryDatas() & filteredItems() Signal to its initial state
-   * The initial state contains all entries from the database
+   * Reads the users knoweledge_entry table according to the selected tag
    */
-  async readKnowledgeEntries(): Promise<void> {
-    let database = await this.db.readKnowledgeEntries() as KnowledgeEntryData[]
-      this.entryDatas.set(database)
-      this.filteredItems.set(database)
-  }
-
-  /**
-   * Filters the entries according to the selected Tag from the User
-   * Updates the displayed entries, by updating the according filteredItems() Signal
-   * @param selectedTag - the selected Tag, the user wants to filter for
-   */
-  async filterDatas(selectedTag: string[]) {
-    selectedTag[0]
-    let tempFilteredTags = []
+  async showFilteredEntries(): Promise<void> {
     let userId = await this.auth.getUserId()
-    this.entryDatas().forEach(entry => {
-      if (this.tagIsIncluded(entry, selectedTag[0]) && entry.userId === userId) {
-        tempFilteredTags.push(entry)
-      }
-      this.filteredItems.update(() => tempFilteredTags)
-    }
-    );
-    this.selectedValue = selectedTag[0]
+    let activeTag = this.local.getActiveTag()
+    let filteredDataBase = await this.db.readUserEntries(userId, activeTag[0]) as KnowledgeEntryData[]
+    this.filteredItems.set(filteredDataBase)
+    this.selectedValue = activeTag[0]
   }
-
-  /**
-   * Checks if the current entry tag contains the selected Tag parameter
-   * @param entry - the current entry that is checkewd
-   * @param selectedTag - selected Tag from the User
-   * @returns - true, if selectedTag is within entry.tags
-   */
-  tagIsIncluded(entry: KnowledgeEntryData, selectedTag: string): boolean {
-    return entry.tags.some((tag) =>
-      tag === selectedTag
-    )
-  }
-
 }
