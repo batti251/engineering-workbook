@@ -23,7 +23,7 @@
   user-select: none;
   -webkit-user-select: none;
   outline: none;
-  @include respond(m){
+  @include respond(m) {
     width: 12rem;
   }
 }
@@ -60,20 +60,21 @@
   transform: rotate(180deg);
 }
 .example-popup-container {
-  width: 100%;
+  /* width: 100%; */
+  width: inherit;
+  height: 700px;
   padding: 0.5rem;
   margin-top: 8px;
   border-radius: 0.5rem;
   border: 1px solid $green;
   background-color: $bc-secondary;
   font-size: 0.9rem;
-  max-height: 11rem;
   box-sizing: border-box;
-  overflow: hidden;
+  overflow: auto;
   animation: smoothPopupOpen 150ms ease-out forwards;
   transform-origin: top;
+  position: fixed;
 }
-
 
 .example-popup-container.closing {
   animation: smoothPopupClose 150ms ease-in forwards;
@@ -84,40 +85,15 @@
   color: $text-error;
 }
 
-
 [ngListbox] {
   gap: 2px;
-  height: 100%;
+  height: auto;
   display: flex;
   overflow: auto;
   flex-direction: column;
   outline: none;
 
 
-  
-  --sb-track-color: #231e03;
-  --sb-thumb-color: #f5e8b7;
-  --sb-size: 7px;
-  &::-webkit-scrollbar {
-  width: var(--sb-size);
-}
-
-&::-webkit-scrollbar-track {
-  background: var(--sb-track-color);
-  border-radius: 4px;
-}
-
-&::-webkit-scrollbar-thumb {
-  background: var(--sb-thumb-color);
-  border-radius: 4px;
-}
-
-
-@supports not selector(::-webkit-scrollbar) {
-  [ngListbox] {
-    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
-  }
-}
 }
 
 [ngOption] {
@@ -148,10 +124,37 @@
   display: none;
 }
 
-
 .example-option-check {
   font-size: 1.2rem;
 }
 .example-option-text {
   flex: 1;
 }
+
+::-webkit-scrollbar {
+  --sb-size: 7px;
+  width: var(--sb-size);
+}
+
+::-webkit-scrollbar-track {
+  --sb-track-color: #231e03;
+  --sb-thumb-color: #f5e8b7;
+  --sb-size: 7px;
+
+  background: var(--sb-track-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  --sb-track-color: #231e03;
+  --sb-thumb-color: #f5e8b7;
+  --sb-size: 7px;
+
+  background: var(--sb-thumb-color);
+  border-radius: 4px;
+}
+  @supports not selector(::-webkit-scrollbar) {
+    [ngListbox] {
+      scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+    }
+  }

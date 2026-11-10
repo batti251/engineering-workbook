@@ -41,7 +41,7 @@
     }
   }
   &--description {
-    @include size($h: 120px, $w: 100%);
+    @include size($h: 200px, $w: 100%);
     @include respond(s) {
       height: 240px;
     }
@@ -88,9 +88,6 @@
     gap: 16px;
     @include respond(s) {
       width: 100%;
-    }
-    @include respond(m) {
-      width: 90%;
     }
   }
   &__header {

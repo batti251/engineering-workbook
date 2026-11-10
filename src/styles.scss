@@ -93,3 +93,26 @@
     color: #d3c7c8 !important;
   }
 }
+
+
+body:has(.grid__nav.sticky), .grid:has(.grid__nav:hover) {
+   .knowledge-element {
+    width: 460px;
+    transition: 0.5s ease-in-out;
+  }
+}
+
+.my-select-overlay {
+  height: auto !important;
+}
+  
+.my-select-overlay .example-popup-container {
+  height: 400px !important;
+  max-height: 600px !important;
+  overflow: hidden;
+}
+
+.my-select-overlay [ngListbox] {
+  height: 600px;
+  overflow-y: auto;
+}
