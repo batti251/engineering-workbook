@@ -1,16 +1,9 @@
 <div class="content__wrap">
-  <div class="sub-header" appStickyHeader>
-    <app-select (selectedValue)="showFilteredEntries()"></app-select>
-    <div class="side-nav">
-      <a class="btn__wrap" [routerLink]="['/knowledge/new-entry']">
-        <img src="/img/add.svg" alt="a green plus icon" class="btn__icon" />
-        <span class="btn__text">Add Code Entry</span>
-      </a>
-    </div>
-  </div>
+
+  <app-toolbar></app-toolbar>
 
   <main class="knowledge__list">
-    @for (knowledgeEntry of filteredItems(); track $index; let itemIndex = $index) {
+    @for (knowledgeEntry of filterService.filteredItems(); track $index; let itemIndex = $index) {
       <a class="knowledge-element" [routerLink]="`/knowledge/entry/${knowledgeEntry.id}`">
         <h3 class="text__tertiary">{{ knowledgeEntry.title }}</h3>
         @if (knowledgeEntry.tags?.length) {

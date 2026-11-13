@@ -6,6 +6,7 @@ import { Supabase } from '../../../../core/db';
 import { tags } from '../../../../shared/interfaces/knowledge-entry-data';
 import { LocalStorage } from '../../../../core/local-storage';
 import { Auth } from '../../../../core/auth';
+import { Filter } from '../filter';
 
 @Component({
   selector: 'app-select',
@@ -24,6 +25,7 @@ export class Select {
   readonly displayValue = computed(() => this.selectedValues()[0] || 'Filter Topic');
   readonly popupExpanded = signal(false);
   labels: string[] = [];
+  filterService = inject(Filter)
 
   constructor() {
     afterRenderEffect(() => {
@@ -31,6 +33,7 @@ export class Select {
     });
     effect(() => {
       localStorage.setItem('activeTag', this.selectedValues()[0])
+      this.filterService.selectedValue.update(() => this.selectedValues()[0])
     })
   }
 
@@ -46,7 +49,6 @@ export class Select {
     filteredTags.forEach((tag) => {
       this.labels.push(tag.tag)
     })
-
   }
 
   onCommit() {

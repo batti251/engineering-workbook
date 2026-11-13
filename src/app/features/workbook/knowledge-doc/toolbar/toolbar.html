@@ -1,0 +1,9 @@
+  <div class="sub-header" appStickyHeader>
+    <app-select (selectedValue)="showFilteredEntries()"></app-select>
+    <div class="side-nav">
+      <a class="btn__wrap" [routerLink]="['/knowledge/new-entry']">
+        <img src="/img/add.svg" alt="a green plus icon" class="btn__icon" />
+        <span class="btn__text">Add Code Entry</span>
+      </a>
+    </div>
+  </div>
