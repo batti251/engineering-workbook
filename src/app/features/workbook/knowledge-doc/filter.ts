@@ -17,10 +17,22 @@ export class Filter {
     constructor(){
         console.log("filter da");
         effect( async() => {
+            console.log(this.selectedValue());
+            await this.getAllTagsFromDB();
             this.showFilteredEntries()
         })
     }
 
+
+      async getAllTagsFromDB() {
+        let getTags = await this.db.readDbTable('tags') as tags[];
+        let userId = await this.auth.getUserId()
+        
+        let filteredTags = getTags.filter(item => item.userId === 'global' || item.userId === userId)
+        filteredTags.forEach((tag) => {
+          this.labels.push(tag.tag)
+        })
+      }
 
     /**
  * Reads the users knowledge_entry table according to the selected tag
