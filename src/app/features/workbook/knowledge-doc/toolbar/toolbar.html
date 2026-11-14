@@ -1,5 +1,6 @@
   <div class="sub-header" appStickyHeader>
-    <app-select (selectedValue)="showFilteredEntries()"></app-select>
+    <app-select (selectedValue)="filterService.showFilteredEntries()"></app-select>
+    <input type="text" (keyup)="filterService.searchForWord(search.value)" #search>
     <div class="side-nav">
       <a class="btn__wrap" [routerLink]="['/knowledge/new-entry']">
         <img src="/img/add.svg" alt="a green plus icon" class="btn__icon" />
