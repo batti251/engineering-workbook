@@ -7,15 +7,11 @@
 .knowledge__list {
   @include dFlex($ai: unset, $jc: unset, $fd: row, $g: 16px);
   flex-wrap: wrap;
-
-  @include respond(m) {
-    justify-content: center;
-  }
 }
 
 .knowledge-element {
   @include dFlex($ai: flex-start, $g: 16px);
-  @include size($h: 160px, $w: 460px);
+  @include size($h: 160px, $w: 560px);
   @include border($bw: 3px);
   padding: 8px;
   &:hover {

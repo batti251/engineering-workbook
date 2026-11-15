@@ -1,16 +1,18 @@
 @use '../../../../scss/abstracts/' as *;
 
-
 .sub-header {
-  @include size($h: 100px);
-  @include dFlex($fd: unset, $jc: space-between, $ai: center, $g: 80px);
+  @include size($h: 100px, $w: min(468px,100%));
+  @include dFlex($fd: column, $jc: space-between, $ai: flex-start, $g: 16px);
   margin: 0 0 32px 0;
   background: $bc-secondary;
   position: sticky;
-
-  @include respond(m) {
-    gap: 16px;
-    transition: .6s ease;
+  max-width: 1280px;
+  @include respond(l) {
+    transition: 0.6s ease;
+  }
+  &__group {
+    @include dFlex($fd: row, $g: 16px);
+   
   }
 }
 
@@ -48,23 +50,23 @@
   }
 }
 
-.searchbar{
-      background-color: $bc-secondary;
-    border-radius: 0.5rem;
-    border: 1px solid $bc-light;
-    padding: 0 8px;
-    margin: unset;
-    @include size($h: 38px);
-    &:hover{
-      box-shadow:
-        0px 0px 4px 3px var(--color--bright),
-        inset 0px 0px 8px 1px var(--color--bright);
-    }
-    &:focus {
-      outline-offset: 1px;
-      outline: 1px solid var(--color--bright);
-      box-shadow:
-        0px 0px 4px 3px var(--color--bright),
-        inset 0px 0px 8px 1px var(--color--bright);
-    }
+.searchbar {
+  background-color: $bc-secondary;
+  border-radius: 0.5rem;
+  border: 1px solid $bc-light;
+  padding: 0 8px;
+  margin: unset;
+  @include size($h: 38px, $w: 100%);
+  &:hover {
+    box-shadow:
+      0px 0px 4px 3px var(--color--bright),
+      inset 0px 0px 8px 1px var(--color--bright);
+  }
+  &:focus {
+    outline-offset: 1px;
+    outline: 1px solid var(--color--bright);
+    box-shadow:
+      0px 0px 4px 3px var(--color--bright),
+      inset 0px 0px 8px 1px var(--color--bright);
+  }
 }

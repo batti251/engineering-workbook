@@ -1,6 +1,6 @@
-  <div class="sub-header" appStickyHeader>
-    <app-select (selectedValue)="filterService.showFilteredEntries()"></app-select>
-    <input class="searchbar text__secondary" type="text" placeholder="search for keywords" (keyup)="filterService.filterBySearchTerm(search.value)" #search>
+<div class="sub-header" appStickyHeader>
+  <div class="sub-header__group">
+  <app-select (selectedValue)="filterService.showFilteredEntries()"></app-select>
     <div class="side-nav">
       <a class="btn__wrap" [routerLink]="['/knowledge/new-entry']">
         <img src="/img/add.svg" alt="a green plus icon" class="btn__icon" />
@@ -8,3 +8,6 @@
       </a>
     </div>
   </div>
+
+  <input class="searchbar text__secondary" id="searchbar" type="text" placeholder="search for keywords" (keyup)="filterService.filterBySearchTerm(search.value)" #search/>
+</div>
