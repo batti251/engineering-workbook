@@ -47,3 +47,24 @@
     }
   }
 }
+
+.searchbar{
+      background-color: $bc-secondary;
+    border-radius: 0.5rem;
+    border: 1px solid $bc-light;
+    padding: 0 8px;
+    margin: unset;
+    @include size($h: 38px);
+    &:hover{
+      box-shadow:
+        0px 0px 4px 3px var(--color--bright),
+        inset 0px 0px 8px 1px var(--color--bright);
+    }
+    &:focus {
+      outline-offset: 1px;
+      outline: 1px solid var(--color--bright);
+      box-shadow:
+        0px 0px 4px 3px var(--color--bright),
+        inset 0px 0px 8px 1px var(--color--bright);
+    }
+}
