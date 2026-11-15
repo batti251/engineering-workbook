@@ -3,6 +3,7 @@
 .form {
   @include dFlex($fd: column, $ai: unset, $g: 8px);
   padding: min(20px, 3%);
+  max-width: 1768px;
   &__header {
     @include dFlex($fd: row, $jc: space-between);
     @include size();
@@ -48,28 +49,28 @@
   }
 }
 
-.add-btn{
-@include dFlex($fd: row, $g: 8px);
-  &__group{
+.add-btn {
+  @include dFlex($fd: row, $g: 8px);
+  &__group {
     @include dFlex($fd: row, $jc: space-between, $g: 16px);
     padding: 16px 0;
   }
 }
 
-.arrow{
+.arrow {
   &__group {
     @include dFlex($fd: row, $jc: space-between, $g: 1rem);
   }
-  &__btn{
+  &__btn {
     background-color: $bc-tertiary;
     @include border($br: 0.5rem, $bc: $bc-secondary);
     @include size($w: 2rem, $h: 2rem);
     cursor: pointer;
-    
-    &:hover{
+
+    &:hover {
       filter: brightness(1.05);
     }
-    &:active{
+    &:active {
       scale: 0.95;
     }
   }
