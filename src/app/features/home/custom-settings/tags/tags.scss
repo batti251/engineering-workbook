@@ -2,8 +2,57 @@
 
 .option {
   @include dFlex($fd: row, $jc: space-between);
-  > button {
+  border-radius: 6px;
+  padding: 2%;
+  &:hover,
+  &:focus-within {
+    background-color: $bc-primary;
+  }
+
+  .btn {
     @include size($w: 24px, $h: 24px);
+    flex-shrink: 0;
+    background-size: 16px 16px;
+  }
+}
+
+.tag-edit,
+#personal-tags-panel {
+  --tag-scroll-thumb: color-mix(in srgb, #{$bc-secondary} 85%, #{$bc-light});
+
+  &::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: var(--tag-scroll-thumb);
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  @supports not selector(::-webkit-scrollbar) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--tag-scroll-thumb) transparent;
+  }
+}
+
+.tag-edit {
+  @include dFlex($fd: row, $g: 0.25rem);
+  width: 100%;
+  min-width: 0;
+
+  > input {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .btn__icon--cancel {
+    display: block;
+    width: 100%;
   }
 }
 
@@ -14,12 +63,15 @@
     @include dFlex($g: 16px);
   }
   &__section {
-    @include dFlex($ai: center, $g: 16px);
+    @include dFlex($ai: unset, $fd: column, $g: 16px);
     margin: 16px 0;
+    margin-inline: auto;
+    width: 60%;
     @include respond(s) {
-    align-items: unset;
-    padding: 0 8px;
-  }
+      align-items: unset;
+      padding: 0 8px;
+      margin: 16px 0;
+    }
   }
 
   @include respond(s) {
@@ -27,41 +79,99 @@
   }
 }
 
-select,
-::picker(select) {
-  appearance: base-select;
-  width: 200px;
+.tag-dropdown,
+.tag-dropdown__panel,
+.new-tag__input--main {
   padding: 0.5rem;
-  border-radius: 0.5rem;
   background-color: $bc-secondary;
   border: 1px solid $bc-quaternary;
   border-radius: 12px;
   color: $bc-light;
   font-size: 1rem;
-  max-height: 11rem;
   box-sizing: border-box;
-  overflow: overlay;
-  transform-origin: top;
-  &:hover {
-    cursor: pointer;
+}
+
+.tag-dropdown {
+  @include dFlex($fd: row, $jc: space-between, $g: 0.5rem);
+  width: 200px;
+  min-width: 0;
+  text-align: start;
+  cursor: pointer;
+
+  &:hover,
+  &:has(+ .tag-dropdown__panel:popover-open) {
+    background-color: $bc-tertiary;
   }
+
+  &::after {
+    content: '';
+    @include size($w: 0.45em, $h: 0.45em);
+    flex-shrink: 0;
+    margin-inline-end: 0.2em;
+    border: solid currentColor;
+    border-width: 0 1px 1px 0;
+    transform: rotate(45deg);
+  }
+
   @include respond(s) {
     width: 90%;
   }
 }
-select:hover {
-  background-color: $bc-tertiary;
+
+.tag-dropdown__panel {
+  position-area: block-end span-inline-end;
+  position-try-fallbacks: flip-block;
+  justify-self: start;
+  inset: auto;
+  margin: 0;
+  width: anchor-size(width, 200px);
+  max-height: 11rem;
+  overflow: auto;
 }
 
-option {
-  &:hover,
-  &:focus {
-    border-radius: 6px;
-    background-color: $bc-primary;
+.tag-dropdown__value {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  &:not(:has(> .is-selected)) > span:not(:first-child),
+  &:has(> .is-selected) > span:not(.is-selected) {
+    display: none;
   }
-  &:checked {
-    border-radius: 6px;
+}
+
+.tag-dropdown__label ~ .tag-dropdown__empty,
+.tag-dropdown__choice ~ .tag-dropdown__empty {
+  display: none;
+}
+
+.tag-dropdown__choice {
+  display: block;
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+  padding: 0.25rem;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: start;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+
+  &.is-selected {
     background-color: $bc-tertiary;
+  }
+
+  .option:is(:hover, :focus-within) > & {
+    background-color: transparent;
+  }
+
+  .tag-dropdown__panel > &:hover,
+  .tag-dropdown__panel > &:focus-visible {
+    background-color: $bc-primary;
   }
 }
 
@@ -81,11 +191,17 @@ option {
   }
   &__input {
     @include border($br: 10px, $bs: solid, $bw: 2px, $bc: $bc-light);
-    padding: 8px;
-    @include size($h: 40px, $w: 300px);
+    color: $bc-light;
+    padding: 8px 2px;
+    @include size($h: 27px, $w: 300px);
 
-    @include respond(s){
-        width: 90%;
+    &--main {
+      font-size: 1rem;
+      border-radius: 10px;
+      width: 100%;
+    }
+    @include respond(s) {
+      width: 90%;
     }
   }
 }

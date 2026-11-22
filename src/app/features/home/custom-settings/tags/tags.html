@@ -4,49 +4,140 @@
   <div class="tags__group">
     <div class="tags">
       <label for="global-tags" class="text__primary">globale Tags:</label>
-      <select name="global-tags" id="global-tags">
-        @if (currentTags()) {
-          @for (item of currentTags(); track item) {
+      <input #globalSelection type="hidden" />
+      <button
+        #globalTrigger
+        type="button"
+        id="global-tags"
+        class="tag-dropdown"
+        popovertarget="global-tags-panel"
+      >
+        <span class="tag-dropdown__value">
+          @for (item of currentTags(); track item.id) {
             @if (item.userId == 'global') {
-              <option [value]="item.tag">{{ item.tag }}</option>
+              <span
+                class="tag-dropdown__label"
+                [attr.title]="item.tag"
+                [class.is-selected]="globalSelection.value === item.id.toString()"
+                >{{ item.tag }}</span
+              >
             }
           }
+          <span class="tag-dropdown__empty">Keine globalen Tags</span>
+        </span>
+      </button>
+      <div id="global-tags-panel" class="tag-dropdown__panel" popover>
+        @for (item of currentTags(); track item.id) {
+          @if (item.userId == 'global') {
+            <button
+              type="button"
+              class="tag-dropdown__choice"
+              [class.is-selected]="globalSelection.value === item.id.toString()"
+              popovertarget="global-tags-panel"
+              popovertargetaction="hide"
+              (click)="globalSelection.value = item.id.toString(); globalTrigger.focus()"
+            >
+              {{ item.tag }}
+            </button>
+          }
         }
-      </select>
+        <span class="tag-dropdown__empty">Keine globalen Tags</span>
+      </div>
     </div>
 
     <div class="tags">
       <label for="personal-tags" class="text__primary">eigene Tags:</label>
-      <select name="personal-tags" id="personal-tags">
+      <input #personalSelection type="hidden" />
+      <button
+        #personalTrigger
+        type="button"
+        id="personal-tags"
+        class="tag-dropdown"
+        popovertarget="personal-tags-panel"
+      >
+        <span class="tag-dropdown__value">
+          @if (personalTags()) {
+            @if (!hasPersonalTags()) {
+              <span>no private Tags, yet</span>
+            }
+            @for (item of currentTags(); track item.id) {
+              @if (item.userId == userId()) {
+                <span
+                  [attr.title]="item.tag"
+                  [class.is-selected]="personalSelection.value === item.id.toString()"
+                  >{{ item.tag }}</span
+                >
+              }
+            }
+          }
+        </span>
+      </button>
+      <div id="personal-tags-panel" class="tag-dropdown__panel" popover>
         @if (personalTags()) {
           @if (!hasPersonalTags()) {
-            <option>no private Tags, yet</option>
+            <span>no private Tags, yet</span>
           }
           @for (item of currentTags(); track item; let tagIndex = $index) {
             @if (item.userId == userId()) {
               <div class="option" [id]="tagIndex">
                 @if (editTag() == tagIndex) {
-                  <form [formGroup]="newTagForm" (submit)="submitEditTag()">
-                    <label for="edit-tag"></label>
-                    <input type="text" name="edit-tag" id="edit-tag" formControlName="tagName" />
-                    <button class="btn btn__icon--submit"></button>
+                  <form class="tag-edit" [formGroup]="newTagForm" (submit)="submitEditTag()">
+                    <input
+                      type="text"
+                      aria-label="Tagname"
+                      name="edit-tag"
+                      id="edit-tag"
+                      class="new-tag__input text__tag"
+                      formControlName="tagName"
+                    />
+                    <div class="btn__group--col">
+                      <div class="btn__group">
+                        <button
+                          type="submit"
+                          class="btn btn__icon--submit"
+                          aria-label="Tag speichern"
+                        ></button>
+                        <button
+                          type="button"
+                          class="btn btn__icon--delete"
+                          [attr.aria-label]="item.tag + ' löschen'"
+                          (click)="db.deleteCustomTag(item.id)"
+                        ></button>
+                      </div>
+                      <button
+                        type="button"
+                        (click)="editTag.set(0)"
+                        [id]="editTag()"
+                        class="btn btn__icon--cancel"
+                        aria-label="Edit abbrechen"
+                      ></button>
+                    </div>
                   </form>
                 } @else {
-                  <option [value]="item.tag">{{ item.tag }}</option>
                   <button
-                    class="btn btn__icon--edit"
-                    (click)="editCustomTag(item.tag,tagIndex)"
-                  ></button>
-                  <button
-                    class="btn btn__icon--delete"
-                    (click)="db.deleteCustomTag(item.id)"
-                  ></button>
+                    type="button"
+                    class="tag-dropdown__choice"
+                    [class.is-selected]="personalSelection.value === item.id.toString()"
+                    popovertarget="personal-tags-panel"
+                    popovertargetaction="hide"
+                    (click)="personalSelection.value = item.id.toString(); personalTrigger.focus()"
+                  >
+                    {{ item.tag }}
+                  </button>
+                  <div class="btn__group">
+                    <button
+                      type="button"
+                      class="btn btn__icon--edit"
+                      [attr.aria-label]="item.tag + ' bearbeiten'"
+                      (click)="editCustomTag(item.tag, tagIndex)"
+                    ></button>
+                  </div>
                 }
               </div>
             }
           }
         }
-      </select>
+      </div>
     </div>
   </div>
   <form [formGroup]="newTagForm" (submit)="submitNewTag()" class="new-tag__form">
@@ -57,7 +148,7 @@
         id="new-tag"
         type="text"
         formControlName="tagName"
-        class="new-tag__input"
+        class="new-tag__input--main text__tag"
         (focus)="resetError()"
       />
 

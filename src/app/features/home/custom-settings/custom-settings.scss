@@ -1,7 +1,7 @@
 @use '../../../scss/abstracts/' as *;
 
 .settings {
-  @include dFlex();
+  @include dFlex($jc: unset, $g: 16px);
   @include size($h: 100%, $w: 100%);
   padding: 24px 0 0 0;
 }

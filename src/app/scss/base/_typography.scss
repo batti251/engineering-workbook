@@ -15,6 +15,10 @@
     @include font($fw: 400, $fs: clamp(1rem, 1.25rem, 1.5rem));
     color: $text-tertiary;
   }
+  &__tag {
+    @include font($fw: 400, $fs: clamp(1rem, 1rem, 1.125rem));
+    color: $text-primary;
+  }
 }
 
 .paragraph {
