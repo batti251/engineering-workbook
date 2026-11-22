@@ -25,10 +25,14 @@
     position: fixed;
     top: 112px;
     opacity: 1;
+    border-radius: 0.95rem;
     @include respond(m) {
       position: sticky;
       top: 0;
       background-color: $bc-secondary;
+    }
+    &:hover{
+      z-index: 3;
     }
   }
   &__main {
@@ -45,13 +49,6 @@
       'header'
       'nav'
       'main';
-  }
-
-  @include respond(null, m) {
-    &:has(.grid__nav:hover),
-    &:has(.grid__nav.sticky) {
-      grid-template-columns: 200px minmax(0, 1fr);
-    }
   }
 
   .sticky-scroll {
