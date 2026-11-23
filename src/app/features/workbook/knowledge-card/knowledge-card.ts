@@ -1,7 +1,7 @@
 import { afterRenderEffect, Component, computed, effect, inject, resource, signal } from '@angular/core';
 import { Supabase } from '../../../core/db';
 import { ActivatedRoute, RouterLink } from '@angular/router';
-import { KnowledgeEntryData } from '../../../shared/interfaces/knowledge-entry-data';
+import { KnowledgeEntryData, KnowledgeSubEntryData, KnowledgeSubEntryList } from '../../../shared/interfaces/knowledge-entry-data';
 import { Keys } from '../../../shared/services/key';
 import { LowerCasePipe } from '@angular/common';
 import Prism from 'prismjs';
