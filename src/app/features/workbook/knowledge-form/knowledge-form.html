@@ -339,9 +339,14 @@
               </div>
             }
           } @empty {
-            <button class="btn btn__preview" type="button" (click)="forms.addSubEntry()">
-              <app-preview-card></app-preview-card>
-            </button>
+            <div class="btn__preview-group">
+                <button class="btn btn__preview" type="button" (click)="forms.addSubEntry()">
+                  <app-preview-card></app-preview-card>
+                </button>
+                <button class="btn btn__preview" type="button" (click)="forms.addSubEntryList()">
+                  <app-preview-card [type]="'list'"></app-preview-card>
+                </button>
+              </div>
           }
         </section>
       </div>

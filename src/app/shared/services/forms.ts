@@ -43,7 +43,7 @@ export class Forms {
                 ReturnType<Forms['buildSubEntryForm']> |
                 ReturnType<Forms['buildSubEntryFormList']>
             >([
-                this.buildSubEntryForm()
+                
             ]),
         })
     }
