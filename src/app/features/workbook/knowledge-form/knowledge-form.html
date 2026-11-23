@@ -314,7 +314,18 @@
                     </section>
                   }
                 </article>
+
+                 <div class="subentry__footer">
+                  <button
+                    class="btn btn__icon--delete"
+                    type="button"
+                    (click)="forms.removeSubEntries(indexSubEntry)"
+                  ></button>
+                  <span class="text__secondary">Delete Sub Entry</span>
+                </div>
               </div>
+
+              
             }
 
             @if ($last) {
