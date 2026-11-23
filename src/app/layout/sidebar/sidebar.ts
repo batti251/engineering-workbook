@@ -15,8 +15,6 @@ export class Sidebar {
   auth = inject(Auth)
   isValidUser = signal(false)
   isActive = signal(false)
-  dockSidebar = false
-  @Output() isSticky = new EventEmitter<boolean>()
 
   async ngOnInit(){
     const isValidUser = await this.auth.isValidUser();
@@ -29,19 +27,7 @@ export class Sidebar {
     })
   }
 
-  /**
-   * toggles docked sidebar and emits status
-   * @returns 
-   */
-  toggleSticky(): void {
-    if (this.dockSidebar == false) {
-      this.dockSidebar = true
-    } else {
-      this.dockSidebar = false
-    }
-    return this.isSticky.emit(this.dockSidebar)
-  }
-
+  
   toggleState(index: number) {
     this.link.forEach(element => {
       element.nativeElement.classList.remove('active')
