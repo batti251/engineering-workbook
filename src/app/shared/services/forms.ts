@@ -2,7 +2,7 @@ import { inject, Service } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Supabase } from '../../core/db';
 import { Clipboard } from '../../core/clipboard';
-import { KnowledgeEntryData, KnowledgeSubEntryData, tags } from '../interfaces/knowledge-entry-data';
+import { KnowledgeEntryData, KnowledgeSubEntryData, KnowledgeSubEntryList, tags } from '../interfaces/knowledge-entry-data';
 import { Keys } from './key';
 import { Storage } from '../../core/storage';
 import { Login } from '../../features/home/login/login';
@@ -39,7 +39,10 @@ export class Forms {
             description: [data?.description ?? ''],
             tags: this.formBuilder.array([], Validators.required),
             image: [''],
-            subEntries: this.formBuilder.array([
+            subEntries: this.formBuilder.array<
+                ReturnType<Forms['buildSubEntryForm']> |
+                ReturnType<Forms['buildSubEntryFormList']>
+            >([
                 this.buildSubEntryForm()
             ]),
         })
@@ -60,9 +63,17 @@ export class Forms {
                 isCode: [data?.code?.isCode ?? false],
                 language: [data?.code?.language ?? '', Validators.required],
             }),
-            details: this.formBuilder.array<FormControl<string|null>>([]),
-            externalLinks: this.formBuilder.array<FormControl<string|null>>([]),
-            screenshots: this.formBuilder.array<FormControl<string|null>>([]),
+            details: this.formBuilder.array<FormControl<string | null>>([]),
+            externalLinks: this.formBuilder.array<FormControl<string | null>>([]),
+            screenshots: this.formBuilder.array<FormControl<string | null>>([]),
+        })
+    }
+
+    buildSubEntryFormList(data?: KnowledgeSubEntryList, subEntryIndex?: number) {
+        return this.formBuilder.group({
+            subTitle: this.formBuilder.control(data?.subTitle ?? '', Validators.required),
+            details: this.formBuilder.array<FormControl<string | null>>([]),
+            externalLinks: this.formBuilder.array<FormControl<string | null>>([]),
         })
     }
 
@@ -73,7 +84,7 @@ export class Forms {
         return this.entryForm.get('tags') as FormArray;
     }
 
-    getCodeState(indexSubEntry:number) {
+    getCodeState(indexSubEntry: number) {
         return this.subEntries.at(indexSubEntry).get('code')?.get('isCode') as FormControl
     }
 
@@ -113,16 +124,27 @@ export class Forms {
         this.subEntries.push(this.buildSubEntryForm());
     }
 
+    addSubEntryList(): void {
+        this.subEntries.push(this.buildSubEntryFormList());
+    }
+
     /**
      * Edit Form: presets all SubEntry FormArrays
      * @param data 
      */
     setEditSubEntries(data: KnowledgeEntryData) {
         data.subEntries.forEach((subEntry, subEntryIndex) => {
-            this.subEntries.push(this.buildSubEntryForm(subEntry, subEntryIndex))
-            this.addDetailsControl(subEntryIndex, subEntry)
-            this.addLinksControl(subEntryIndex, subEntry)
-            this.addScreenshotControl(subEntryIndex, subEntry)
+            if ('screenshots' in subEntry) {
+                this.subEntries.push(this.buildSubEntryForm(subEntry, subEntryIndex))
+                this.addDetailsControl(subEntryIndex, subEntry)
+                this.addLinksControl(subEntryIndex, subEntry)
+                this.addScreenshotControl(subEntryIndex, subEntry)
+
+            } else {
+                this.subEntries.push(this.buildSubEntryFormList(subEntry, subEntryIndex))
+                this.addDetailsControl(subEntryIndex, subEntry)
+                this.addLinksControl(subEntryIndex, subEntry)
+            }
         })
     }
 
@@ -173,7 +195,7 @@ export class Forms {
      * @param subEntryIndex - Index of the subEntry-group
      * @param subEntry - Index of the link-array
      */
-    addDetailsControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData) {
+    addDetailsControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData|KnowledgeSubEntryList) {
         let control = this.subEntries.at(subEntryIndex).get('details') as FormArray
         subEntry?.details?.forEach(img => {
             this.db.tempDBFiles.push(img)
@@ -186,7 +208,7 @@ export class Forms {
      * @param subEntryIndex - Index of the subEntry-group
      * @param subEntry - Index of the link-array
      */
-    addLinksControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData) {
+    addLinksControl(subEntryIndex: number, subEntry: KnowledgeSubEntryData|KnowledgeSubEntryList) {
         let control = this.subEntries.at(subEntryIndex).get('externalLinks') as FormArray
         subEntry?.externalLinks?.forEach(detail => {
             control.push(this.formBuilder.control(detail))

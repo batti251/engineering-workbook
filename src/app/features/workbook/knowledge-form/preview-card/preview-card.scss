@@ -1,7 +1,6 @@
 @use '../../../../scss/abstracts/' as *;
 
 .preview {
-  width: min(420px, 80%);
   @include dFlex($ai: unset, $jc: unset);
   @include border($br: 16px);
   padding: 32px 16px;

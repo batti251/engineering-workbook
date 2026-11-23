@@ -1,4 +1,4 @@
-import { KnowledgeEntryData, KnowledgeSubEntryData } from "../interfaces/knowledge-entry-data"
+import { KnowledgeEntryData, KnowledgeSubEntryData, KnowledgeSubEntryList } from "../interfaces/knowledge-entry-data"
 
 export class KnowledgeEntry {
     id: number;
@@ -6,7 +6,7 @@ export class KnowledgeEntry {
     title: string;
     description: string;
     tags: string[];
-    subEntries: KnowledgeSubEntryData[]
+    subEntries: (KnowledgeSubEntryData | KnowledgeSubEntryList)[]
 
     constructor(data: Partial<KnowledgeEntryData>) {
         this.id = data.id ?? 0;

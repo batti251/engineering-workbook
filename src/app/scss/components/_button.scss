@@ -10,7 +10,7 @@
     > .btn {
       @include size($w: 24px, $h: 24px);
     }
-     &--col {
+    &--col {
       @include dFlex($g: 4px);
     }
   }
@@ -87,6 +87,12 @@
       @include size($w: 100%, $h: 100px);
       overflow-y: hidden;
     }
+  }
+  &__preview-group {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: min(420px, 80%);
   }
 
   &:disabled {

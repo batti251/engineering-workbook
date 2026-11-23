@@ -35,7 +35,8 @@ export class Links {
         break
     }
     item.forEach(e => list.push(e.value))
-    let detailsValues = this.forms.entryForm.controls.subEntries.at(this.indexSubEntry).controls.details
+    let detailsValues = this.forms.getSubEntryControls(this.indexSubEntry,'details')
+    
     detailsValues.patchValue(list)
   }
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-preview-card',
@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './preview-card.html',
   styleUrl: './preview-card.scss',
 })
-export class PreviewCard {}
+export class PreviewCard {
+  @Input() type: string = ""
+
+}

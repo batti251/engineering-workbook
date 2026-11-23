@@ -97,7 +97,7 @@
     margin: unset;
   }
   &__footer {
-    @include dFlex($fd: row, $g: 16px);
+    @include dFlex($fd: row, $jc: flex-start, $g: 16px);
   }
   @include respond(m) {
     justify-content: center;

@@ -4,7 +4,7 @@ export interface KnowledgeEntryData {
     title: string,
     description: string,
     tags: string[],
-    subEntries: KnowledgeSubEntryData[]
+    subEntries: (KnowledgeSubEntryData | KnowledgeSubEntryList)[]
 
 }
 
@@ -14,6 +14,12 @@ export interface KnowledgeSubEntryData {
     code?: Code,
     details: string[],
     screenshots: string[],
+    externalLinks: string[]
+}
+
+export interface KnowledgeSubEntryList {
+    subTitle: string,
+    details: string[],
     externalLinks: string[]
 }
 
